@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MDM EVERIS</string>
+    <string name="iniciar_sesion">INICIAR SESION</string>
+    <string name="tarjeta_de_empleado">TARJETA DE EMPLEADO</string>
+    <string name="acceder">Acceder</string>
+    <string name="user_name">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="acerque_su_tarjeta_al_nfc">Acerque su tarjeta al NFC</string>
+</resources>

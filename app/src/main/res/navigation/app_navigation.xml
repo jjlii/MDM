@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/login_screen">
+    <fragment
+        android:id="@+id/login_screen"
+        android:name="com.example.mdm_everis.login.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        >
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/home_screen"
+            />
+
+    </fragment>
+    <fragment
+        android:id="@+id/home_screen"
+        android:name="com.example.mdm_everis.home.HomeFragment"
+        tools:layout="@layout/home_fragment"
+        >
+
+    </fragment>
+
+
+</navigation>

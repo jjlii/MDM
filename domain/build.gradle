@@ -1,0 +1,13 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation project (':core')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //Koin
+    implementation "org.koin:koin-android:${versions.koin}"
+
+}
+repositories {
+    mavenCentral()
+}
