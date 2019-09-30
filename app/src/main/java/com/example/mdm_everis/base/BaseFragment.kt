@@ -24,15 +24,14 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     abstract fun getViewModel(): KClass<VM>
     abstract val showToolbar: Boolean
 
-    private var nfcDialog : AlertDialog? = null
+
     private var progressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel.loadingMLD.observe(this, Observer {
-            showLoading ->
-            if (showLoading) showLoading()
+            if (it) showLoading()
             else hideLoading()
         })
     }
@@ -62,16 +61,6 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
     }
 
-    private fun Fragment.createNFCDialog(): AlertDialog?{
-        return this.activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setView(R.layout.fullscrren_nfc_dialog)
-            builder.setCancelable(true)
-            builder.create().apply {
-                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            }
-        }
-    }
 
 
     private fun showLoading(){
@@ -86,18 +75,8 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         progressDialog = null
     }
 
-    private fun showNFCDialog(){
-        if (nfcDialog==null){
-            nfcDialog = createNFCDialog()
-            nfcDialog?.show()
-        }
-    }
 
-    private fun hideNFCDialog(){
-        nfcDialog?.dismiss()
-        nfcDialog = null
-    }
 
-    fun Context.toast(context: Context = applicationContext, message: String, duration: Int = Toast.LENGTH_LONG)=
+    fun toast( message: String, duration: Int = Toast.LENGTH_LONG)=
         Toast.makeText(context, message , duration).show()
 }

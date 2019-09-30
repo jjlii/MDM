@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 
 import com.example.mdm_everis.R
 
 class HomeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun setArguments() = bundleOf()
     }
 
     private lateinit var viewModel: HomeViewModel

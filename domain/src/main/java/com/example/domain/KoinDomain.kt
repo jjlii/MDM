@@ -1,12 +1,12 @@
 package com.example.domain
 
-import com.example.domain.login.LoginUserCase
+import com.example.domain.login.LoginUseCase
 import org.koin.dsl.module.module
 
 class KoinDomain {
     val domainModule by lazy {
         module{
-            factory { LoginUserCase(get()) }
+            factory { LoginUseCase(get()) }
         }
     }
 }
