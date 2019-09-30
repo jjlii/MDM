@@ -6,4 +6,7 @@
     <string name="user_name">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="acerque_su_tarjeta_al_nfc">Acerque su tarjeta al NFC</string>
+    <string name="mis_reservas">Mis Reservas</string>
+    <string name="caducadas">Caducadas</string>
+    <string name="dispositivos">Dispositivos</string>
 </resources>

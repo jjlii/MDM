@@ -55,7 +55,11 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private fun iniListener(){
         btnAcceder.setOnClickListener {
-            viewModel.login(etUsername.text.toString(),etPwd.text.toString())
+            when {
+                etUsername.text.toString() == "" -> etUsername.error = "Debes introducir el usuario"
+                etPwd.text.toString() == "" -> etPwd.error = "Debes instroducir la contraseña"
+                else -> viewModel.login(etUsername.text.toString(),etPwd.text.toString())
+            }
         }
         btnTarjeta.setOnClickListener {
             showNFCDialog()

@@ -20,8 +20,35 @@
         android:name="com.example.mdm_everis.home.HomeFragment"
         tools:layout="@layout/home_fragment"
         >
+        <action
+            android:id="@+id/action_home_to_reservas"
+            app:destination="@id/reservas_screen"
+            />
+        <action
+            android:id="@+id/action_home_to_caducadas"
+            app:destination="@id/caducadas_screen"
+            />
+        <action
+            android:id="@+id/action_home_to_dispositivos"
+            app:destination="@id/dispositivos_screen"
+            />
 
     </fragment>
+    <fragment
+        android:id="@+id/reservas_screen"
+        android:name="com.example.mdm_everis.home.mis_reservas.MisReservasFragment"
+        tools:layout="@layout/mis_reservas_fragment"
+        ></fragment>
+    <fragment
+        android:id="@+id/caducadas_screen"
+        android:name="com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasFragment"
+        tools:layout="@layout/reservas_caducadas_fragment"
+        ></fragment>
+    <fragment
+        android:id="@+id/dispositivos_screen"
+        android:name="com.example.mdm_everis.home.dispositivos.DispositivosFragment"
+        tools:layout="@layout/dispositivos_fragment"
+        ></fragment>
 
 
 </navigation>
