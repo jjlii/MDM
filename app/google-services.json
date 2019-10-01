@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1018283079757",
+    "firebase_url": "https://mdm-everis-prueba.firebaseio.com",
+    "project_id": "mdm-everis-prueba",
+    "storage_bucket": "mdm-everis-prueba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018283079757:android:813d476aef83b56a5f0404",
+        "android_client_info": {
+          "package_name": "com.example.mdmeveris"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018283079757-kgs9f24fn30foidr7buohjfccj076ahb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEXB26pEefFhkIq2bUvpW_C2Zf3Lvsdgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018283079757-kgs9f24fn30foidr7buohjfccj076ahb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
