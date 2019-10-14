@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_foto_dispositivo"
+                android:layout_width="135dp"
+                android:layout_height="160dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_marca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:text="Marca: "
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_marca_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="OnePlus"
+                app:layout_constraintStart_toEndOf="@id/tv_marca"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_modelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingEnd="0dp"
+                android:text="Modelo: "
+                app:layout_constraintStart_toEndOf="@id/tv_marca_content"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_modelo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="7 Pro"
+                app:layout_constraintStart_toEndOf="@id/tv_modelo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_so"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:text="SO: "
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_marca" />
+
+            <TextView
+                android:id="@+id/tv_so_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="Android"
+                app:layout_constraintStart_toEndOf="@id/tv_so"
+                app:layout_constraintTop_toBottomOf="@id/tv_marca_content" />
+
+            <TextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:text="Versión: "
+                app:layout_constraintStart_toEndOf="@id/tv_so_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_modelo" />
+
+            <TextView
+                android:id="@+id/tv_version_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="10"
+                app:layout_constraintStart_toEndOf="@id/tv_version"
+                app:layout_constraintTop_toBottomOf="@id/tv_modelo_content" />
+
+            <TextView
+                android:id="@+id/tv_f_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:text="Fecha inicio:"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_so" />
+
+            <TextView
+                android:id="@+id/tv_f_inicio_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="03/10/2019"
+                app:layout_constraintStart_toEndOf="@id/tv_f_inicio"
+                app:layout_constraintTop_toBottomOf="@id/tv_so" />
+
+            <TextView
+                android:id="@+id/tv_f_fin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:text="Fecha fin:"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_inicio" />
+
+            <TextView
+                android:id="@+id/tv_f_fin_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="04/10/2019"
+                app:layout_constraintStart_toEndOf="@id/tv_f_fin"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_inicio_content" />
+            <Button
+                android:id="@+id/btn_reservar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_bottom"
+                android:text="Reservar Dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_fin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="20dp"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

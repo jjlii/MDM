@@ -15,10 +15,13 @@ class LoginRepositoryImp : LoginRepository {
     private val auth by lazy {
         FirebaseAuth.getInstance()
     }
+
+
     override suspend fun login(user: User): Either<Failure, String> {
         return try {
             val task = auth.signInWithEmailAndPassword(user.email, user.password).await()
             task.user?.let {
+                Log.d("User UID",it.uid)
                 Either.Sucess("Success")
             } ?: Either.Failure(Failure.Unknown)
         }catch (firebaseE : FirebaseAuthException){

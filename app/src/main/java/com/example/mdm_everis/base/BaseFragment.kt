@@ -1,7 +1,6 @@
 package com.example.mdm_everis.base
 
 import android.app.AlertDialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,6 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
+import com.example.mdm_everis.hideKeyboard
+import com.example.mdm_everis.home.HomeFragment
+import com.example.mdm_everis.home.dispositivos.DispositivosFragment
+import com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasFragment
+import com.example.mdm_everis.navigateTo
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.viewmodel.ext.android.viewModelByClass
 import kotlin.reflect.KClass
 
@@ -23,6 +28,10 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     abstract fun getLayout(): Int
     abstract fun getViewModel(): KClass<VM>
     abstract val showToolbar: Boolean
+
+    private lateinit var navbar : BottomNavigationView
+
+
 
 
     private var progressDialog: AlertDialog? = null
@@ -36,13 +45,15 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         })
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).showToolbar(showToolbar)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayout(),container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navbar = (activity as MainActivity).getNavBar()
+        navbar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
 
@@ -67,8 +78,10 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         if (progressDialog == null){
             progressDialog = createLoadingDialog()
             progressDialog?.show()
+            view?.hideKeyboard()
         }
     }
+
 
     private fun hideLoading(){
         progressDialog?.dismiss()
@@ -79,4 +92,39 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     fun toast( message: String, duration: Int = Toast.LENGTH_LONG)=
         Toast.makeText(context, message , duration).show()
+
+
+
+    //Bottom navbar
+
+    fun showNavbar(show: Boolean){
+        if (show){
+            navbar.visibility = View.VISIBLE
+        }else{
+            navbar.visibility = View.GONE
+        }
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+        when (menuItem.itemId) {
+            R.id.nav_reservas -> {
+                navigateTo(R.id.home_screen,HomeFragment.setArguments())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_passed -> {
+                navigateTo(R.id.caducadas_screen,ReservasCaducadasFragment.setArguments())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_dispositivos -> {
+                navigateTo(R.id.dispositivos_screen,DispositivosFragment.setArguments())
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+
+    }
+
+    //Top toolbar
+
+
 }

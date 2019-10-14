@@ -8,6 +8,7 @@ import com.example.domain.User
 class LoginUseCase(private val loginRepository: LoginRepository) : UseCase<Failure, String, User>(){
 
 
-    override suspend fun run(params: User): Either<Failure, String> = loginRepository.login(params)
+    override suspend fun run(params: User): Either<Failure, String> = loginRepository.
+        login(params)
 
 }
