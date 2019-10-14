@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.hideKeyboard
-import com.example.mdm_everis.home.HomeFragment
+import com.example.mdm_everis.home.mis_reservas.ReservasFragment
 import com.example.mdm_everis.home.dispositivos.DispositivosFragment
 import com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasFragment
 import com.example.mdm_everis.navigateTo
@@ -108,7 +108,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.nav_reservas -> {
-                navigateTo(R.id.home_screen,HomeFragment.setArguments())
+                navigateTo(R.id.home_screen, ReservasFragment.setArguments())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_passed -> {

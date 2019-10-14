@@ -1,4 +1,4 @@
-package com.example.mdm_everis.home
+package com.example.mdm_everis.home.mis_reservas
 
 
 import android.os.Bundle
@@ -10,9 +10,9 @@ import androidx.core.os.bundleOf
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 
-class HomeFragment : BaseFragment<HomeViewModel>() {
+class ReservasFragment : BaseFragment<ReservasViewModel>() {
     override fun getLayout() = R.layout.home_fragment
-    override fun getViewModel() = HomeViewModel::class
+    override fun getViewModel() = ReservasViewModel::class
 
     companion object {
         fun setArguments() = bundleOf()

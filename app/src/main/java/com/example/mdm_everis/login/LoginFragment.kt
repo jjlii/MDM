@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.HomeFragment
+import com.example.mdm_everis.home.mis_reservas.ReservasFragment
 import com.example.mdm_everis.navigateTo
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.login_card_view.*
 
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
@@ -44,6 +45,29 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         super.onCreate(savedInstanceState)
     }
 
+    private val db = FirebaseFirestore.getInstance()
+
+    private val d1 = hashMapOf(
+        "Brand" to "",
+        "Model" to "",
+        "SO" to "",
+        "Version" to "",
+        "IsMobile" to true,
+        "IdReserve" to "",
+        "ScreenSize" to "",
+        "PPI" to "",
+        "ScreenResolution" to "",
+        "SIM" to false,
+        "TypeCharger" to "",
+        "Picture" to ""
+    )
+    private fun addData(){
+        for(x in 61..61){
+            db.collection("Devices").document("d${x}")
+                .set(d1)
+
+        }
+    }
 
 
     private fun initObservers(){
@@ -58,8 +82,11 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
                 else -> viewModel.login(etUsername.text.toString(),etPwd.text.toString())
             }
         }
-        btnTarjeta.setOnClickListener {
+        btnReadCard.setOnClickListener {
             showNFCDialog()
+        }
+        btnWriteCard.setOnClickListener {
+
         }
         etPwd.setOnEditorActionListener{
             _,_,_ ->
@@ -69,7 +96,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private val loginObserver = Observer<String> {
         if(it =="Success"){
-            navigateTo(R.id.home_screen,HomeFragment.setArguments())
+            navigateTo(R.id.home_screen, ReservasFragment.setArguments())
 
         }else{
             toast(it)
