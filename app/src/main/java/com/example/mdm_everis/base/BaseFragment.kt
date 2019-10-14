@@ -111,7 +111,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
                 navigateTo(R.id.home_screen, ReservasFragment.setArguments())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.nav_passed -> {
+            R.id.nav_favourite -> {
                 navigateTo(R.id.caducadas_screen,ReservasCaducadasFragment.setArguments())
                 return@OnNavigationItemSelectedListener true
             }

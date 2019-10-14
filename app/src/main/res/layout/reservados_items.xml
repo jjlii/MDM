@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,48 +22,28 @@
                 android:id="@+id/iv_foto_dispositivo"
                 android:layout_width="135dp"
                 android:layout_height="160dp"
+                android:src="@drawable/ic_phone_android_black_24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_marca"
+                android:id="@+id/tv_movil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingEnd="5dp"
-                android:text="Marca: "
+                android:text="Móvil: "
                 app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_marca_content"
+                android:id="@+id/tv_movil_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingStart="0dp"
-                android:text="OnePlus"
-                app:layout_constraintStart_toEndOf="@id/tv_marca"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_modelo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:paddingEnd="0dp"
-                android:text="Modelo: "
-                app:layout_constraintStart_toEndOf="@id/tv_marca_content"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_modelo_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:paddingStart="0dp"
-                android:text="7 Pro"
-                app:layout_constraintStart_toEndOf="@id/tv_modelo"
+                android:text="OnePlus 7 Pro"
+                app:layout_constraintStart_toEndOf="@id/tv_movil"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -73,7 +54,7 @@
                 android:paddingEnd="5dp"
                 android:text="SO: "
                 app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
-                app:layout_constraintTop_toBottomOf="@id/tv_marca" />
+                app:layout_constraintTop_toBottomOf="@id/tv_movil" />
 
             <TextView
                 android:id="@+id/tv_so_content"
@@ -81,29 +62,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingStart="0dp"
-                android:text="Android"
+                android:text="Android 10"
                 app:layout_constraintStart_toEndOf="@id/tv_so"
-                app:layout_constraintTop_toBottomOf="@id/tv_marca_content" />
-
-            <TextView
-                android:id="@+id/tv_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:paddingEnd="5dp"
-                android:text="Versión: "
-                app:layout_constraintStart_toEndOf="@id/tv_so_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_modelo" />
-
-            <TextView
-                android:id="@+id/tv_version_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:paddingStart="0dp"
-                android:text="10"
-                app:layout_constraintStart_toEndOf="@id/tv_version"
-                app:layout_constraintTop_toBottomOf="@id/tv_modelo_content" />
+                app:layout_constraintTop_toBottomOf="@id/tv_movil_content" />
 
             <TextView
                 android:id="@+id/tv_f_inicio"
@@ -153,8 +114,17 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_f_fin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="20dp"
-                />
+                android:layout_margin="10dp" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_favorite_black_45dp"
+                app:layout_constraintStart_toEndOf="@id/btn_reservar"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

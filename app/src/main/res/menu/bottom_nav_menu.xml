@@ -7,9 +7,9 @@
         android:title="@string/mis_reservas"/>
 
     <item
-        android:id="@+id/nav_passed"
-        android:icon="@drawable/ic_reservas_en_pasadas_24dp"
-        android:title="@string/caducadas"
+        android:id="@+id/nav_favourite"
+        android:icon="@drawable/ic_favorite_24dp"
+        android:title="@string/favoritos"
         />
 
     <item

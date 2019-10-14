@@ -5,9 +5,9 @@
     <string name="password">Contraseña</string>
     <string name="acerque_su_tarjeta_al_nfc">Acerque su tarjeta al NFC</string>
     <string name="mis_reservas">Mis Reservas</string>
-    <string name="caducadas">Caducadas</string>
     <string name="dispositivos">Dispositivos</string>
     <string name="leer_tarjeta">Leer tarjeta</string>
     <string name="bienvenido_a">Bienvenido/a: </string>
     <string name="login">Login</string>
+    <string name="favoritos">Favoritos</string>
 </resources>
