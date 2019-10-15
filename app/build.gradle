@@ -61,6 +61,14 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-firestore:21.1.1'
 
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
+    //Picaso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

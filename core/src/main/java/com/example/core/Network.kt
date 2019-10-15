@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Network {
 
     fun initRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("")
+        .baseUrl("https://firestore.googleapis.com/v1/projects/mdm-everis-prueba/databases/(default)/documents/")
         .client(initOkHttpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .build()

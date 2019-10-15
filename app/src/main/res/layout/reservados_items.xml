@@ -98,6 +98,29 @@
                 android:ellipsize="end" />
 
             <TextView
+                android:id="@+id/tv_tam_pantalla"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_so"
+                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:text="Tamaño pantalla:"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                />
+
+            <TextView
+                android:id="@+id/tv_tam_pantalla_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_so"
+                app:layout_constraintStart_toEndOf="@id/tv_f_inicio"
+                android:visibility="gone"
+                android:padding="10dp"
+                android:paddingStart="0dp"
+                android:text="10.7 inches" />
+
+            <TextView
                 android:id="@+id/tv_f_fin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
