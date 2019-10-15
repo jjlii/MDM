@@ -9,9 +9,10 @@ import androidx.core.os.bundleOf
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import kotlinx.android.synthetic.main.reservas_fragment.*
 
 class ReservasFragment : BaseFragment<ReservasViewModel>() {
-    override fun getLayout() = R.layout.home_fragment
+    override fun getLayout() = R.layout.reservas_fragment
     override fun getViewModel() = ReservasViewModel::class
 
     companion object {
@@ -25,7 +26,7 @@ class ReservasFragment : BaseFragment<ReservasViewModel>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.reservas_fragment, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class ReservasFragment : BaseFragment<ReservasViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
+        rv_reservas.adapter = ReservasAdapter()
     }
 
 }

@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/home_screen"
         android:name="com.example.mdm_everis.home.mis_reservas.ReservasFragment"
-        tools:layout="@layout/home_fragment"
+        tools:layout="@layout/reservas_fragment"
         >
         <action
             android:id="@+id/action_home_to_caducadas"
