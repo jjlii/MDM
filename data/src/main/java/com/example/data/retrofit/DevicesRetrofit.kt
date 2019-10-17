@@ -1,12 +1,13 @@
 package com.example.data.retrofit
 
-import com.example.domain.devices.DevicesField
+
+import com.example.domain.devices.DevicesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
 interface DevicesRetrofit {
 
-    @GET("Devices")
-    suspend fun getAllDevices(): Response<List<DevicesField>>
+    @GET("/getAllDevices")
+    suspend fun getAllDevices(): Response<List<DevicesResponse>>
 
 }
