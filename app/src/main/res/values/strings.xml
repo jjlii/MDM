@@ -13,7 +13,7 @@
     <string name="reservar">RESERVAR</string>
     <string name="so">SO:</string>
     <string name="fecha_fin">Fecha fin:</string>
-    <string name="m_vil">Móvil:</string>
+    <string name="m_vil">Dispositivo:</string>
     <string name="boton_like">Boton like</string>
     <string name="tama_o_pantalla">Tamaño:</string>
 </resources>
