@@ -108,7 +108,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.nav_reservas -> {
-                navigateTo(R.id.home_screen, ReservasFragment.setArguments())
+                navigateTo(R.id.reservas_screen, ReservasFragment.setArguments())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_favourite -> {

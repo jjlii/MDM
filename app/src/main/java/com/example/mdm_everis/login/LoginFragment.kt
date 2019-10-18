@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import com.example.core.Constant
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
@@ -41,9 +42,6 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         iniListener()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -71,7 +69,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
 
     private fun initObservers(){
-        viewModel.getLoginLD.observe(this,loginObserver)
+        viewModel.loginLD.observe(this,loginObserver)
     }
 
     private fun iniListener(){
@@ -95,13 +93,14 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     }
 
     private val loginObserver = Observer<String> {
-        if(it =="Success"){
-            navigateTo(R.id.home_screen, ReservasFragment.setArguments())
-
-        }else{
-            toast(it)
+        when(it){
+            Constant.ErrorLogin.ERROR_CONEXION -> toast(it)
+            Constant.ErrorLogin.NO_EXISTE_USUARIO -> toast(it)
+            Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO -> toast(it)
+            Constant.ErrorLogin.CONTRESENIA_INCORRECTA -> toast(it)
+            Constant.ErrorGeneral.ERROR_DESCONOCIDO -> toast(it)
+            else ->navigateTo(R.id.reservas_screen, ReservasFragment.setArguments())
         }
-
     }
 
     private fun Fragment.createNFCDialog(): AlertDialog?{

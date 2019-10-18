@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface DevicesRetrofit {
 
-    @GET("/getAllDevices")
+    @GET("getAllDevices")
     suspend fun getAllDevices(): Response<List<DevicesResponse>>
 
 }

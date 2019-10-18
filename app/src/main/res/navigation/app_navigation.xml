@@ -11,21 +11,21 @@
         >
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/home_screen"
+            app:destination="@id/reservas_screen"
             />
 
     </fragment>
     <fragment
-        android:id="@+id/home_screen"
+        android:id="@+id/reservas_screen"
         android:name="com.example.mdm_everis.home.mis_reservas.ReservasFragment"
         tools:layout="@layout/reservas_fragment"
         >
         <action
-            android:id="@+id/action_home_to_caducadas"
+            android:id="@+id/action_reservas_to_caducadas"
             app:destination="@id/caducadas_screen"
             />
         <action
-            android:id="@+id/action_home_to_dispositivos"
+            android:id="@+id/action_reservas_to_dispositivos"
             app:destination="@id/dispositivos_screen"
             />
     </fragment>
@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/caducadas_screen"
         android:name="com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasFragment"
-        tools:layout="@layout/reservas_caducadas_fragment"
+        tools:layout="@layout/favoritos_fragment"
         >
         <action
             android:id="@+id/action_caducadas_to_dispositivos"
@@ -46,8 +46,8 @@
         tools:layout="@layout/dispositivos_fragment"
         >
         <action
-            android:id="@+id/action_dispositivos_to_home"
-            app:destination="@id/home_screen"
+            android:id="@+id/action_dispositivos_to_reservas"
+            app:destination="@id/reservas_screen"
             />
     </fragment>
 

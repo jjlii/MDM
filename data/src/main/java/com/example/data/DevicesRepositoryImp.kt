@@ -1,14 +1,15 @@
 package com.example.data
 
+import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.data.retrofit.DevicesRetrofit
-import com.example.domain.devices.DevicesField
 import com.example.domain.DevicesRepository
+import com.example.domain.devices.DevicesResponse
 import java.lang.Exception
 
 class DevicesRepositoryImp(private val devicesRetrofit : DevicesRetrofit) : DevicesRepository {
-    override suspend fun getAllDevices(): Either<Failure, List<DevicesField>> {
+    override suspend fun getAllDevices(): Either<Failure, List<DevicesResponse>> {
         return try {
             val resp = devicesRetrofit.getAllDevices()
             when (resp.isSuccessful){
@@ -16,6 +17,7 @@ class DevicesRepositoryImp(private val devicesRetrofit : DevicesRetrofit) : Devi
                 false -> Either.Failure(Failure.ServerError)
             }
         }catch (e : Exception){
+            Log.e("Error getAllDevices",e.message)
             Either.Failure(Failure.Unknown)
         }
     }

@@ -22,7 +22,7 @@ class LoginRepositoryImp : LoginRepository {
             val task = auth.signInWithEmailAndPassword(user.email, user.password).await()
             task.user?.let {
                 Log.d("User UID",it.uid)
-                Either.Sucess("Success")
+                Either.Sucess(it.uid)
             } ?: Either.Failure(Failure.Unknown)
         }catch (firebaseE : FirebaseAuthException){
             when(firebaseE.errorCode){

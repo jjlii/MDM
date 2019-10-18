@@ -1,35 +1,53 @@
 package com.example.mdm_everis.home.dispositivos
 
-import android.app.Application
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import kotlin.reflect.KClass
+import com.example.mdm_everis.home.DispositivosAdapter
+import kotlinx.android.synthetic.main.dispositivos_fragment.*
 
 class DispositivosFragment : BaseFragment<DispositivosViewModel>() {
-    override fun getLayout() = R.layout.dispositivos_fragment
-
-    override fun getViewModel() = DispositivosViewModel::class
-
-    override val showToolbar = false
 
     companion object{
         fun setArguments() = bundleOf()
     }
 
+    override fun getLayout() = R.layout.dispositivos_fragment
+    override fun getViewModel() = DispositivosViewModel::class
+    override val showToolbar = false
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
+        initObservers()
+        initListener()
+    }
+
+    private fun initObservers(){
+        viewModel.devicesLD.observe(this,reservasObserver)
+    }
+
+    private fun initListener(){
+        viewModel.allDevies()
     }
 
 
+    private val reservasObserver = Observer<List<DevicesResponse>>{
+        if (it == null){
+            toast("Error")
+        }else{
+            rv_dispositivos.adapter = DispositivosAdapter(it, false)
+            rv_dispositivos.layoutManager = LinearLayoutManager(context)
+        }
+    }
 
 
 

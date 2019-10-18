@@ -14,5 +14,5 @@ data class DevicesResponse (
     val screenResolution : String,
     val screenSize : String,
     val typeCharger : String,
-    val version : Long
+    val version : String
 )

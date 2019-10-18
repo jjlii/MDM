@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Network {
 
     fun initRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://us-central1-mdm-everis-prueba.cloudfunctions.net")
+        .baseUrl("https://us-central1-mdm-everis-prueba.cloudfunctions.net/")
         .client(initOkHttpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
