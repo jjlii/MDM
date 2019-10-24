@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_dispositivos_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="15dp"
+        android:elevation="0dp"
+        app:cardUseCompatPadding="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_dispositivos_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.57"
+                />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_dispositivos_items2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.36"
+                />
+            <ImageView
+                android:id="@+id/iv_foto_dispositivo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/gl_dispositivos_items2"
+                android:src="@drawable/ic_phone_android_black_24dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_movil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/m_vil" />
+
+            <TextView
+                android:id="@+id/tv_movil_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_movil"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingStart="5dp"
+                android:text="OnePlus 7 Pro"
+                android:lines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/tv_so"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_movil"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                android:text="@string/so" />
+
+            <TextView
+                android:id="@+id/tv_so_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_movil_content"
+                app:layout_constraintStart_toEndOf="@id/tv_so"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingStart="5dp"
+                android:text="Android 10"
+                android:lines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/tv_screen_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tama_o_pantalla"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_so" />
+            <TextView
+                android:id="@+id/tv_f_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha inicio:"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_so" />
+
+            <TextView
+                android:id="@+id/tv_f_inicio_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_so"
+                app:layout_constraintStart_toEndOf="@id/tv_f_inicio"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="03/10/2019"
+                android:visibility="gone"
+                android:lines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_f_screen_size_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_so"
+                app:layout_constraintStart_toEndOf="@id/tv_screen_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingStart="10dp"
+                android:visibility="visible"
+                android:text="10.1 inches"
+                android:lines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_f_fin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_inicio"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                android:text="@string/fecha_fin"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/tv_f_fin_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_inicio_content"
+                app:layout_constraintStart_toEndOf="@id/tv_f_fin"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingStart="5dp"
+                android:text="04/10/2019"
+                android:visibility="gone"
+                android:lines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_screen_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_screen_size"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                android:visibility="visible"
+                android:text="Resolución: " />
+
+            <TextView
+                android:id="@+id/tv_screen_r_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_screen_size_content"
+                app:layout_constraintStart_toEndOf="@id/tv_screen_r"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingStart="5dp"
+                android:visibility="visible"
+                android:text="1136 x 640 pixels"
+                android:lines="1"
+                android:ellipsize="end" />
+
+
+            <Button
+                android:id="@+id/btn_reservar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:layout_constraintTop_toBottomOf="@id/gl_dispositivos_items"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintEnd_toStartOf="@id/imageButton"
+                android:background="@drawable/round_bottom"
+                android:text="@string/reservar"/>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/btn_reservar"
+                app:layout_constraintBottom_toBottomOf="@id/btn_reservar"
+                app:layout_constraintStart_toEndOf="@id/btn_reservar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_favorite_black_45dp"
+                android:background="@color/colorWhite"
+                android:contentDescription="@string/boton_like" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

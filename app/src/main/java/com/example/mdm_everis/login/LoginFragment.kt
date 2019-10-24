@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.mis_reservas.ReservasFragment
-import com.example.mdm_everis.navigateTo
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.login_card_view.*
 
@@ -22,11 +20,6 @@ import kotlinx.android.synthetic.main.login_card_view.*
 class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private var nfcDialog : AlertDialog? =null
-
-    companion object{
-        fun setArguments() = bundleOf()
-    }
-
 
     override fun getLayout() = R.layout.fragment_login
 
@@ -36,37 +29,11 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        showNavbar(false)
         setToolbarTitle("")
         initObservers()
         iniListener()
     }
-
-
-    private val db = FirebaseFirestore.getInstance()
-
-    private val d1 = hashMapOf(
-        "Brand" to "",
-        "Model" to "",
-        "SO" to "",
-        "Version" to "",
-        "IsMobile" to true,
-        "IdReserve" to "",
-        "ScreenSize" to "",
-        "PPI" to "",
-        "ScreenResolution" to "",
-        "SIM" to false,
-        "TypeCharger" to "",
-        "Picture" to ""
-    )
-    private fun addData(){
-        for(x in 61..61){
-            db.collection("Devices").document("d${x}")
-                .set(d1)
-
-        }
-    }
-
 
     private fun initObservers(){
         viewModel.loginLD.observe(this,loginObserver)
@@ -99,7 +66,9 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO -> toast(it)
             Constant.ErrorLogin.CONTRESENIA_INCORRECTA -> toast(it)
             Constant.ErrorGeneral.ERROR_DESCONOCIDO -> toast(it)
-            else ->navigateTo(R.id.reservas_screen, ReservasFragment.setArguments())
+            else ->{
+                findNavController().navigate(LoginFragmentDirections.actionLoginToHome(it))
+            }
         }
     }
 

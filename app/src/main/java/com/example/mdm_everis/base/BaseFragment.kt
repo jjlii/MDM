@@ -10,13 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.hideKeyboard
-import com.example.mdm_everis.home.mis_reservas.ReservasFragment
-import com.example.mdm_everis.home.dispositivos.DispositivosFragment
-import com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasFragment
-import com.example.mdm_everis.navigateTo
+import com.example.mdm_everis.home.reserves.ReservesFragmentDirections
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.viewmodel.ext.android.viewModelByClass
 import kotlin.reflect.KClass
@@ -29,7 +27,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     abstract fun getViewModel(): KClass<VM>
     abstract val showToolbar: Boolean
 
-    private lateinit var navbar : BottomNavigationView
+    lateinit var navbar : BottomNavigationView
 
 
 
@@ -105,18 +103,20 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
     }
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+    val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.nav_reservas -> {
-                navigateTo(R.id.reservas_screen, ReservasFragment.setArguments())
+                findNavController().popBackStack(R.id.reserves_screen,false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_favourite -> {
-                navigateTo(R.id.caducadas_screen,ReservasCaducadasFragment.setArguments())
+                findNavController().popBackStack(R.id.reserves_screen,false)
+                findNavController().navigate(ReservesFragmentDirections.actionToFavourites(""))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_dispositivos -> {
-                navigateTo(R.id.dispositivos_screen,DispositivosFragment.setArguments())
+                findNavController().popBackStack(R.id.reserves_screen,false)
+                findNavController().navigate(ReservesFragmentDirections.actionToDevices(""))
                 return@OnNavigationItemSelectedListener true
             }
         }

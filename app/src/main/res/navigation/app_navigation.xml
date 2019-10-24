@@ -4,52 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
     app:startDestination="@id/login_screen">
+
     <fragment
         android:id="@+id/login_screen"
         android:name="com.example.mdm_everis.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         >
+
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/reservas_screen"
-            />
+            app:destination="@id/reserves_screen">
+            <argument
+                android:name="userId"
+                app:argType="string"
+                app:nullable="true"
+                />
 
-    </fragment>
-    <fragment
-        android:id="@+id/reservas_screen"
-        android:name="com.example.mdm_everis.home.mis_reservas.ReservasFragment"
-        tools:layout="@layout/reservas_fragment"
-        >
-        <action
-            android:id="@+id/action_reservas_to_caducadas"
-            app:destination="@id/caducadas_screen"
-            />
-        <action
-            android:id="@+id/action_reservas_to_dispositivos"
-            app:destination="@id/dispositivos_screen"
-            />
+        </action>
+
     </fragment>
 
     <fragment
-        android:id="@+id/caducadas_screen"
-        android:name="com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasFragment"
-        tools:layout="@layout/favoritos_fragment"
+        android:id="@+id/reserves_screen"
+        android:name="com.example.mdm_everis.home.reserves.ReservesFragment"
+        tools:layout="@layout/reserves_fragment"
         >
+
         <action
-            android:id="@+id/action_caducadas_to_dispositivos"
-            app:destination="@id/dispositivos_screen"
-            />
-    </fragment>
-    <fragment
-        android:id="@+id/dispositivos_screen"
-        android:name="com.example.mdm_everis.home.dispositivos.DispositivosFragment"
-        tools:layout="@layout/dispositivos_fragment"
-        >
+            android:id="@+id/action_to_favourites"
+            app:destination="@id/favourites_screen">
+
+            <argument
+                android:name="userId"
+                app:argType="string"
+                app:nullable="true"
+                />
+
+        </action>
+
         <action
-            android:id="@+id/action_dispositivos_to_reservas"
-            app:destination="@id/reservas_screen"
-            />
+            android:id="@+id/action_to_devices"
+            app:destination="@id/devices_screen">
+
+            <argument
+                android:name="userId"
+                app:argType="string"
+                app:nullable="true"
+                />
+
+        </action>
+
     </fragment>
 
+    <fragment
+        android:id="@+id/favourites_screen"
+        android:name="com.example.mdm_everis.home.favourites.FavouritesFragment"
+        tools:layout="@layout/favourites_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/devices_screen"
+        android:name="com.example.mdm_everis.home.devices.DevicesFragment"
+        tools:layout="@layout/devices_fragment">
+
+    </fragment>
 
 </navigation>

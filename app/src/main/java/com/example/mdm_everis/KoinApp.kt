@@ -1,8 +1,8 @@
 package com.example.mdm_everis
 
-import com.example.mdm_everis.home.mis_reservas.ReservasViewModel
-import com.example.mdm_everis.home.dispositivos.DispositivosViewModel
-import com.example.mdm_everis.home.reservas_caducadas.ReservasCaducadasViewModel
+import com.example.mdm_everis.home.reserves.ReservesViewModel
+import com.example.mdm_everis.home.devices.DevicesViewModel
+import com.example.mdm_everis.home.favourites.FavouritesViewModel
 import com.example.mdm_everis.login.LoginViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.ext.koin.viewModel
@@ -13,9 +13,9 @@ class KoinApp {
     val appModule by lazy {
         module {
             viewModel { LoginViewModel(androidApplication(),get()) }
-            viewModel { ReservasViewModel(androidApplication(),get()) }
-            viewModel { ReservasCaducadasViewModel(androidApplication()) }
-            viewModel { DispositivosViewModel(androidApplication(),get()) }
+            viewModel { ReservesViewModel(androidApplication(),get()) }
+            viewModel { FavouritesViewModel(androidApplication()) }
+            viewModel { DevicesViewModel(androidApplication(),get()) }
         }
     }
 }
