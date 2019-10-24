@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.dispositivos.DispositivosFragment">
+    tools:context=".home.devices.DevicesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_dispositivos"
+        android:id="@+id/rv_devices"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:listitem="@layout/dispositivos_items"
+        tools:listitem="@layout/devices_items"
         />
 
 </LinearLayout>

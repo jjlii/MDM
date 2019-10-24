@@ -1,4 +1,4 @@
-package com.example.mdm_everis.home.reservas_caducadas
+package com.example.mdm_everis.home.favourites
 
 
 import android.os.Bundle
@@ -8,10 +8,10 @@ import androidx.core.os.bundleOf
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 
-class ReservasCaducadasFragment :BaseFragment<ReservasCaducadasViewModel>() {
-    override fun getLayout() = R.layout.favoritos_fragment
+class FavouritesFragment :BaseFragment<FavouritesViewModel>() {
+    override fun getLayout() = R.layout.favourites_fragment
 
-    override fun getViewModel() = ReservasCaducadasViewModel::class
+    override fun getViewModel() = FavouritesViewModel::class
 
     override val showToolbar = false
 

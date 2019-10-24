@@ -1,17 +1,14 @@
-package com.example.mdm_everis.home.mis_reservas
+package com.example.mdm_everis.home.devices
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.devices.DevicesUseCase
 import com.example.mdm_everis.base.BaseViewModel
 
-class ReservasViewModel(application: Application,
-                        private val devicesUseCase : DevicesUseCase) : BaseViewModel(application) {
-    /*
+class DevicesViewModel(application: Application, private val devicesUseCase : DevicesUseCase) : BaseViewModel(application) {
     private val devicesMLD = MutableLiveData<List<DevicesResponse>>()
     val devicesLD : LiveData<List<DevicesResponse>> = devicesMLD
 
@@ -34,6 +31,4 @@ class ReservasViewModel(application: Application,
         loadingMLD.value = false
         devicesMLD.value = allDevices
     }
-
-     */
 }

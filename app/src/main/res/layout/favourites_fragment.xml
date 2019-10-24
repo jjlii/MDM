@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.mis_reservas.ReservasFragment"
-    >
+    tools:context=".home.favourites.FavouritesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_reservas"
+        android:id="@+id/rv_caducadas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:listitem="@layout/dispositivos_items"
+        tools:listitem="@layout/devices_items"
         />
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

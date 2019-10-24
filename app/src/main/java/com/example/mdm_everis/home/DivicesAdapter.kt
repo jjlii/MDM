@@ -7,16 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.devices.DevicesResponse
 import com.example.mdm_everis.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.dispositivos_items.view.*
+import kotlinx.android.synthetic.main.devices_items.view.*
 
-class DispositivosAdapter(private var devices : List<DevicesResponse>,private var isReservados : Boolean) : RecyclerView.Adapter<DispositivosAdapter.ViewHolder>(){
+class DivicesAdapter(private var devices : List<DevicesResponse>, private var isReservados : Boolean) : RecyclerView.Adapter<DivicesAdapter.ViewHolder>(){
 
     private var mobile = ""
     private var so = ""
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.dispositivos_items,parent,false)
+        LayoutInflater.from(parent.context).inflate(R.layout.devices_items,parent,false)
     )
     override fun getItemCount()= devices.size
 

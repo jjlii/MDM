@@ -11,7 +11,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 
 
-
+/*
 fun Fragment.navigateTo(@IdRes navActionResId: Int, bundle: Bundle, popUpTo: Int? = null, inclusive: Boolean = false) {
     try {
         if (popUpTo != null) {
@@ -31,6 +31,7 @@ fun Fragment.navigateTo(@IdRes navActionResId: Int, bundle: Bundle, popUpTo: Int
         // Navigation library has a bug which crash if same navActionResId is passed too quickly so we implemented this try / catch
     }
 }
+*/
 
 
 // Hide virtual keyboard

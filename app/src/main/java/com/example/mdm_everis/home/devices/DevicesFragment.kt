@@ -1,7 +1,8 @@
-package com.example.mdm_everis.home.dispositivos
+package com.example.mdm_everis.home.devices
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,17 +10,14 @@ import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.DispositivosAdapter
-import kotlinx.android.synthetic.main.dispositivos_fragment.*
+import com.example.mdm_everis.home.DivicesAdapter
+import kotlinx.android.synthetic.main.devices_fragment.*
 
-class DispositivosFragment : BaseFragment<DispositivosViewModel>() {
+class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
-    companion object{
-        fun setArguments() = bundleOf()
-    }
 
-    override fun getLayout() = R.layout.dispositivos_fragment
-    override fun getViewModel() = DispositivosViewModel::class
+    override fun getLayout() = R.layout.devices_fragment
+    override fun getViewModel() = DevicesViewModel::class
     override val showToolbar = false
 
 
@@ -30,6 +28,9 @@ class DispositivosFragment : BaseFragment<DispositivosViewModel>() {
         initObservers()
         initListener()
     }
+
+
+
 
     private fun initObservers(){
         viewModel.devicesLD.observe(this,reservasObserver)
@@ -44,8 +45,8 @@ class DispositivosFragment : BaseFragment<DispositivosViewModel>() {
         if (it == null){
             toast("Error")
         }else{
-            rv_dispositivos.adapter = DispositivosAdapter(it, false)
-            rv_dispositivos.layoutManager = LinearLayoutManager(context)
+            rv_devices.adapter = DivicesAdapter(it, false)
+            rv_devices.layoutManager = LinearLayoutManager(context)
         }
     }
 

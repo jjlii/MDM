@@ -1,33 +1,29 @@
-package com.example.mdm_everis.home.mis_reservas
+package com.example.mdm_everis.home.reserves
 
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import kotlinx.android.synthetic.main.reservas_fragment.*
 
-class ReservasFragment : BaseFragment<ReservasViewModel>() {
+class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
     companion object {
         fun setArguments() = bundleOf()
     }
 
-    override fun getLayout() = R.layout.reservas_fragment
-    override fun getViewModel() = ReservasViewModel::class
+    override fun getLayout() = R.layout.reserves_fragment
+    override fun getViewModel() = ReservesViewModel::class
     override val showToolbar: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
+        
         /*
         initObservers()
         initListener()
@@ -40,7 +36,7 @@ class ReservasFragment : BaseFragment<ReservasViewModel>() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.reservas_fragment, container, false)
+        return inflater.inflate(R.layout.reserves_fragment, container, false)
     }
 
 /*
