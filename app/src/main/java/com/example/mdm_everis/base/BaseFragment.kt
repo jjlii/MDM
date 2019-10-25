@@ -105,16 +105,16 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
-            R.id.nav_reservas -> {
+            R.id.nav_reserves -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.nav_favourite -> {
+            R.id.nav_favourites -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
                 findNavController().navigate(ReservesFragmentDirections.actionToFavourites(""))
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.nav_dispositivos -> {
+            R.id.nav_devices -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
                 findNavController().navigate(ReservesFragmentDirections.actionToDevices(""))
                 return@OnNavigationItemSelectedListener true

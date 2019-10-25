@@ -34,23 +34,22 @@
         android:id="@+id/viewBackColor"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorAccent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/gl2Login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/tvBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/fLogin"
-        android:layout_margin="30dp"
-        android:textColor="@color/colorWhite"
         android:text="@string/bienvenido_a"
-        android:textSize="30sp"
-        />
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp" />
 
     <FrameLayout
         android:id="@+id/fLogin"
@@ -64,31 +63,19 @@
         <include layout="@layout/login_card_view"/>
     </FrameLayout>
 
-    <Button
-        android:id="@+id/btnWriteCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Registrar Tarjeta Empleado"
-        android:background="@drawable/round_bottom"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnReadCard"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp" />
 
     <Button
-        android:id="@+id/btnReadCard"
+        android:id="@+id/btnSignup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/leer_tarjeta"
-        android:background="@drawable/round_bottom"
-        android:textColor="@color/colorWhite"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/btnWriteCard"
-        app:layout_constraintEnd_toEndOf="@id/btnWriteCard"
-        android:layout_marginBottom="20dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/sign_up"
+        android:background="@drawable/round_bottom"
+        android:textColor="@color/colorWhite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

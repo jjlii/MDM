@@ -8,7 +8,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcv_dispositivos_items"
+        android:id="@+id/mcv_devices_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,44 +24,44 @@
             android:layout_margin="5dp">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_dispositivos_items"
+                android:id="@+id/gl_device_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.57"
                 />
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_dispositivos_items2"
+                android:id="@+id/gl_device_items2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.36"
                 />
             <ImageView
-                android:id="@+id/iv_foto_dispositivo"
+                android:id="@+id/iv_img_device"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/gl_dispositivos_items2"
+                app:layout_constraintEnd_toStartOf="@id/gl_device_items2"
                 android:src="@drawable/ic_phone_android_black_24dp"
                 />
 
             <TextView
-                android:id="@+id/tv_movil"
+                android:id="@+id/tv_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/m_vil" />
 
             <TextView
-                android:id="@+id/tv_movil_content"
+                android:id="@+id/tv_device_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_movil"
+                app:layout_constraintStart_toEndOf="@id/tv_device"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingStart="5dp"
                 android:text="OnePlus 7 Pro"
@@ -72,15 +72,15 @@
                 android:id="@+id/tv_so"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_movil"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_device"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 android:text="@string/so" />
 
             <TextView
                 android:id="@+id/tv_so_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_movil_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_device_content"
                 app:layout_constraintStart_toEndOf="@id/tv_so"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingStart="5dp"
@@ -94,23 +94,23 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tama_o_pantalla"
                 android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 app:layout_constraintTop_toBottomOf="@id/tv_so" />
             <TextView
-                android:id="@+id/tv_f_inicio"
+                android:id="@+id/tv_f_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fecha inicio:"
                 android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 app:layout_constraintTop_toBottomOf="@id/tv_so" />
 
             <TextView
-                android:id="@+id/tv_f_inicio_content"
+                android:id="@+id/tv_f_start_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_so"
-                app:layout_constraintStart_toEndOf="@id/tv_f_inicio"
+                app:layout_constraintStart_toEndOf="@id/tv_f_start"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="03/10/2019"
                 android:visibility="gone"
@@ -131,21 +131,21 @@
                 android:ellipsize="end" />
 
             <TextView
-                android:id="@+id/tv_f_fin"
+                android:id="@+id/tv_f_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_f_inicio"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_start"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 android:text="@string/fecha_fin"
                 android:visibility="gone"
                 />
 
             <TextView
-                android:id="@+id/tv_f_fin_content"
+                android:id="@+id/tv_f_end_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_f_inicio_content"
-                app:layout_constraintStart_toEndOf="@id/tv_f_fin"
+                app:layout_constraintTop_toBottomOf="@id/tv_f_start_content"
+                app:layout_constraintStart_toEndOf="@id/tv_f_end"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingStart="5dp"
                 android:text="04/10/2019"
@@ -158,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_screen_size"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 android:visibility="visible"
                 android:text="Resolución: " />
 
@@ -177,13 +177,13 @@
 
 
             <Button
-                android:id="@+id/btn_reservar"
+                android:id="@+id/btn_reserve"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                app:layout_constraintTop_toBottomOf="@id/gl_dispositivos_items"
+                app:layout_constraintTop_toBottomOf="@id/gl_device_items"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_foto_dispositivo"
+                app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 app:layout_constraintEnd_toStartOf="@id/imageButton"
                 android:background="@drawable/round_bottom"
                 android:text="@string/reservar"/>
@@ -192,9 +192,9 @@
                 android:id="@+id/imageButton"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="@id/btn_reservar"
-                app:layout_constraintBottom_toBottomOf="@id/btn_reservar"
-                app:layout_constraintStart_toEndOf="@id/btn_reservar"
+                app:layout_constraintTop_toTopOf="@id/btn_reserve"
+                app:layout_constraintBottom_toBottomOf="@id/btn_reserve"
+                app:layout_constraintStart_toEndOf="@id/btn_reserve"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_favorite_black_45dp"
                 android:background="@color/colorWhite"

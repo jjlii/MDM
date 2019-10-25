@@ -2,8 +2,6 @@ package com.example.mdm_everis.home.devices
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.devices.DevicesResponse
@@ -33,7 +31,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
 
     private fun initObservers(){
-        viewModel.devicesLD.observe(this,reservasObserver)
+        viewModel.devicesLD.observe(this,devicesObserver)
     }
 
     private fun initListener(){
@@ -41,7 +39,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     }
 
 
-    private val reservasObserver = Observer<List<DevicesResponse>>{
+    private val devicesObserver = Observer<List<DevicesResponse>>{
         if (it == null){
             toast("Error")
         }else{

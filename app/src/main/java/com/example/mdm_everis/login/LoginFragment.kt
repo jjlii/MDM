@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
@@ -18,8 +17,6 @@ import kotlinx.android.synthetic.main.login_card_view.*
 
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
-
-    private var nfcDialog : AlertDialog? =null
 
     override fun getLayout() = R.layout.fragment_login
 
@@ -47,10 +44,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
                 else -> viewModel.login(etUsername.text.toString(),etPwd.text.toString())
             }
         }
-        btnReadCard.setOnClickListener {
-            showNFCDialog()
-        }
-        btnWriteCard.setOnClickListener {
+        btnSignup.setOnClickListener {
 
         }
         etPwd.setOnEditorActionListener{
@@ -72,22 +66,10 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         }
     }
 
-    private fun Fragment.createNFCDialog(): AlertDialog?{
-        return this.activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setView(R.layout.fullscrren_nfc_dialog)
-            builder.setCancelable(true)
-            builder.create().apply {
-                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            }
-        }
-    }
 
 
-    private fun showNFCDialog(){
-        nfcDialog = createNFCDialog()
-        nfcDialog?.show()
-    }
+
+
 
 
 

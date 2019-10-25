@@ -30,18 +30,18 @@ class DivicesAdapter(private var devices : List<DevicesResponse>, private var is
             with(itemView){
                 mobile = "${devices.brand} ${devices.model}"
                 so = "${devices.so} ${devices.version}"
-                tv_movil_content.text = mobile
+                tv_device_content.text = mobile
                 tv_so_content.text = so
                 if(!isReservados){
                     tv_f_screen_size_content.text = devices.screenSize
                     tv_screen_r_content.text = devices.screenResolution
                 }else{
-                    tv_f_inicio.visibility = View.VISIBLE
-                    tv_f_inicio_content.visibility = View.VISIBLE
-                    tv_f_fin.visibility = View.VISIBLE
-                    tv_f_inicio_content.visibility = View.VISIBLE
+                    tv_f_start.visibility = View.VISIBLE
+                    tv_f_start_content.visibility = View.VISIBLE
+                    tv_f_end.visibility = View.VISIBLE
+                    tv_f_start_content.visibility = View.VISIBLE
                 }
-                Picasso.get().load(devices.picture).into(iv_foto_dispositivo)
+                Picasso.get().load(devices.picture).into(iv_img_device)
             }
         }
     }

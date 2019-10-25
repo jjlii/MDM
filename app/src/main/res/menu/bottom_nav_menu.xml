@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_reservas"
+        android:id="@+id/nav_reserves"
         android:icon="@drawable/ic_home_24dp"
         android:title="@string/mis_reservas"/>
 
     <item
-        android:id="@+id/nav_favourite"
+        android:id="@+id/nav_favourites"
         android:icon="@drawable/ic_favorite_24dp"
         android:title="@string/favoritos"
         />
 
     <item
-        android:id="@+id/nav_dispositivos"
-        android:icon="@drawable/ic_dispositivos_24dp"
+        android:id="@+id/nav_devices"
+        android:icon="@drawable/ic_device_24dp"
         android:title="@string/dispositivos"
         />
 
