@@ -20,6 +20,7 @@ class LoginRepositoryImp : LoginRepository {
     override suspend fun login(user: User): Either<Failure, String> {
         return try {
             val task = auth.signInWithEmailAndPassword(user.email, user.password).await()
+            
             task.user?.let {
                 if(it.isEmailVerified){
                     Log.d("User UID",it.uid)
