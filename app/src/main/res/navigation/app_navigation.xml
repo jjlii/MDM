@@ -19,8 +19,22 @@
                 app:argType="string"
                 app:nullable="true"
                 />
-
         </action>
+
+        <action
+            android:id="@+id/action_login_to_sign_up"
+            app:destination="@id/sign_up_screen" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sign_up_screen"
+        android:name="com.example.mdm_everis.sign_up.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+
+        <action
+            android:id="@+id/action_sign_up_to_login"
+            app:destination="@id/login_screen"/>
 
     </fragment>
 

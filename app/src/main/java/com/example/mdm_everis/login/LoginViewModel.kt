@@ -34,6 +34,7 @@ class LoginViewModel(application: Application,
             UserFailure.InvalidPassword -> Constant.ErrorLogin.CONTRESENIA_INCORRECTA
             UserFailure.InvalidEmailFormat -> Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO
             UserFailure.InvalidEmail -> Constant.ErrorLogin.NO_EXISTE_USUARIO
+            UserFailure.EmailNoVerified -> Constant.ErrorLogin.EMAIL_NO_VERIFIED
             Failure.NetworkConnection -> Constant.ErrorLogin.ERROR_CONEXION
             else -> Constant.ErrorGeneral.ERROR_DESCONOCIDO
         }

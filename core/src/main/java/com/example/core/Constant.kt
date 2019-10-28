@@ -9,5 +9,6 @@ class Constant{
         const val FORMATO_EMAIL_INCORRECTO = "FORMATO EMAIL INCORRECTO"
         const val NO_EXISTE_USUARIO = "NO EXISTE EL USUARIO"
         const val ERROR_CONEXION = "ERROR DE CONEXION"
+        const val EMAIL_NO_VERIFIED = "CUENTA NO VERIFICADA"
     }
 }

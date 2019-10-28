@@ -2,7 +2,7 @@
     <string name="app_name">MDM EVERIS</string>
     <string name="iniciar_sesion">INICIAR SESION</string>
     <string name="entrar">Entrar</string>
-    <string name="password">Contraseña</string>
+    <string name="password">Password</string>
     <string name="acerque_su_tarjeta_al_nfc">Acerque su tarjeta al NFC</string>
     <string name="mis_reservas">Mis Reservas</string>
     <string name="dispositivos">Dispositivos</string>
@@ -16,4 +16,9 @@
     <string name="m_vil">Dispositivo:</string>
     <string name="boton_like">Boton like</string>
     <string name="tama_o_pantalla">Tamaño:</string>
+    <string name="email_everis">@everis.com</string>
+    <string name="user">User</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="email_de_everis">Email de everis</string>
+    <string name="perfil">Perfil</string>
 </resources>

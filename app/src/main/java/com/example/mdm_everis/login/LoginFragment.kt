@@ -1,10 +1,6 @@
 package com.example.mdm_everis.login
 
-import android.app.AlertDialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -29,27 +25,27 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         showNavbar(false)
         setToolbarTitle("")
         initObservers()
-        iniListener()
+        initListener()
     }
 
     private fun initObservers(){
         viewModel.loginLD.observe(this,loginObserver)
     }
 
-    private fun iniListener(){
-        btnAcceder.setOnClickListener {
+    private fun initListener(){
+        btn_login.setOnClickListener {
             when {
                 etUsername.text.toString() == "" -> etUsername.error = "Debes introducir el usuario"
                 etPwd.text.toString() == "" -> etPwd.error = "Debes instroducir la contraseña"
-                else -> viewModel.login(etUsername.text.toString(),etPwd.text.toString())
+                else -> viewModel.login(etUsername.text.toString()+"@everis.com",etPwd.text.toString())
             }
         }
         btnSignup.setOnClickListener {
-
+            findNavController().navigate(LoginFragmentDirections.actionLoginToSignUp())
         }
         etPwd.setOnEditorActionListener{
             _,_,_ ->
-            btnAcceder.callOnClick()
+            btn_login.callOnClick()
         }
     }
 
@@ -60,6 +56,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO -> toast(it)
             Constant.ErrorLogin.CONTRESENIA_INCORRECTA -> toast(it)
             Constant.ErrorGeneral.ERROR_DESCONOCIDO -> toast(it)
+            Constant.ErrorLogin.EMAIL_NO_VERIFIED -> toast(it)
             else ->{
                 findNavController().navigate(LoginFragmentDirections.actionLoginToHome(it))
             }

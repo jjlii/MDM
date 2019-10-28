@@ -21,8 +21,12 @@ class LoginRepositoryImp : LoginRepository {
         return try {
             val task = auth.signInWithEmailAndPassword(user.email, user.password).await()
             task.user?.let {
-                Log.d("User UID",it.uid)
-                Either.Sucess(it.uid)
+                if(it.isEmailVerified){
+                    Log.d("User UID",it.uid)
+                    Either.Sucess(it.uid)
+                }else{
+                    Either.Failure(UserFailure.EmailNoVerified)
+                }
             } ?: Either.Failure(Failure.Unknown)
         }catch (firebaseE : FirebaseAuthException){
             when(firebaseE.errorCode){

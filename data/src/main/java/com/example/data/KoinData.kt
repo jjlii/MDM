@@ -4,6 +4,7 @@ import com.example.core.Network
 import com.example.data.retrofit.DevicesRetrofit
 import com.example.domain.DevicesRepository
 import com.example.domain.login.LoginRepository
+import com.example.domain.sign_up.SignUpRepository
 import org.koin.dsl.module.module
 
 class KoinData {
@@ -12,6 +13,7 @@ class KoinData {
             single<LoginRepository>{ LoginRepositoryImp()}
             single{Network.initRetrofit().create(DevicesRetrofit ::class.java)}
             single<DevicesRepository>{ DevicesRepositoryImp(get())}
+            single<SignUpRepository>{SignUpRepositoryImp()}
         }
     }
 }
