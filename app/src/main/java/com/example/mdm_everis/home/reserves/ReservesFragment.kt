@@ -23,7 +23,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
-        
+        navbar.menu.getItem(0).isChecked = true
         /*
         initObservers()
         initListener()

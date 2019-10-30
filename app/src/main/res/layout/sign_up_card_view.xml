@@ -57,7 +57,9 @@
             android:layout_margin="20dp"
             app:layout_constraintStart_toStartOf="@id/ly_full_name"
             app:layout_constraintEnd_toEndOf="@id/ly_full_name"
-            app:layout_constraintTop_toBottomOf="@id/ly_email">
+            app:layout_constraintTop_toBottomOf="@id/ly_email"
+            app:passwordToggleDrawable="@drawable/icon_selector"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"

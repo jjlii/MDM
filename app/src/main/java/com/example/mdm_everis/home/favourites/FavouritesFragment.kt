@@ -23,6 +23,7 @@ class FavouritesFragment :BaseFragment<FavouritesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
+        navbar.menu.getItem(1).isChecked = true
     }
 
 

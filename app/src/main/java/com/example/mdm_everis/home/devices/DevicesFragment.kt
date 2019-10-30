@@ -23,6 +23,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
+        navbar.menu.getItem(2).isChecked = true
         initObservers()
         initListener()
     }

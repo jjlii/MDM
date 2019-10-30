@@ -27,7 +27,9 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     abstract fun getViewModel(): KClass<VM>
     abstract val showToolbar: Boolean
 
-    lateinit var navbar : BottomNavigationView
+    val navbar by lazy {
+        (activity as MainActivity).getNavBar()
+    }
 
 
 
@@ -50,7 +52,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navbar = (activity as MainActivity).getNavBar()
+
         navbar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
