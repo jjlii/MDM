@@ -21,4 +21,12 @@
     <string name="nombre_completo">Nombre Completo</string>
     <string name="email_de_everis">Email de everis</string>
     <string name="perfil">Perfil</string>
+    <string name="mi_perfil">Mi Perfil</string>
+    <string name="edit_bottom">EditBottom</string>
+    <string name="cerrar_sesion">CERRAR SESION</string>
+    <string name="your_data">TUS DATOS</string>
+    <string name="email">Email: </string>
+    <string name="your_profile">TU PERFIL</string>
+    <string name="nombre">Nombre:</string>
+    <string name="change_pwd">Cambiar contraseña</string>
 </resources>

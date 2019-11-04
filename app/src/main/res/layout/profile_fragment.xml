@@ -1,71 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.mdm_everis.home.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl1Login"
+        android:id="@+id/gl1Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl2Login"
+        android:id="@+id/gl2Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.25" />
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl3Login"
+    <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
-
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/gl1Profile"
+        android:elevation="1dp"
+        android:text="@string/your_profile"
+        android:textSize="32sp"
+        android:textColor="@color/colorWhite"/>
     <View
         android:id="@+id/viewBackColor"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/gl1Profile"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gl2Login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/colorAccent"/>
-
-    <TextView
-        android:id="@+id/tvBienvenido"
+    <ImageButton
+        android:id="@+id/ib_edit_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fLogin"
-        android:text="@string/bienvenido_a"
-        android:textColor="@color/colorWhite"
-        android:textSize="30sp" />
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        android:padding="3dp"
+        android:src="@drawable/ic_edit_24dp"
+        android:background="@drawable/round_button"
+        android:contentDescription="@string/edit_bottom" />
 
     <FrameLayout
-        android:id="@+id/fLogin"
+        android:id="@+id/fProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gl1Login"
-        app:layout_constraintBottom_toTopOf="@id/gl3Login">
-        <include layout="@layout/login_card_view"/>
+        app:layout_constraintTop_toTopOf="@id/gl2Profile"
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/profile_data_card_view" />
     </FrameLayout>
 
-
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btn_log_out"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -74,8 +75,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/sign_up"
+        android:text="@string/cerrar_sesion"
         android:background="@drawable/round_corner_bottom"
         android:textColor="@color/colorWhite" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

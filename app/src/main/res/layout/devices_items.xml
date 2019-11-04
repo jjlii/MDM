@@ -186,7 +186,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 app:layout_constraintEnd_toStartOf="@id/imageButton"
-                android:background="@drawable/round_bottom"
+                android:background="@drawable/round_corner_bottom"
                 android:text="@string/reservar"/>
 
             <ImageButton

@@ -14,11 +14,13 @@
         <action
             android:id="@+id/action_login_to_home"
             app:destination="@id/reserves_screen">
+
             <argument
-                android:name="userId"
+                android:name="user"
                 app:argType="string"
-                app:nullable="true"
+                app:nullable="false"
                 />
+
         </action>
 
         <action
@@ -48,11 +50,11 @@
             android:id="@+id/action_to_favourites"
             app:destination="@id/favourites_screen">
 
-            <argument
-                android:name="userId"
-                app:argType="string"
-                app:nullable="true"
-                />
+            <!--<argument
+                android:name="user"
+                app:argType="com.example.domain.login.UserResponse"
+                app:nullable="false"
+                />-->
 
         </action>
 
@@ -60,11 +62,17 @@
             android:id="@+id/action_to_devices"
             app:destination="@id/devices_screen">
 
-            <argument
-                android:name="userId"
-                app:argType="string"
-                app:nullable="true"
-                />
+            <!--<argument
+                android:name="user"
+                app:argType="com.example.domain.login.UserResponse"
+                app:nullable="false"
+                />-->
+
+        </action>
+
+        <action
+            android:id="@+id/action_to_profile"
+            app:destination="@id/profile_screen">
 
         </action>
 
@@ -81,6 +89,13 @@
         android:id="@+id/devices_screen"
         android:name="com.example.mdm_everis.home.devices.DevicesFragment"
         tools:layout="@layout/devices_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_screen"
+        android:name="com.example.mdm_everis.home.profile.ProfileFragment"
+        tools:layout="@layout/profile_fragment">
 
     </fragment>
 

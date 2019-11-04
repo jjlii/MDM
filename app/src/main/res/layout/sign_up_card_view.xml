@@ -100,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="@id/ly_full_name"
             app:layout_constraintTop_toBottomOf="@id/ly_rep_password"
             android:text="Registrar"
-            android:background="@drawable/round_bottom"
+            android:background="@drawable/round_corner_bottom"
             android:textColor="@color/colorWhite"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

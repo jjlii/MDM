@@ -5,25 +5,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.login.LoginFragmentDirections
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
-    companion object {
-        fun setArguments() = bundleOf()
-    }
+
 
     override fun getLayout() = R.layout.reserves_fragment
     override fun getViewModel() = ReservesViewModel::class
     override val showToolbar: Boolean = false
 
+
+    val navBar by lazy {
+        (activity as MainActivity).getNavBar()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
-        navbar.menu.getItem(0).isChecked = true
+        navBar.menu.getItem(0).isChecked = true
+        navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         /*
         initObservers()
         initListener()
@@ -37,6 +43,32 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     ): View? {
 
         return inflater.inflate(R.layout.reserves_fragment, container, false)
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+        when (menuItem.itemId) {
+            R.id.nav_reserves -> {
+                findNavController().popBackStack(R.id.reserves_screen,false)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_favourites -> {
+                findNavController().popBackStack(R.id.reserves_screen,false)
+                findNavController().navigate(ReservesFragmentDirections.actionToFavourites())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_devices -> {
+                findNavController().popBackStack(R.id.reserves_screen,false)
+                findNavController().navigate(ReservesFragmentDirections.actionToDevices())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_profile -> {
+                findNavController().popBackStack(R.id.reserves_screen,false)
+                findNavController().navigate(ReservesFragmentDirections.actionToProfile())
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+
     }
 
 /*

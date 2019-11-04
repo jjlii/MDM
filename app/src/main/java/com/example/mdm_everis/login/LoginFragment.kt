@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
+import com.example.domain.login.UserResponse
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
@@ -37,7 +38,9 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             when {
                 etUsername.text.toString() == "" -> etUsername.error = "Debes introducir el usuario"
                 etPwd.text.toString() == "" -> etPwd.error = "Debes instroducir la contraseña"
-                else -> viewModel.login(etUsername.text.toString()+"@everis.com",etPwd.text.toString())
+                else ->{
+                    viewModel.login(etUsername.text.toString()+"@everis.com",etPwd.text.toString())
+                }
             }
         }
         btnSignup.setOnClickListener {
