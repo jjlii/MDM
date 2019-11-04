@@ -14,13 +14,6 @@
         <action
             android:id="@+id/action_login_to_home"
             app:destination="@id/reserves_screen">
-
-            <argument
-                android:name="user"
-                app:argType="string"
-                app:nullable="false"
-                />
-
         </action>
 
         <action
@@ -45,29 +38,20 @@
         android:name="com.example.mdm_everis.home.reserves.ReservesFragment"
         tools:layout="@layout/reserves_fragment"
         >
+        
+        <argument
+            android:name="user"
+            app:argType="string"
+            app:nullable="false" />
 
         <action
             android:id="@+id/action_to_favourites"
             app:destination="@id/favourites_screen">
-
-            <!--<argument
-                android:name="user"
-                app:argType="com.example.domain.login.UserResponse"
-                app:nullable="false"
-                />-->
-
         </action>
 
         <action
             android:id="@+id/action_to_devices"
             app:destination="@id/devices_screen">
-
-            <!--<argument
-                android:name="user"
-                app:argType="com.example.domain.login.UserResponse"
-                app:nullable="false"
-                />-->
-
         </action>
 
         <action

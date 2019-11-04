@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.login.LoginFragmentDirections
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ReservesFragment : BaseFragment<ReservesViewModel>() {
@@ -21,8 +21,11 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     override fun getViewModel() = ReservesViewModel::class
     override val showToolbar: Boolean = false
 
+    private val args : ReservesFragmentArgs by navArgs()
 
-    val navBar by lazy {
+    lateinit var userId : String
+
+    private val navBar by lazy {
         (activity as MainActivity).getNavBar()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,6 +33,11 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         showNavbar(true)
         navBar.menu.getItem(0).isChecked = true
         navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        userId = args.user
+        toast(userId)
+
+
         /*
         initObservers()
         initListener()
