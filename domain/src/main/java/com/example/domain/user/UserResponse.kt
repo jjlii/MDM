@@ -1,4 +1,4 @@
-package com.example.domain.login
+package com.example.domain.user
 
 data class UserResponse(val id : String,
                         val email : String,
