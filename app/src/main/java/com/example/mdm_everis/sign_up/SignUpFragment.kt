@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.core.Constant
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import kotlinx.android.synthetic.main.sign_up_card_view.*
@@ -30,12 +31,19 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
     private fun initListener(){
         btn_registrate.setOnClickListener{
             when{
-                et_full_name.text.toString() == "" -> et_full_name.error = "Debes introducir el nombre completo"
-                et_email.text.toString() == "" -> et_email.error = "Debes introducir tu correo de everis"
-                et_password.text.toString() == "" -> et_password.error = "Debes introducir una contraseña"
-                et_rep_password.text.toString() == "" -> et_rep_password.error = "Tienes que introducir de nuevo la contraseña"
-                et_password.text.toString() != et_rep_password.text.toString() -> et_rep_password.error = "La contraseña tiene que coincidir"
-                else -> viewModel.signUp(et_email.text.toString()+"@everis.com",et_password.text.toString())
+                et_full_name.text.toString() == "" -> et_full_name.error = Constant.ErrorSignUp.NOT_NAME
+                et_email.text.toString() == "" -> et_email.error = Constant.ErrorSignUp.NOT_EVERIS_EMAIL
+                et_password.text.toString() == "" -> et_password.error = Constant.ErrorSignUp.NOT_PWD
+                et_rep_password.text.toString() == "" -> et_rep_password.error = Constant.ErrorSignUp.NOT_REP_PWD
+                et_password.text.toString() != et_rep_password.text.toString() -> et_rep_password.error = Constant.ErrorSignUp.NOT_EQUAL_PWD
+                else ->{
+                    if (et_password.text?.length!! >= 8){
+                        viewModel.signUp(et_email.text.toString()+
+                                Constant.GeneralConstant.EVERIS_EMAIL_EXTENSIONS,et_password.text.toString())
+                    }else{
+                        et_password.error = Constant.ErrorSignUp.PWD_TOO_EASY
+                    }
+                }
             }
 
 
@@ -58,7 +66,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
             alertDialog.setNeutralButton("Cancelar",null)
             alertDialog.show()
         }else{
-            toast(it)
+            toast(Constant.ErrorSignUp.ERROR_REGISTRO)
         }
     }
 

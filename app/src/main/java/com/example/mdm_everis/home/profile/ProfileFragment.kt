@@ -6,26 +6,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.home.reserves.ReservesFragmentArgs
 import com.example.mdm_everis.home.reserves.ReservesViewModel
+import kotlinx.android.synthetic.main.profile_data_card_view.*
 
 
 class ProfileFragment : BaseFragment<ProfileViewModel>() {
-
-
 
 
     override fun getLayout() = R.layout.profile_fragment
     override fun getViewModel() = ProfileViewModel::class
     override val showToolbar: Boolean = false
 
+    private val args : ProfileFragmentArgs by navArgs()
+    var user : UserResponse? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        user = args.user
+        tv_name_content.text = user?.name
+        tv_email_content.text = user?.email
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
@@ -33,5 +40,6 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         baseNavBar.menu.getItem(3).isChecked = true
     }
+
 
 }

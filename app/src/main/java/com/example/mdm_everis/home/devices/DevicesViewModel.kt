@@ -27,7 +27,7 @@ class DevicesViewModel(application: Application, private val devicesUseCase : De
         devicesMLD.value = null
     }
 
-    private fun handleSuccessAllDevices(allDevices : List<DevicesResponse>){
+    private fun handleSuccessAllDevices(allDevices : List<DevicesResponse>?){
         loadingMLD.value = false
         devicesMLD.value = allDevices
     }

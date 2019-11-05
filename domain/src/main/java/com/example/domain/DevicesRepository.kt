@@ -6,5 +6,5 @@ import com.example.domain.devices.DevicesResponse
 
 interface DevicesRepository {
 
-    suspend fun getAllDevices() : Either<Failure,List<DevicesResponse>>
+    suspend fun getAllDevices() : Either<Failure,List<DevicesResponse>?>
 }
