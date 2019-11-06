@@ -48,8 +48,8 @@
             app:nullable="false"/>
 
         <action
-            android:id="@+id/action_to_favourites"
-            app:destination="@id/favourites_screen">
+            android:id="@+id/action_to_favorites"
+            app:destination="@id/favorites_screen">
         </action>
 
         <action
@@ -65,9 +65,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/favourites_screen"
-        android:name="com.example.mdm_everis.home.favourites.FavouritesFragment"
-        tools:layout="@layout/favourites_fragment">
+        android:id="@+id/favorites_screen"
+        android:name="com.example.mdm_everis.home.favorites.FavoritesFragment"
+        tools:layout="@layout/favorites_fragment">
         <argument
             android:name="favorites"
             app:argType="com.example.mdm_everis.Favorites"/>

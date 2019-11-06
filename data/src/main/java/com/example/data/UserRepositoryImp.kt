@@ -14,7 +14,7 @@ class UserRepositoryImp(private val userRetrofit: UserRetrofit) : UserRepository
             val resp = userRetrofit.getUserById(userId)
             when(resp.isSuccessful){
                 true -> Either.Sucess(resp.body())
-                else -> Either.Failure(Failure.ServerError)
+                false -> Either.Failure(Failure.ServerError)
             }
         }catch (e : Exception){
             Log.e("Error getAllDevices",e.message.toString())

@@ -74,7 +74,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_favourites -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToFavourites(favorites))
+                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(favorites))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_devices -> {

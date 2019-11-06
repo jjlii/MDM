@@ -1,6 +1,7 @@
 package com.example.domain
 
 import com.example.domain.devices.DevicesUseCase
+import com.example.domain.devices.GetDeviceByIdUseCase
 import com.example.domain.login.LoginUseCase
 import com.example.domain.sign_up.SignUpUseCase
 import com.example.domain.user.GetUserByIdUserCase
@@ -13,6 +14,7 @@ class KoinDomain {
             factory { DevicesUseCase(get()) }
             factory { SignUpUseCase(get()) }
             factory { GetUserByIdUserCase(get()) }
+            factory { GetDeviceByIdUseCase(get()) }
         }
     }
 }

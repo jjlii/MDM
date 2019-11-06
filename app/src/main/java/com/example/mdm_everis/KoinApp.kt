@@ -2,7 +2,7 @@ package com.example.mdm_everis
 
 import com.example.mdm_everis.home.reserves.ReservesViewModel
 import com.example.mdm_everis.home.devices.DevicesViewModel
-import com.example.mdm_everis.home.favourites.FavouritesViewModel
+import com.example.mdm_everis.home.favorites.FavoritesViewModel
 import com.example.mdm_everis.home.profile.ProfileViewModel
 import com.example.mdm_everis.login.LoginViewModel
 import com.example.mdm_everis.sign_up.SignUpViewModel
@@ -16,7 +16,7 @@ class KoinApp {
         module {
             viewModel { LoginViewModel(androidApplication(),get(),get(),get()) }
             viewModel { ReservesViewModel(androidApplication(),get(),get()) }
-            viewModel { FavouritesViewModel(androidApplication()) }
+            viewModel { FavoritesViewModel(androidApplication(),get()) }
             viewModel { DevicesViewModel(androidApplication(),get()) }
             viewModel { SignUpViewModel(androidApplication(),get()) }
             viewModel { ProfileViewModel(androidApplication()) }
