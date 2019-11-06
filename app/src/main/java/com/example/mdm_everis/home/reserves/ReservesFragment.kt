@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
+import com.example.mdm_everis.Favorites
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
@@ -31,6 +32,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     }
     lateinit var user : UserResponse
     lateinit var devices: Devices
+    lateinit var favorites: Favorites
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     ): View? {
         user = args.user
         devices = args.devices
+        favorites = Favorites(user.favourites)
         initListener()
         initObservers()
         return inflater.inflate(R.layout.reserves_fragment, container, false)
@@ -71,7 +74,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_favourites -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToFavourites())
+                findNavController().navigate(ReservesFragmentDirections.actionToFavourites(favorites))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_devices -> {

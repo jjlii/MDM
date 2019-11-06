@@ -95,7 +95,6 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     }
 
     private val devicesObserver = Observer<List<DevicesResponse>>{
-
         it?.let {
             val devices = Devices(it)
             findNavController().navigate(LoginFragmentDirections.actionLoginToHome(user = user,devices = devices))

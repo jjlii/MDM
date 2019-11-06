@@ -4,8 +4,8 @@ import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 
-interface DevicesRepository {
+interface GetDeviceByIdRepository {
 
-    suspend fun getAllDevices() : Either<Failure,List<DevicesResponse>?>
+    suspend fun getDeviceById(deviceId : String) : Either<Failure,DevicesResponse?>
 
 }

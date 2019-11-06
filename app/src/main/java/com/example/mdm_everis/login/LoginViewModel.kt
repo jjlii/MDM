@@ -1,6 +1,7 @@
 package com.example.mdm_everis.login
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.Constant
@@ -43,7 +44,7 @@ class LoginViewModel(application: Application,
     }
 
     private fun handleFailureLogin(failure: Failure){
-        loadingMLD.value = false
+        //loadingMLD.value = false
         loginMLD.value = when(failure){
             UserFailure.InvalidPassword -> Constant.ErrorLogin.CONTRESENIA_INCORRECTA
             UserFailure.InvalidEmailFormat -> Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO
@@ -55,7 +56,7 @@ class LoginViewModel(application: Application,
     }
 
     private fun handleSuccessLogin(user : String ){
-        loadingMLD.value = false
+        //loadingMLD.value = false
         loginMLD.value = user
     }
 
@@ -64,7 +65,7 @@ class LoginViewModel(application: Application,
     //********************************** Get User **************************************************
 
     fun getUserById( userId : String ){
-        loadingMLD.value = true
+        //loadingMLD.value = true
         getUserByIdUserCase(userId){
             it.fold(
                 ::handleFailGetUserById,
@@ -74,13 +75,14 @@ class LoginViewModel(application: Application,
     }
 
     private fun handleSuccessGetUserById(userResponse: UserResponse?){
-        loadingMLD.value = false
+        //loadingMLD.value = false
         getUserByIdMLD.value = userResponse
     }
 
     private fun handleFailGetUserById(failure: Failure){
-        loadingMLD.value = false
+        //loadingMLD.value = false
         getUserByIdMLD.value = null
+        Log.e("ErrorGetUserById", failure.toString())
     }
 
     //********************************** End Get User **********************************************
@@ -88,7 +90,7 @@ class LoginViewModel(application: Application,
     //********************************** Get Devices ***********************************************
 
     fun allDevies(){
-        loadingMLD.value = true
+        //loadingMLD.value = true
         devicesUseCase(Unit){
             it.fold(
                 ::handleFailureAllDevices,
@@ -100,6 +102,7 @@ class LoginViewModel(application: Application,
     private fun handleFailureAllDevices(failure: Failure){
         loadingMLD.value = false
         devicesMLD.value = null
+        Log.e("ErrorGetAllDevices", failure.toString())
     }
 
     private fun handleSuccessAllDevices(allDevices : List<DevicesResponse>?){
