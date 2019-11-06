@@ -6,4 +6,8 @@ import com.example.mdm_everis.base.BaseViewModel
 
 class ProfileViewModel(application : Application) : BaseViewModel(application) {
 
+    //********************************** LiveData **************************************************
+
+    //********************************** End LiveData **********************************************
+
 }

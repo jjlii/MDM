@@ -14,19 +14,21 @@ import kotlinx.android.synthetic.main.sign_up_card_view.*
 
 class SignUpFragment : BaseFragment<SignUpViewModel>() {
 
-    override fun getLayout() = R.layout.fragment_sign_up
+    //******************************************* BaseFragment abstract ****************************
 
+    override fun getLayout() = R.layout.fragment_sign_up
     override fun getViewModel() = SignUpViewModel::class
 
-    override val showToolbar = false
+    //******************************************* End BaseFragment abstract ************************
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(false)
-        setToolbarTitle("")
         initListener()
         initObservers()
     }
+
+    //******************************************* Init *********************************************
 
     private fun initListener(){
         btn_registrate.setOnClickListener{
@@ -54,6 +56,10 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
         viewModel.signUpLD.observe(this,signUpObserver)
     }
 
+    //******************************************* End Init *****************************************
+
+    //******************************************* Observers ****************************************
+
     private val signUpObserver = Observer<String>{
         if(it != "Error"){
             val alertDialog = AlertDialog.Builder(context)
@@ -70,6 +76,6 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
         }
     }
 
-
+    //******************************************* End Observers ************************************
 
 }

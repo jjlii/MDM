@@ -14,10 +14,12 @@ import kotlinx.android.synthetic.main.devices_items.*
 
 class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
+    //******************************************* BaseFragment abstract ****************************
 
     override fun getLayout() = R.layout.devices_fragment
     override fun getViewModel() = DevicesViewModel::class
-    override val showToolbar = false
+
+    //******************************************* End BaseFragment abstract ************************
 
     private val args : DevicesFragmentArgs by navArgs()
 
@@ -37,6 +39,10 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         }
     }
 
+    //******************************************* Init *********************************************
+    //******************************************* End Init *****************************************
 
+    //******************************************* Observers ****************************************
+    //******************************************* End Observers ************************************
 
 }

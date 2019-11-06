@@ -19,6 +19,8 @@ class LoginViewModel(application: Application,
                      private val getUserByIdUserCase: GetUserByIdUserCase,
                      private val devicesUseCase: DevicesUseCase) : BaseViewModel(application){
 
+    //********************************** LiveData **************************************************
+
     private val loginMLD = MutableLiveData<String>()
     val loginLD : LiveData<String> = loginMLD
 
@@ -28,6 +30,7 @@ class LoginViewModel(application: Application,
     private val devicesMLD = MutableLiveData<List<DevicesResponse>>()
     val devicesLD : LiveData<List<DevicesResponse>> = devicesMLD
 
+    //********************************** End LiveData **********************************************
 
     //********************************** Login *****************************************************
 

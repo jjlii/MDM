@@ -18,25 +18,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
+    //******************************************* BaseFragment abstract ****************************
+
     override fun getLayout() = R.layout.reserves_fragment
     override fun getViewModel() = ReservesViewModel::class
-    override val showToolbar: Boolean = false
+
+    //******************************************* End BaseFragment abstract ************************
 
     private val args : ReservesFragmentArgs by navArgs()
-
-    lateinit var user : UserResponse
-    lateinit var devices: Devices
-
     private val navBar by lazy {
         (activity as MainActivity).getNavBar()
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        showNavbar(true)
-        navBar.menu.getItem(0).isChecked = true
-        navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-    }
+    lateinit var user : UserResponse
+    lateinit var devices: Devices
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +42,26 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         initObservers()
         return inflater.inflate(R.layout.reserves_fragment, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showNavbar(true)
+        navBar.menu.getItem(0).isChecked = true
+        navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+    }
+
+    //******************************************* Init *********************************************
+
+    private fun initObservers(){
+    }
+
+    private fun initListener(){
+    }
+
+    //******************************************* End Init *****************************************
+
+    //******************************************* Bottom Nav Bar ***********************************
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
@@ -75,21 +89,9 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
     }
 
-    private fun initObservers(){
-    }
+    //******************************************* EndBottom Nav Bar ********************************
 
-    private fun initListener(){
-    }
-
-
-
-
-
-
-
-
-
-
-
+    //******************************************* Observers ****************************************
+    //******************************************* End Observers ************************************
 
 }

@@ -17,10 +17,12 @@ import kotlinx.android.synthetic.main.profile_data_card_view.*
 
 class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
+    //******************************************* BaseFragment abstract ****************************
 
     override fun getLayout() = R.layout.profile_fragment
     override fun getViewModel() = ProfileViewModel::class
-    override val showToolbar: Boolean = false
+
+    //******************************************* End BaseFragment abstract ************************
 
     private val args : ProfileFragmentArgs by navArgs()
     var userData : UserResponse? = null
@@ -41,5 +43,10 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
         tv_email_content.text = userData?.email
     }
 
+    //******************************************* Init *********************************************
+    //******************************************* End Init *****************************************
+
+    //******************************************* Observers ****************************************
+    //******************************************* End Observers ************************************
 
 }

@@ -10,4 +10,8 @@ import com.example.mdm_everis.base.BaseViewModel
 
 class DevicesViewModel(application: Application, private val devicesUseCase : DevicesUseCase) : BaseViewModel(application) {
 
+    //********************************** LiveData **************************************************
+
+    //********************************** End LiveData **********************************************
+
 }

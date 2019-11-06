@@ -13,8 +13,14 @@ import com.example.mdm_everis.base.BaseViewModel
 class SignUpViewModel(application: Application,
                       private val signUpUseCase: SignUpUseCase) : BaseViewModel(application) {
 
+    //********************************** LiveData **************************************************
+
     private val signUpMLD = MutableLiveData<String>()
     val signUpLD : LiveData<String> = signUpMLD
+
+    //********************************** End LiveData **********************************************
+
+    //********************************** Sign up ***************************************************
 
     fun signUp(email : String, password : String){
         loadingMLD.value = true
@@ -37,4 +43,7 @@ class SignUpViewModel(application: Application,
         signUpMLD.value = "Error"
         Log.i("failure", failure.toString())
     }
+
+    //********************************** End Sign up ***********************************************
+
 }

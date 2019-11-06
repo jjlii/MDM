@@ -20,17 +20,16 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     protected val viewModel: VM by viewModelByClass(this.getViewModel())
 
+    //******************************************* abstract variable ********************************
+
     abstract fun getLayout() : Int
     abstract fun getViewModel() : KClass<VM>
-    abstract val showToolbar : Boolean
+
+    //******************************************* End abstract variable ****************************
 
     val baseNavBar by lazy {
         (activity as MainActivity).getNavBar()
     }
-
-
-
-
     private var progressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,14 +46,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         return inflater.inflate(getLayout(),container,false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-
-    fun setToolbarTitle(screenTitle: String){
-        (activity as MainActivity).setTitle(screenTitle)
-    }
+    //******************************************* Loading Dialog ***********************************
 
     private fun Fragment.createLoadingDialog(): AlertDialog?{
         return this.activity?.let {
@@ -67,8 +59,6 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
     }
 
-
-
     private fun showLoading(){
         if (progressDialog == null){
             progressDialog = createLoadingDialog()
@@ -77,20 +67,14 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
     }
 
-
     private fun hideLoading(){
         progressDialog?.dismiss()
         progressDialog = null
     }
 
+    //******************************************* End Loading Dialog *******************************
 
-
-    fun toast( message: String, duration: Int = Toast.LENGTH_LONG)=
-        Toast.makeText(context, message , duration).show()
-
-
-
-    //Bottom navbar
+    //******************************************* Nav Bar ******************************************
 
     fun showNavbar(show: Boolean){
         if (show){
@@ -100,9 +84,9 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
     }
 
+    //******************************************* End Nav Bar **************************************
 
-
-    //Top toolbar
-
+    fun toast( message: String, duration: Int = Toast.LENGTH_LONG)=
+        Toast.makeText(context, message , duration).show()
 
 }

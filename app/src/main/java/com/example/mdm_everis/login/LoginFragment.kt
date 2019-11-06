@@ -26,10 +26,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     //******************************************* BaseFragment abstract ****************************
 
     override fun getLayout() = R.layout.fragment_login
-
     override fun getViewModel()= LoginViewModel::class
-
-    override val showToolbar = false
 
     //******************************************* End BaseFragment abstract ************************
 
@@ -38,7 +35,6 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(false)
-        setToolbarTitle("")
         initObservers()
         initListener()
     }

@@ -9,16 +9,13 @@ import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 
 class FavouritesFragment :BaseFragment<FavouritesViewModel>() {
-    override fun getLayout() = R.layout.favourites_fragment
 
+    //******************************************* BaseFragment abstract ****************************
+
+    override fun getLayout() = R.layout.favourites_fragment
     override fun getViewModel() = FavouritesViewModel::class
 
-    override val showToolbar = false
-
-    companion object{
-        fun setArguments() = bundleOf()
-    }
-
+    //******************************************* End BaseFragment abstract ************************
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,9 +23,10 @@ class FavouritesFragment :BaseFragment<FavouritesViewModel>() {
         baseNavBar.menu.getItem(1).isChecked = true
     }
 
+    //******************************************* Init *********************************************
+    //******************************************* End Init *****************************************
 
-
-
-
+    //******************************************* Observers ****************************************
+    //******************************************* End Observers ************************************
 
 }
