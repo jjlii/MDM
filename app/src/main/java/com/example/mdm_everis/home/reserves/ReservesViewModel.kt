@@ -12,7 +12,7 @@ import com.example.mdm_everis.base.BaseViewModel
 class ReservesViewModel(application: Application,
                         private val devicesUseCase : DevicesUseCase,
                         private val getUserByIdUserCase: GetUserByIdUserCase) : BaseViewModel(application) {
-
+    /*
     private val getUserByIdMLD = MutableLiveData<UserResponse>()
     val getUserByIdLD : LiveData<UserResponse> = getUserByIdMLD
 
@@ -35,6 +35,8 @@ class ReservesViewModel(application: Application,
         loadingMLD.value = false
         getUserByIdMLD.value = null
     }
+
+     */
     /*
     private val devicesMLD = MutableLiveData<List<DevicesResponse>>()
     val devicesLD : LiveData<List<DevicesResponse>> = devicesMLD
@@ -60,5 +62,5 @@ class ReservesViewModel(application: Application,
         devicesMLD.value = allDevices
     }
 
-     */
+    */
 }

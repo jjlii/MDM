@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.user.UserResponse
+import com.example.mdm_everis.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
@@ -17,16 +18,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
-
-
     override fun getLayout() = R.layout.reserves_fragment
     override fun getViewModel() = ReservesViewModel::class
     override val showToolbar: Boolean = false
 
     private val args : ReservesFragmentArgs by navArgs()
 
-    lateinit var userId : String
     lateinit var user : UserResponse
+    lateinit var devices: Devices
 
     private val navBar by lazy {
         (activity as MainActivity).getNavBar()
@@ -43,7 +42,8 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        userId = args.userId
+        user = args.user
+        devices = args.devices
         initListener()
         initObservers()
         return inflater.inflate(R.layout.reserves_fragment, container, false)
@@ -62,7 +62,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_devices -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToDevices())
+                findNavController().navigate(ReservesFragmentDirections.actionToDevices(devices))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile -> {
@@ -76,40 +76,17 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     }
 
     private fun initObservers(){
-        //viewModel.devicesLD.observe(this,reservasObserver)
-        viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
     }
 
     private fun initListener(){
-        //viewModel.allDevies()
-        viewModel.getUserById(userId)
-    }
-
-    private  val getUserByIdObserver = Observer<UserResponse>{
-        it?.let {
-            user = it
-        } ?: run{
-            toast("Se ha habido un error al obtener el usuario")
-        }
     }
 
 
 
 
-/*
 
 
 
-    private val reservasObserver = Observer<List<DevicesResponse>>{
-        if (it == null){
-            toast("Error")
-        }else{
-            rv_reservas.adapter = ReservasAdapter(it)
-            rv_reservas.layoutManager = LinearLayoutManager(context)
-        }
-    }
-
- */
 
 
 

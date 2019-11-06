@@ -14,7 +14,7 @@ class KoinApp {
 
     val appModule by lazy {
         module {
-            viewModel { LoginViewModel(androidApplication(),get()) }
+            viewModel { LoginViewModel(androidApplication(),get(),get(),get()) }
             viewModel { ReservesViewModel(androidApplication(),get(),get()) }
             viewModel { FavouritesViewModel(androidApplication()) }
             viewModel { DevicesViewModel(androidApplication(),get()) }

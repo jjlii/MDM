@@ -23,22 +23,22 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
     override val showToolbar: Boolean = false
 
     private val args : ProfileFragmentArgs by navArgs()
-    var user : UserResponse? = null
+    var userData : UserResponse? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        user = args.user
-        tv_name_content.text = user?.name
-        tv_email_content.text = user?.email
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         baseNavBar.menu.getItem(3).isChecked = true
+        userData = args.user
+        tv_name_content.text = userData?.name
+        tv_email_content.text = userData?.email
     }
 
 

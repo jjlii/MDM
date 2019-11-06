@@ -185,21 +185,23 @@
                 app:layout_constraintTop_toBottomOf="@id/gl_device_items"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_img_device"
-                app:layout_constraintEnd_toStartOf="@id/imageButton"
+                app:layout_constraintEnd_toStartOf="@id/btn_favorite"
                 android:background="@drawable/round_corner_bottom"
                 android:text="@string/reservar"/>
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+            <ToggleButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
                 app:layout_constraintTop_toTopOf="@id/btn_reserve"
                 app:layout_constraintBottom_toBottomOf="@id/btn_reserve"
                 app:layout_constraintStart_toEndOf="@id/btn_reserve"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_favorite_black_45dp"
-                android:background="@color/colorWhite"
-                android:contentDescription="@string/boton_like" />
+                android:background="@drawable/favorite_button"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn=""/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
