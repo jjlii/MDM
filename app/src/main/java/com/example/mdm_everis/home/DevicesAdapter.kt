@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.mdm_everis.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.devices_items.view.*
 
-class DevicesAdapter(private var devices : List<DevicesResponse>, private var isReservados : Boolean) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
+class DevicesAdapter(private var devices : List<DevicesResponse>, private var flag : String) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
     private var so = ""
@@ -32,18 +33,57 @@ class DevicesAdapter(private var devices : List<DevicesResponse>, private var is
                 so = "${devices.so} ${devices.version}"
                 tv_device_content.text = mobile
                 tv_so_content.text = so
-                if(!isReservados){
-                    tv_f_screen_size_content.text = devices.screenSize
-                    tv_screen_r_content.text = devices.screenResolution
-                }else{
-                    tv_f_start.visibility = View.VISIBLE
-                    tv_f_start_content.visibility = View.VISIBLE
-                    tv_f_end.visibility = View.VISIBLE
-                    tv_f_start_content.visibility = View.VISIBLE
+                when(flag){
+                    Constant.AdapterFlag.RESERVES -> setVisibilityReserves(this)
+                    Constant.AdapterFlag.FAVORITES -> {
+                        setVisibilityNotReserves(this)
+                        btn_favorite.isChecked = true
+                        tv_screen_size_content.text = devices.screenSize
+                        tv_screen_r_content.text = devices.screenResolution
+                    }
+                    Constant.AdapterFlag.DEVICES -> {
+                        setVisibilityNotReserves(this)
+                        btn_favorite.isChecked = false
+                        tv_screen_size_content.text = devices.screenSize
+                        tv_screen_r_content.text = devices.screenResolution
+                    }
+
                 }
                 Picasso.get().load(devices.picture).into(iv_img_device)
             }
         }
+
+
+
+        private fun setVisibilityReserves(view: View){
+            val v = View.VISIBLE
+            val g = View.GONE
+            view.apply {
+                tv_screen_size.visibility = g
+                tv_screen_size_content.visibility = g
+                tv_screen_r.visibility = g
+                tv_screen_r_content.visibility = g
+                tv_f_start.visibility = v
+                tv_f_start_content.visibility = v
+                tv_f_end.visibility = v
+                tv_f_start_content.visibility = v
+            }
+        }
+        private fun setVisibilityNotReserves(view: View){
+            val v = View.VISIBLE
+            val g = View.GONE
+            view.apply {
+                tv_screen_size.visibility = v
+                tv_screen_size_content.visibility = v
+                tv_screen_r.visibility = v
+                tv_screen_r_content.visibility = v
+                tv_f_start.visibility = g
+                tv_f_start_content.visibility = g
+                tv_f_end.visibility = g
+                tv_f_start_content.visibility = g
+            }
+        }
+
     }
 
 }

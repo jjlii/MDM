@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
@@ -48,7 +49,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     private fun showAdapter(){
         if (favorites.isNotEmpty()){
-            rv_favorites.adapter = DevicesAdapter(favorites,false)
+            rv_favorites.adapter = DevicesAdapter(favorites,Constant.AdapterFlag.FAVORITES)
             rv_favorites.layoutManager = LinearLayoutManager(context)
         }
     }

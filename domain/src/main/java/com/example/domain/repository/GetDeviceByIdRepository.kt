@@ -1,4 +1,4 @@
-package com.example.domain
+package com.example.domain.repository
 
 import com.example.core.Either
 import com.example.core.failure.Failure

@@ -20,7 +20,15 @@ class Constant{
         const val ERROR_CONEXION = "ERROR DE CONEXION"
         const val EMAIL_NO_VERIFIED = "NO HA VERIFICADO SU EMAIL"
     }
+
     object GeneralConstant{
         const val EVERIS_EMAIL_EXTENSIONS = "@everis.com"
     }
+
+    object AdapterFlag{
+        const val RESERVES = "RESERVES"
+        const val FAVORITES = "FAVORITES"
+        const val DEVICES = "DEVICES"
+    }
+
 }

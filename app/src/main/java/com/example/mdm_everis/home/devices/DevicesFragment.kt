@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
@@ -40,7 +41,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     private fun showAdapter(){
         devices?.let {
-            rv_devices.adapter = DevicesAdapter(it, false)
+            rv_devices.adapter = DevicesAdapter(it, Constant.AdapterFlag.DEVICES)
             rv_devices.layoutManager = LinearLayoutManager(context)
         }?: run{
             toast("Error al cargar los dispositivos")

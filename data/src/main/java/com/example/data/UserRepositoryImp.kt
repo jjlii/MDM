@@ -4,10 +4,11 @@ import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.data.retrofit.UserRetrofit
-import com.example.domain.UserRepository
+import com.example.domain.repository.UserRepository
 import com.example.domain.user.UserResponse
 
-class UserRepositoryImp(private val userRetrofit: UserRetrofit) : UserRepository {
+class UserRepositoryImp(private val userRetrofit: UserRetrofit) :
+    UserRepository {
 
     override suspend fun getUserById(userId: String): Either<Failure, UserResponse?> {
         return try {

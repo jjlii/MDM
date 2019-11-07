@@ -1,14 +1,15 @@
-package com.example.data
+package com.example.data.repository_imp
 
 import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.data.retrofit.DevicesRetrofit
-import com.example.domain.DevicesRepository
+import com.example.domain.repository.DevicesRepository
 import com.example.domain.devices.DevicesResponse
 import java.lang.Exception
 
-class DevicesRepositoryImp(private val devicesRetrofit : DevicesRetrofit) : DevicesRepository {
+class DevicesRepositoryImp(private val devicesRetrofit : DevicesRetrofit) :
+    DevicesRepository {
     override suspend fun getAllDevices(): Either<Failure, List<DevicesResponse>?> {
         return try {
             val resp = devicesRetrofit.getAllDevices()

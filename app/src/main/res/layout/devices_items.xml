@@ -119,7 +119,7 @@
                 android:ellipsize="end" />
 
             <TextView
-                android:id="@+id/tv_f_screen_size_content"
+                android:id="@+id/tv_screen_size_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_so"
@@ -167,7 +167,7 @@
                 android:id="@+id/tv_screen_r_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_f_screen_size_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_screen_size_content"
                 app:layout_constraintStart_toEndOf="@id/tv_screen_r"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingStart="5dp"

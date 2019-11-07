@@ -3,7 +3,7 @@ package com.example.domain.devices
 import com.example.core.Either
 import com.example.core.UseCase
 import com.example.core.failure.Failure
-import com.example.domain.DevicesRepository
+import com.example.domain.repository.DevicesRepository
 
 class DevicesUseCase(private val devicesRepository: DevicesRepository) : UseCase<Failure,List<DevicesResponse>?,Unit>() {
 
