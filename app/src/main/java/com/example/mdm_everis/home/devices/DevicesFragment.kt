@@ -8,9 +8,8 @@ import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.DivicesAdapter
+import com.example.mdm_everis.home.DevicesAdapter
 import kotlinx.android.synthetic.main.devices_fragment.*
-import kotlinx.android.synthetic.main.devices_items.*
 
 class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
@@ -22,7 +21,6 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     //******************************************* End BaseFragment abstract ************************
 
     private val args : DevicesFragmentArgs by navArgs()
-
     var devices : List<DevicesResponse>? = null
 
 
@@ -31,12 +29,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         showNavbar(true)
         baseNavBar.menu.getItem(2).isChecked = true
         devices = args.devices.allDevices
-        devices?.let {
-            rv_devices.adapter = DivicesAdapter(it, false)
-            rv_devices.layoutManager = LinearLayoutManager(context)
-        }?: run{
-            toast("Error al cargar los dispositivos")
-        }
+        showAdapter()
     }
 
     //******************************************* Init *********************************************
@@ -44,5 +37,14 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     //******************************************* Observers ****************************************
     //******************************************* End Observers ************************************
+
+    private fun showAdapter(){
+        devices?.let {
+            rv_devices.adapter = DevicesAdapter(it, false)
+            rv_devices.layoutManager = LinearLayoutManager(context)
+        }?: run{
+            toast("Error al cargar los dispositivos")
+        }
+    }
 
 }

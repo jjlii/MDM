@@ -9,7 +9,7 @@ import com.example.mdm_everis.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.devices_items.view.*
 
-class DivicesAdapter(private var devices : List<DevicesResponse>, private var isReservados : Boolean) : RecyclerView.Adapter<DivicesAdapter.ViewHolder>(){
+class DevicesAdapter(private var devices : List<DevicesResponse>, private var isReservados : Boolean) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
     private var so = ""

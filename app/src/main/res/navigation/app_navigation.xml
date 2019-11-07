@@ -69,8 +69,9 @@
         android:name="com.example.mdm_everis.home.favorites.FavoritesFragment"
         tools:layout="@layout/favorites_fragment">
         <argument
-            android:name="favorites"
-            app:argType="com.example.mdm_everis.Favorites"/>
+            android:name="favoriteDevices"
+            app:argType="com.example.mdm_everis.Devices"
+            app:nullable="false"/>
     </fragment>
 
     <fragment

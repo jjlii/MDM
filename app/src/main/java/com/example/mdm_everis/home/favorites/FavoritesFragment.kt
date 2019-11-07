@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.devices.DevicesResponse
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.home.DevicesAdapter
+import kotlinx.android.synthetic.main.favorites_fragment.*
 
 class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
@@ -19,34 +22,34 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
     private val args : FavoritesFragmentArgs by navArgs()
-    lateinit var favorites : List<String>
+    lateinit var favorites : List<DevicesResponse>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
         baseNavBar.menu.getItem(1).isChecked = true
-        favorites = args.favorites.fav
+        favorites = args.favoriteDevices.allDevices
+        showAdapter()
+        //favorites = args.favorites.fav
     }
 
     //******************************************* Init *********************************************
 
-    private fun initListener{
-
+    private fun initListener(){
     }
 
-    private fun initObserves{
-
+    private fun initObserves(){
     }
 
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
-
-    private val favoritesObserver = Observer<List<DevicesResponse?>>{
-        it?.let {
-            
-        }
-    }
     //******************************************* End Observers ************************************
 
+    private fun showAdapter(){
+        if (favorites.isNotEmpty()){
+            rv_favorites.adapter = DevicesAdapter(favorites,false)
+            rv_favorites.layoutManager = LinearLayoutManager(context)
+        }
+    }
 }
