@@ -44,7 +44,7 @@ class LoginViewModel(application: Application,
     }
 
     private fun handleFailureLogin(failure: Failure){
-        //loadingMLD.value = false
+        loadingMLD.value = false
         loginMLD.value = when(failure){
             UserFailure.InvalidPassword -> Constant.ErrorLogin.CONTRESENIA_INCORRECTA
             UserFailure.InvalidEmailFormat -> Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO
