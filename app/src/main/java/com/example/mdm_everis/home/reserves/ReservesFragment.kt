@@ -33,7 +33,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     }
     lateinit var user : UserResponse
     lateinit var devices: Devices
-    private var favorites: MutableList<DevicesResponse> = arrayListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,6 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     ): View? {
         user = args.user
         devices = args.devices
-        getFavoriteDevices()
         initListener()
         initObservers()
         return inflater.inflate(R.layout.reserves_fragment, container, false)
@@ -75,7 +74,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_favourites -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(Devices(favorites)))
+                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(devices))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_devices -> {
@@ -98,16 +97,6 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     //******************************************* Observers ****************************************
     //******************************************* End Observers ************************************
 
-    private fun getFavoriteDevices(){
-        var index = 0
-        user.favourites.forEach {id ->
-            favorites.add(index,
-                devices.allDevices.single {
-                    it.id == id
-                }
-            )
-            index++
-        }
-    }
+
 
 }

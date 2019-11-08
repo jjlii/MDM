@@ -69,7 +69,7 @@
         android:name="com.example.mdm_everis.home.favorites.FavoritesFragment"
         tools:layout="@layout/favorites_fragment">
         <argument
-            android:name="favoriteDevices"
+            android:name="devices"
             app:argType="com.example.mdm_everis.Devices"
             app:nullable="false"/>
     </fragment>

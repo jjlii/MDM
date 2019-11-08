@@ -8,6 +8,7 @@ import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
+import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
@@ -82,6 +83,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     private  val getUserByIdObserver = Observer<UserResponse>{
         it?.let {
             user = it
+            (activity as MainActivity).setFavoritesId(user.favourites)
         } ?: run{
             toast("Se ha habido un error al obtener el usuario")
         }

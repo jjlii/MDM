@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
+import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
@@ -23,15 +24,16 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
     private val args : FavoritesFragmentArgs by navArgs()
-    lateinit var favorites : List<DevicesResponse>
+    private var favorites : MutableList<DevicesResponse> = arrayListOf()
+    lateinit var devices : List<DevicesResponse>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
         baseNavBar.menu.getItem(1).isChecked = true
-        favorites = args.favoriteDevices.allDevices
+        devices = args.devices.allDevices
+        getFavoriteDevices((activity as MainActivity).getFavoritesId())
         showAdapter()
-        //favorites = args.favorites.fav
     }
 
     //******************************************* Init *********************************************
@@ -49,8 +51,20 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     private fun showAdapter(){
         if (favorites.isNotEmpty()){
-            rv_favorites.adapter = DevicesAdapter(favorites,Constant.AdapterFlag.FAVORITES)
+            rv_favorites.adapter = DevicesAdapter(favorites,Constant.AdapterFlag.FAVORITES,(activity as MainActivity).getFavoritesId())
             rv_favorites.layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun getFavoriteDevices(favoritesId : MutableList<String>){
+        var index = 0
+        favoritesId.forEach {id ->
+            favorites.add(index,
+                devices.single {
+                    it.id == id
+                }
+            )
+            index++
         }
     }
 }

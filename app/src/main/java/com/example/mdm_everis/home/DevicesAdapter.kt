@@ -1,19 +1,25 @@
 package com.example.mdm_everis.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
+import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.devices_items.view.*
 
-class DevicesAdapter(private var devices : List<DevicesResponse>, private var flag : String) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
+class DevicesAdapter(private var devices : List<DevicesResponse>,
+                     private var flag : String,
+                     private var favoritesId : MutableList<String>) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
     private var so = ""
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -43,7 +49,10 @@ class DevicesAdapter(private var devices : List<DevicesResponse>, private var fl
                     }
                     Constant.AdapterFlag.DEVICES -> {
                         setVisibilityNotReserves(this)
-                        btn_favorite.isChecked = false
+                        btn_favorite.isChecked = favoritesId.contains(devices.id)
+                        btn_favorite.setOnClickListener {
+
+                        }
                         tv_screen_size_content.text = devices.screenSize
                         tv_screen_r_content.text = devices.screenResolution
                     }
