@@ -25,8 +25,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading"
-        android:text="Consultando la base de datos"
+        android:text="@string/consultando_la_base_de_datos"
         android:textSize="16sp"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:textAlignment="center"/>
 

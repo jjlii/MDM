@@ -1,20 +1,20 @@
 package com.example.mdm_everis.home
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
-import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.devices_items.view.*
 
 class DevicesAdapter(private var devices : List<DevicesResponse>,
                      private var flag : String,
-                     private var favoritesId : MutableList<String>) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
+                     private var favoritesId : MutableList<String>,
+                     private val favoriteAction : (deviceId : String,position : Int)->Unit,
+                     private val touchAction :(deviceId : String) -> Unit ) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
     private var so = ""
@@ -28,38 +28,36 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
     override fun getItemCount()= devices.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(devices[position])
+        holder.bind(devices[position],position)
     }
 
 
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        fun bind(devices : DevicesResponse){
+        fun bind(devices : DevicesResponse,position: Int){
             with(itemView){
                 mobile = "${devices.brand} ${devices.model}"
                 so = "${devices.so} ${devices.version}"
-                tv_device_content.text = mobile
-                tv_so_content.text = so
+                tv_device_c.text = mobile
+                tv_so_c.text = so
+                btn_favorite.isChecked = favoritesId.contains(devices.id)
+                setOnClickListener {
+                    touchAction(devices.id)
+                }
+
+                btn_favorite.setOnClickListener {
+                    favoriteAction(devices.id,position)
+                }
                 when(flag){
                     Constant.AdapterFlag.RESERVES -> setVisibilityReserves(this)
-                    Constant.AdapterFlag.FAVORITES -> {
+                    else -> {
                         setVisibilityNotReserves(this)
-                        btn_favorite.isChecked = true
-                        tv_screen_size_content.text = devices.screenSize
-                        tv_screen_r_content.text = devices.screenResolution
+                        tv_screen_size_c.text = devices.screenSize
+                        tv_screen_r_c.text = devices.screenResolution
                     }
-                    Constant.AdapterFlag.DEVICES -> {
-                        setVisibilityNotReserves(this)
-                        btn_favorite.isChecked = favoritesId.contains(devices.id)
-                        btn_favorite.setOnClickListener {
-
-                        }
-                        tv_screen_size_content.text = devices.screenSize
-                        tv_screen_r_content.text = devices.screenResolution
-                    }
-
                 }
                 Picasso.get().load(devices.picture).into(iv_img_device)
             }
+
         }
 
 
@@ -69,9 +67,9 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
             val g = View.GONE
             view.apply {
                 tv_screen_size.visibility = g
-                tv_screen_size_content.visibility = g
+                tv_screen_size_c.visibility = g
                 tv_screen_r.visibility = g
-                tv_screen_r_content.visibility = g
+                tv_screen_r_c.visibility = g
                 tv_f_start.visibility = v
                 tv_f_start_content.visibility = v
                 tv_f_end.visibility = v
@@ -83,9 +81,9 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
             val g = View.GONE
             view.apply {
                 tv_screen_size.visibility = v
-                tv_screen_size_content.visibility = v
+                tv_screen_size_c.visibility = v
                 tv_screen_r.visibility = v
-                tv_screen_r_content.visibility = v
+                tv_screen_r_c.visibility = v
                 tv_f_start.visibility = g
                 tv_f_start_content.visibility = g
                 tv_f_end.visibility = g

@@ -1,5 +1,6 @@
 package com.example.mdm_everis
 
+import com.example.mdm_everis.device_details.DeviceDetailsViewModel
 import com.example.mdm_everis.home.reserves.ReservesViewModel
 import com.example.mdm_everis.home.devices.DevicesViewModel
 import com.example.mdm_everis.home.favorites.FavoritesViewModel
@@ -20,6 +21,7 @@ class KoinApp {
             viewModel { DevicesViewModel(androidApplication(),get()) }
             viewModel { SignUpViewModel(androidApplication(),get()) }
             viewModel { ProfileViewModel(androidApplication()) }
+            viewModel { DeviceDetailsViewModel(androidApplication()) }
         }
     }
 }

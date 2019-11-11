@@ -29,4 +29,10 @@
     <string name="your_profile">TU PERFIL</string>
     <string name="nombre">Nombre:</string>
     <string name="change_pwd">Cambiar contraseña</string>
+    <string name="consultando_la_base_de_datos">Consultando la base de datos</string>
+    <string name="caracter_sticas">Características</string>
+    <string name="tipo_de_dispositivo">Tipo de dispositivo:</string>
+    <string name="resoluci_n">Resolución:</string>
+    <string name="ppi">PPI:</string>
+    <string name="sim">SIM:</string>
 </resources>
