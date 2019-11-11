@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.navigation.findNavController
+import com.example.domain.user.UserResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var bottomNavigationView: BottomNavigationView
-    private var favoritesIds : MutableList<String> = arrayListOf()
+
+
+    private var user : UserResponse = UserResponse("","","", arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     fun getNavBar() : BottomNavigationView = bottomNavigationView
 
-    fun getFavoritesId() = favoritesIds
+    fun getUser() = user
 
-    fun setFavoritesId(newFavoritesId : MutableList<String>){
-        favoritesIds = newFavoritesId
+    fun setUser(newUser : UserResponse){
+        user = newUser
     }
 
 

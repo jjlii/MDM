@@ -84,7 +84,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_profile -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToProfile(user))
+                findNavController().navigate(ReservesFragmentDirections.actionToProfile())
                 return@OnNavigationItemSelectedListener true
             }
         }

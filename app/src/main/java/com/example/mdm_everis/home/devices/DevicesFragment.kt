@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
 import com.example.mdm_everis.MainActivity
 
@@ -43,9 +44,10 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
+        val user = (activity as MainActivity).getUser()
         devices.let {
             rv_devices.adapter = DevicesAdapter(it, Constant.AdapterFlag.DEVICES,
-                (activity as MainActivity).getFavoritesId(),{ deviceId,_->
+                user.favourites,{ deviceId,_->
                 favoriteAction(deviceId)
             },{deviceId ->
                 navigateToDetails(deviceId)
@@ -55,12 +57,14 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     }
 
     private fun favoriteAction(deviceId : String){
-        val newFavorites = (activity as MainActivity).getFavoritesId()
+        val user = (activity as MainActivity).getUser()
+        val newFavorites = user.favourites
         when(newFavorites.contains(deviceId)){
             true -> newFavorites.remove(deviceId)
             false -> newFavorites.add(deviceId)
         }
-        (activity as MainActivity).setFavoritesId(newFavorites)
+        user.favourites = newFavorites
+        (activity as MainActivity).setUser(user)
     }
 
     private fun navigateToDetails(deviceId : String){

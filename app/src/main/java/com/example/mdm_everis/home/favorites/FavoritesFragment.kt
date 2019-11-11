@@ -36,7 +36,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         showNavbar(true)
         baseNavBar.menu.getItem(1).isChecked = true
         devices = args.devices.allDevices
-        getFavoriteDevices((activity as MainActivity).getFavoritesId())
+        getFavoriteDevices((activity as MainActivity).getUser().favourites)
         showAdapter()
     }
 
@@ -56,7 +56,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     private fun showAdapter(){
         favorites.let{
             rv_favorites.adapter = DevicesAdapter(it,Constant.AdapterFlag.FAVORITES,
-                (activity as MainActivity).getFavoritesId(),{ deviceId,position->
+                (activity as MainActivity).getUser().favourites,{ deviceId,position->
                     favoriteAction(deviceId,position)
                 },{ deviceId ->
                     navigateToDetails(deviceId)
@@ -79,7 +79,8 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     }
 
     private fun favoriteAction(deviceId: String,position : Int){
-        val newFavorites = (activity as MainActivity).getFavoritesId()
+        val user = (activity as MainActivity).getUser()
+        val newFavorites = user.favourites
         if (newFavorites.contains(deviceId)){
             newFavorites.remove(deviceId)
             favorites.removeAt(position)
@@ -87,7 +88,8 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position,newFavorites.size)
             }
-            (activity as MainActivity).setFavoritesId(newFavorites)
+            user.favourites = newFavorites
+            (activity as MainActivity).setUser(user)
         }
     }
 

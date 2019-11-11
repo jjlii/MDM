@@ -83,7 +83,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     private  val getUserByIdObserver = Observer<UserResponse>{
         it?.let {
             user = it
-            (activity as MainActivity).setFavoritesId(user.favourites)
+            (activity as MainActivity).setUser(user)
         } ?: run{
             toast("Se ha habido un error al obtener el usuario")
         }

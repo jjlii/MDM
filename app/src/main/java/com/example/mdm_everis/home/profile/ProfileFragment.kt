@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.example.domain.user.UserResponse
+import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.home.reserves.ReservesFragmentArgs
@@ -24,7 +25,6 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
 
-    private val args : ProfileFragmentArgs by navArgs()
     var userData : UserResponse? = null
 
 
@@ -38,7 +38,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         baseNavBar.menu.getItem(3).isChecked = true
-        userData = args.user
+        userData = (activity as MainActivity).getUser()
         tv_name_content.text = userData?.name
         tv_email_content.text = userData?.email
     }
