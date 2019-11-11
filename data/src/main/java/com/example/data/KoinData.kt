@@ -23,10 +23,7 @@ class KoinData {
             single<DevicesRepository>{ DevicesRepositoryImp(get()) }
             single<SignUpRepository>{ SignUpRepositoryImp() }
             single<UserRepository>{ UserRepositoryImp(get())}
-            single<GetDeviceByIdRepository>{
-                GetDeviceByIdRepositoryImp(
-                    get()
-                )
+            single<GetDeviceByIdRepository>{ GetDeviceByIdRepositoryImp(get())
             }
         }
     }
