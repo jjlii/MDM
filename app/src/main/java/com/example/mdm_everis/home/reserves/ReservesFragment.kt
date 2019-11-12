@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
 import com.example.mdm_everis.Favorites
@@ -57,6 +58,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     //******************************************* Init *********************************************
 
     private fun initObservers(){
+
     }
 
     private fun initListener(){
@@ -95,6 +97,10 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     //******************************************* EndBottom Nav Bar ********************************
 
     //******************************************* Observers ****************************************
+
+    private val getUserReservesObserver = Observer<List<ReserveResponse>?>{
+        
+    }
     //******************************************* End Observers ************************************
 
 

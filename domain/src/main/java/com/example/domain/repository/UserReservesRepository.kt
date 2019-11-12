@@ -5,5 +5,5 @@ import com.example.core.failure.Failure
 import com.example.domain.reserves.ReserveResponse
 
 interface UserReservesRepository {
-    suspend fun getUserReserves(userId : String) : Either<Failure,ReserveResponse?>
+    suspend fun getUserReserves(userId : String) : Either<Failure,List<ReserveResponse>?>
 }
