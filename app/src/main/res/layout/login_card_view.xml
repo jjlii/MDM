@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="@id/ly_pwd"
             app:layout_constraintEnd_toEndOf="@id/ly_pwd"
             android:text="@string/entrar"
-            android:background="@drawable/round_corner_bottom"
+            android:background="@drawable/round_corner_button"
             android:textColor="@color/colorWhite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

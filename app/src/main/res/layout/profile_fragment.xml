@@ -76,7 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/cerrar_sesion"
-        android:background="@drawable/round_corner_bottom"
+        android:background="@drawable/round_corner_button"
         android:textColor="@color/colorWhite" />
 
 

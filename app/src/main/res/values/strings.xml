@@ -35,4 +35,17 @@
     <string name="resoluci_n">Resolución:</string>
     <string name="ppi">PPI:</string>
     <string name="sim">SIM:</string>
+    <string name="fecha_inicio_de_la_reserva">Fecha inicio de la reserva</string>
+    <string name="fecha_fin_de_la_reserva">Fecha fin de la reserva</string>
+    <string name="_08_00_h">08:00 h</string>
+    <string name="_09_00_h">09:00 H</string>
+    <string name="_10_00_h">10:00 H</string>
+    <string name="_11_00_h">11:00 H</string>
+    <string name="_12_00_h">12:00 H</string>
+    <string name="_13_00_h">13:00 H</string>
+    <string name="_14_00_h">14:00 H</string>
+    <string name="_15_00_h">15:00 H</string>
+    <string name="_16_00_h">16:00 H</string>
+    <string name="_17_00_h">17:00 H</string>
+    <string name="_18_00_h">18:00 H</string>
 </resources>

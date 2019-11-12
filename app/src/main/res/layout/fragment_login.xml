@@ -75,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/sign_up"
-        android:background="@drawable/round_corner_bottom"
+        android:background="@drawable/round_corner_button"
         android:textColor="@color/colorWhite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

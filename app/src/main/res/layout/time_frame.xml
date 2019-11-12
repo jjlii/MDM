@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <Button
+        android:id="@+id/btn_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_08_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_8"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_09_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_9"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_10_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+
+    <Button
+        android:id="@+id/btn_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_8"
+        android:text="@string/_11_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_11"
+        app:layout_constraintTop_toBottomOf="@id/btn_8"
+        android:text="@string/_12_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_12"
+        app:layout_constraintTop_toBottomOf="@id/btn_8"
+        android:text="@string/_13_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_11"
+        android:text="@string/_14_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_14"
+        app:layout_constraintTop_toBottomOf="@id/btn_11"
+        android:text="@string/_15_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_15"
+        app:layout_constraintTop_toBottomOf="@id/btn_11"
+        android:text="@string/_16_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_14"
+        android:text="@string/_17_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+
+    <Button
+        android:id="@+id/btn_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/btn_17"
+        app:layout_constraintTop_toBottomOf="@id/btn_14"
+        android:text="@string/_18_00_h"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/hour_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>
