@@ -1,6 +1,5 @@
 package com.example.domain.devices
 
-import com.sun.xml.internal.ws.developer.Serialization
 import java.io.Serializable
 
 

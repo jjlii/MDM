@@ -8,6 +8,6 @@ import retrofit2.http.Path
 interface ReservesRetrofit {
 
     @GET("reserves/user/{userId}")
-    suspend fun getUserReserves(@Path("userId") userId : String) : Response<List<ReserveResponse>?>
+    suspend fun getUserReserves(@Path("userId") userId : String) : Response<List<ReserveResponse>>
 
 }

@@ -38,11 +38,6 @@
         >
 
         <argument
-            android:name="user"
-            app:argType="com.example.domain.user.UserResponse"
-            app:nullable="false"/>
-
-        <argument
             android:name="devices"
             app:argType="com.example.mdm_everis.Devices"
             app:nullable="false"/>

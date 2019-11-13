@@ -10,9 +10,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.core.Constant
+import com.example.domain.devices.DevicesResponse
+import com.example.mdm_everis.Devices
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.hideKeyboard
+import com.example.mdm_everis.home.devices.DevicesFragmentDirections
 import org.koin.android.viewmodel.ext.android.viewModelByClass
 import kotlin.reflect.KClass
 
@@ -88,5 +93,15 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     fun toast( message: String, duration: Int = Toast.LENGTH_LONG)=
         Toast.makeText(context, message , duration).show()
+
+    fun navigateToDetails(deviceId : String, devices : List<DevicesResponse>) : List<DevicesResponse> {
+        val device : MutableList<DevicesResponse> = arrayListOf()
+        device.add(0,
+            devices.single {
+                it.id == deviceId
+            }
+        )
+        return device
+    }
 
 }

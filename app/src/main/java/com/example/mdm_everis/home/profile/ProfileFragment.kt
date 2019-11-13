@@ -11,8 +11,6 @@ import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.reserves.ReservesFragmentArgs
-import com.example.mdm_everis.home.reserves.ReservesViewModel
 import kotlinx.android.synthetic.main.profile_data_card_view.*
 
 

@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.Constant
+import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
-import com.example.mdm_everis.Favorites
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.home.DevicesAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.reserves_fragment.*
 
 class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
@@ -35,33 +39,30 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     lateinit var user : UserResponse
     lateinit var devices: Devices
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        user = args.user
-        devices = args.devices
-        initListener()
-        initObservers()
-        return inflater.inflate(R.layout.reserves_fragment, container, false)
-    }
+    private var myReserves : MutableList<DevicesResponse> = arrayListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        user = (activity as MainActivity).getUser()
+        devices = args.devices
         showNavbar(true)
         navBar.menu.getItem(0).isChecked = true
         navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
+        initListener()
+        initObservers()
     }
 
     //******************************************* Init *********************************************
 
     private fun initObservers(){
 
+        viewModel.userReservesLD.observe(this,getUserReservesObserver)
+        viewModel.failureLD.observe(this,errorObserver)
+
     }
 
     private fun initListener(){
+        viewModel.getUserReserves(user.id)
     }
 
     //******************************************* End Init *****************************************
@@ -99,10 +100,63 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     //******************************************* Observers ****************************************
 
     private val getUserReservesObserver = Observer<List<ReserveResponse>?>{
-        
+        myReserves = arrayListOf()
+        getMyReserves(it)
+        rv_reserves.adapter = DevicesAdapter(myReserves,it,Constant.AdapterFlag.RESERVES,user.favourites,{
+                deviceId, _->
+            favoriteAction(deviceId)
+        },{deviceId->
+            findNavController().navigate(ReservesFragmentDirections.actionReservesToDeviceDetails(
+                Devices(navigateToDetails(deviceId,devices.allDevices))
+            ))
+        })
+        rv_reserves.layoutManager = LinearLayoutManager(context)
+
+    }
+
+    private val errorObserver = Observer<Failure>{
+        it?.let {
+            toast(it.toString())
+        }
     }
     //******************************************* End Observers ************************************
 
+    /*
+    private fun showAdapter(){
+        reserves.let {
+            rv_reserves.adapter = DevicesAdapter(devices.allDevices,reserves,Constant.AdapterFlag.RESERVES,user.favourites,{
+                deviceId, _->
+                favoriteAction(deviceId)
+            },{deviceId->
+                findNavController().navigate(ReservesFragmentDirections.actionReservesToDeviceDetails(
+                    Devices(navigateToDetails(deviceId,devices.allDevices))
+                ))
+            })
+            rv_reserves.layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+     */
 
 
+
+    private fun favoriteAction(deviceId : String){
+        val newFavorites = user.favourites
+        when(newFavorites.contains(deviceId)){
+            true -> newFavorites.remove(deviceId)
+            false -> newFavorites.add(deviceId)
+        }
+        user.favourites = newFavorites
+        (activity as MainActivity).setUser(user)
+    }
+
+    private fun getMyReserves(reservesResponse : List<ReserveResponse>?){
+        devices.allDevices.forEach { device->
+            reservesResponse?.forEach {reserve->
+                if (device.id == reserve.deviceId){
+                    myReserves.add(device)
+                }
+            }
+        }
+    }
 }

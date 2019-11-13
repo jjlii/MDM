@@ -94,10 +94,10 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         var devices : Devices
         it?.apply {
             devices = Devices(it)
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(user = user,devices = devices))
+            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices))
         }?: run{
             devices = Devices(arrayListOf())
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(user = user,devices = devices))
+            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices))
             toast("Error")
         }
     }

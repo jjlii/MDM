@@ -46,11 +46,12 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     private fun showAdapter(){
         val user = (activity as MainActivity).getUser()
         devices.let {
-            rv_devices.adapter = DevicesAdapter(it, Constant.AdapterFlag.DEVICES,
+            rv_devices.adapter = DevicesAdapter(it,null, Constant.AdapterFlag.DEVICES,
                 user.favourites,{ deviceId,_->
                 favoriteAction(deviceId)
             },{deviceId ->
-                navigateToDetails(deviceId)
+                    findNavController().navigate(DevicesFragmentDirections.actionDevicesToDeviceDetails(
+                        Devices(navigateToDetails(deviceId,devices))))
             })
             rv_devices.layoutManager = LinearLayoutManager(context)
         }
@@ -67,13 +68,5 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         (activity as MainActivity).setUser(user)
     }
 
-    private fun navigateToDetails(deviceId : String){
-        val device : MutableList<DevicesResponse> = arrayListOf()
-        device.add(0,
-            devices.single {
-                it.id == deviceId
-            }
-        )
-        findNavController().navigate(DevicesFragmentDirections.actionDevicesToDeviceDetails(Devices(device)))
-    }
+
 }

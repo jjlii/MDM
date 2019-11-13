@@ -55,11 +55,12 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     private fun showAdapter(){
         favorites.let{
-            rv_favorites.adapter = DevicesAdapter(it,Constant.AdapterFlag.FAVORITES,
+            rv_favorites.adapter = DevicesAdapter(it,null,Constant.AdapterFlag.FAVORITES,
                 (activity as MainActivity).getUser().favourites,{ deviceId,position->
                     favoriteAction(deviceId,position)
                 },{ deviceId ->
-                    navigateToDetails(deviceId)
+                    findNavController().navigate(FavoritesFragmentDirections.actionFavoriteToDeviceDetails(
+                        Devices(navigateToDetails(deviceId,devices))))
                 })
             rv_favorites.layoutManager = LinearLayoutManager(context)
         }
@@ -93,13 +94,4 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         }
     }
 
-    private fun navigateToDetails(deviceId : String){
-        val device : MutableList<DevicesResponse> = arrayListOf()
-        device.add(0,
-            devices.single {
-                it.id == deviceId
-            }
-        )
-        findNavController().navigate(FavoritesFragmentDirections.actionFavoriteToDeviceDetails(Devices(device)))
-    }
 }

@@ -6,5 +6,4 @@ import com.example.mdm_everis.base.BaseViewModel
 
 class DeviceDetailsViewModel(application: Application) : BaseViewModel(application) {
 
-
 }
