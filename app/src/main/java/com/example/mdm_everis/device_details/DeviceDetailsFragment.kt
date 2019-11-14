@@ -1,18 +1,17 @@
 package com.example.mdm_everis.device_details
 
-import androidx.lifecycle.ViewModelProviders
+import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.devices.DevicesResponse
+import com.example.mdm_everis.Devices
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.device_details_fragment.*
-import kotlinx.android.synthetic.main.devices_items.view.*
+import kotlinx.android.synthetic.main.device_details_fragment.btn_reserve
 
 class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
 
@@ -23,6 +22,7 @@ class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
 
+
     private val args : DeviceDetailsFragmentArgs by navArgs()
     var device : DevicesResponse? = null
 
@@ -31,9 +31,16 @@ class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
         showNavbar(false)
         device = args.device.allDevices[0]
         setData()
+        initListener()
     }
 
     //******************************************* Init *********************************************
+    private fun initListener(){
+        btn_reserve.setOnClickListener {
+            findNavController().navigate(DeviceDetailsFragmentDirections.actionDeviceDetailsToReserveProcess(args.device))
+        }
+
+    }
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************

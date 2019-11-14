@@ -79,6 +79,9 @@ dependencies {
     //Picaso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Android Material Date
+    implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
