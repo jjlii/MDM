@@ -11,6 +11,8 @@ import com.example.domain.User
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.login.LoginUseCase
+import com.example.domain.reserves.ReserveResponse
+import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.user.GetUserByIdUserCase
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.base.BaseViewModel
@@ -18,7 +20,9 @@ import com.example.mdm_everis.base.BaseViewModel
 class LoginViewModel(application: Application,
                      private val loginUseCase : LoginUseCase,
                      private val getUserByIdUserCase: GetUserByIdUserCase,
-                     private val devicesUseCase: DevicesUseCase) : BaseViewModel(application){
+                     private val devicesUseCase: DevicesUseCase,
+                     private val userReservesUseCase: UserReservesUseCase
+) : BaseViewModel(application){
 
     //********************************** LiveData **************************************************
 
@@ -30,6 +34,12 @@ class LoginViewModel(application: Application,
 
     private val devicesMLD = MutableLiveData<List<DevicesResponse>>()
     val devicesLD : LiveData<List<DevicesResponse>> = devicesMLD
+
+    private val userReservesMLD = MutableLiveData<List<ReserveResponse>?>()
+    val userReservesLD : LiveData<List<ReserveResponse>?> = userReservesMLD
+
+    private val failureMLD = MutableLiveData<Failure>()
+    val failureLD : LiveData<Failure> = failureMLD
 
     //********************************** End LiveData **********************************************
 
@@ -111,5 +121,28 @@ class LoginViewModel(application: Application,
     }
 
     //********************************** End Get Devices *******************************************
+
+    //********************************** Get User Reserves *****************************************
+
+    fun getUserReserves(userId : String){
+        //loadingMLD.value = true
+        userReservesUseCase(userId){
+            it.fold(
+                ::handleFailureUserReserves,
+                ::handleSuccessUserReserves) }
+    }
+
+    private fun handleFailureUserReserves(failure: Failure){
+        //loadingMLD.value = false
+        failureMLD.value = failure
+    }
+
+    private fun handleSuccessUserReserves(list: List<ReserveResponse>?){
+        //loadingMLD.value = false
+        userReservesMLD.value = list
+    }
+
+    //********************************** End Get User Reserves *************************************
+
 
 }

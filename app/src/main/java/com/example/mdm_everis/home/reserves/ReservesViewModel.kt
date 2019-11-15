@@ -14,6 +14,7 @@ import com.example.mdm_everis.base.BaseViewModel
 class ReservesViewModel(application: Application,
                         private val userReservesUseCase: UserReservesUseCase) : BaseViewModel(application) {
 
+    /*
     //********************************** LiveData **************************************************
 
     private val userReservesMLD = MutableLiveData<List<ReserveResponse>?>()
@@ -41,6 +42,12 @@ class ReservesViewModel(application: Application,
         loadingMLD.value = false
         userReservesMLD.value = list
     }
+
+
+
+     */
+     */
+     */
 
 
 }

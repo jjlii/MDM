@@ -5,7 +5,9 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
+import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
 import com.example.mdm_everis.MainActivity
@@ -61,6 +63,8 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         viewModel.loginLD.observe(this,loginObserver)
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
         viewModel.devicesLD.observe(this,devicesObserver)
+        viewModel.userReservesLD.observe(this,getUserReserveObserver)
+        viewModel.failureLD.observe(this,errorObserver)
     }
 
     //******************************************* End Init *****************************************
@@ -77,6 +81,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             Constant.ErrorLogin.EMAIL_NO_VERIFIED -> toast(it)
             else ->{
                 viewModel.getUserById(it)
+                viewModel.getUserReserves(it)
             }
         }
     }
@@ -100,6 +105,18 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             devices = Devices(arrayListOf())
             findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices))
             toast("Error")
+        }
+    }
+
+    private val getUserReserveObserver = Observer<List<ReserveResponse>?>{
+        it?.let {
+            (activity as MainActivity).setUserReserves(it)
+        }
+    }
+
+    private val errorObserver = Observer<Failure>{
+        it?.let {
+            toast(it.toString())
         }
     }
 

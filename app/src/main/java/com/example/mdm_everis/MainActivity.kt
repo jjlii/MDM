@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.navigation.findNavController
+import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var user : UserResponse = UserResponse("","","", arrayListOf())
+    private var userReserves : List<ReserveResponse> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,13 @@ class MainActivity : AppCompatActivity() {
     fun setUser(newUser : UserResponse){
         user = newUser
     }
+
+    fun getUserReserves() = userReserves
+
+    fun setUserReserves(newReserves : List<ReserveResponse>){
+        userReserves = newReserves
+    }
+
 
 
 }

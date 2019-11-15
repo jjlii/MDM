@@ -48,22 +48,12 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         showNavbar(true)
         navBar.menu.getItem(0).isChecked = true
         navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        initListener()
-        initObservers()
+        showAdapter()
     }
 
     //******************************************* Init *********************************************
 
-    private fun initObservers(){
 
-        viewModel.userReservesLD.observe(this,getUserReservesObserver)
-        viewModel.failureLD.observe(this,errorObserver)
-
-    }
-
-    private fun initListener(){
-        viewModel.getUserReserves(user.id)
-    }
 
     //******************************************* End Init *****************************************
 
@@ -99,10 +89,11 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
     //******************************************* Observers ****************************************
 
-    private val getUserReservesObserver = Observer<List<ReserveResponse>?>{
+    private fun showAdapter (){
         myReserves = arrayListOf()
-        getMyReserves(it)
-        rv_reserves.adapter = DevicesAdapter(myReserves,it,Constant.AdapterFlag.RESERVES,user.favourites,{
+        val userReserve = (activity as MainActivity).getUserReserves()
+        getMyReserves(userReserve)
+        rv_reserves.adapter = DevicesAdapter(myReserves,userReserve,Constant.AdapterFlag.RESERVES,user.favourites,{
                 deviceId, _->
             favoriteAction(deviceId)
         },{deviceId->
@@ -113,30 +104,8 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         rv_reserves.layoutManager = LinearLayoutManager(context)
 
     }
-
-    private val errorObserver = Observer<Failure>{
-        it?.let {
-            toast(it.toString())
-        }
-    }
     //******************************************* End Observers ************************************
 
-    /*
-    private fun showAdapter(){
-        reserves.let {
-            rv_reserves.adapter = DevicesAdapter(devices.allDevices,reserves,Constant.AdapterFlag.RESERVES,user.favourites,{
-                deviceId, _->
-                favoriteAction(deviceId)
-            },{deviceId->
-                findNavController().navigate(ReservesFragmentDirections.actionReservesToDeviceDetails(
-                    Devices(navigateToDetails(deviceId,devices.allDevices))
-                ))
-            })
-            rv_reserves.layoutManager = LinearLayoutManager(context)
-        }
-    }
-
-     */
 
 
 
