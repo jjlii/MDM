@@ -1,10 +1,12 @@
 package com.example.mdm_everis.home.reserves
 
 import android.app.Application
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesUseCase
+import com.example.domain.login.LoginUseCase
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.user.GetUserByIdUserCase
@@ -12,11 +14,14 @@ import com.example.domain.user.UserResponse
 import com.example.mdm_everis.base.BaseViewModel
 
 class ReservesViewModel(application: Application,
-                        private val userReservesUseCase: UserReservesUseCase) : BaseViewModel(application) {
+                        getUserByIdUserCase: GetUserByIdUserCase,
+                        devicesUseCase: DevicesUseCase,
+                        userReservesUseCase: UserReservesUseCase) :
+    BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase) {
 
-    /*
+
     //********************************** LiveData **************************************************
-
+    /*
     private val userReservesMLD = MutableLiveData<List<ReserveResponse>?>()
     val userReservesLD : LiveData<List<ReserveResponse>?> = userReservesMLD
 
@@ -26,7 +31,6 @@ class ReservesViewModel(application: Application,
     //********************************** End LiveData **********************************************
 
     fun getUserReserves(userId : String){
-        loadingMLD.value = true
         userReservesUseCase(userId){
             it.fold(
                 ::handleFailureUserReserves,
@@ -34,18 +38,16 @@ class ReservesViewModel(application: Application,
     }
 
     private fun handleFailureUserReserves(failure: Failure){
-        loadingMLD.value = false
         failureMLD.value = failure
     }
 
     private fun handleSuccessUserReserves(list: List<ReserveResponse>?){
-        loadingMLD.value = false
         userReservesMLD.value = list
     }
 
 
 
-     */
+
      */
      */
 
