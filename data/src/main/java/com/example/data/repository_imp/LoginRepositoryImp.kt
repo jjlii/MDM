@@ -5,7 +5,7 @@ import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.core.failure.UserFailure
 import com.example.domain.login.LoginRepository
-import com.example.domain.User
+import com.example.domain.user.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.coroutines.tasks.await

@@ -3,7 +3,7 @@ package com.example.data.repository_imp
 import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
-import com.example.domain.User
+import com.example.domain.user.User
 import com.example.domain.sign_up.SignUpRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException

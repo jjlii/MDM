@@ -10,4 +10,7 @@ interface ReservesRetrofit {
     @GET("reserves/user/{userId}")
     suspend fun getUserReserves(@Path("userId") userId : String) : Response<List<ReserveResponse>>
 
+    @GET("reserves/device/{deviceId}")
+    suspend fun getDeviceReserves(@Path("deviceId")deviceId : String) : Response<List<ReserveResponse>>
+
 }

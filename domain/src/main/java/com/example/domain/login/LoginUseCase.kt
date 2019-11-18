@@ -3,7 +3,7 @@ package com.example.domain.login
 import com.example.core.Either
 import com.example.core.UseCase
 import com.example.core.failure.Failure
-import com.example.domain.User
+import com.example.domain.user.User
 
 class LoginUseCase(private val loginRepository: LoginRepository) : UseCase<Failure, String, User>(){
 

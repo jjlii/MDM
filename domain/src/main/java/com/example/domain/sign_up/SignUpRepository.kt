@@ -2,7 +2,7 @@ package com.example.domain.sign_up
 
 import com.example.core.Either
 import com.example.core.failure.Failure
-import com.example.domain.User
+import com.example.domain.user.User
 
 interface SignUpRepository{
 

@@ -42,6 +42,10 @@
             app:argType="com.example.mdm_everis.Devices"
             app:nullable="false"/>
 
+        <argument
+            android:name="userId"
+            app:argType="string"/>
+
         <action
             android:id="@+id/action_to_favorites"
             app:destination="@id/favorites_screen"/>
@@ -68,6 +72,9 @@
             android:name="devices"
             app:argType="com.example.mdm_everis.Devices"
             app:nullable="false"/>
+        <argument
+            android:name="userId"
+            app:argType="string"/>
 
         <action
             android:id="@+id/action_favorite_to_device_details"
@@ -94,6 +101,9 @@
         android:id="@+id/profile_screen"
         android:name="com.example.mdm_everis.home.profile.ProfileFragment"
         tools:layout="@layout/profile_fragment">
+        <argument
+            android:name="userId"
+            app:argType="string"/>
     </fragment>
 
     <fragment

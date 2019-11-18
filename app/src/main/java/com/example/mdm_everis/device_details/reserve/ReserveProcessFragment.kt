@@ -34,6 +34,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     private val myMonth = c.get(Calendar.MONTH)
     private val myDay = c.get(Calendar.DAY_OF_MONTH)
     private var editTextClick = ""
+    private val weekends : MutableList<Calendar> = arrayListOf()
+    private val disableDays : MutableList<Calendar> = arrayListOf()
     //*******************************************  End Calendar ************************************
 
 
@@ -108,7 +110,6 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     private fun disableWeekend(){
         var day : Calendar
-        val weekends : MutableList<Calendar> = arrayListOf()
         val dayValue = myDay
         for (i  in 0 .. 31 ){
             day = Calendar.getInstance()
@@ -121,6 +122,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         val disableDays : Array<Calendar> = weekends.toTypedArray()
         datePickerDialog.disabledDays = disableDays
     }
+
+
 
 
     //******************************************* End DatePicker ***********************************
