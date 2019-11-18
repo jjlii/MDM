@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.Devices
 import com.example.mdm_everis.MainActivity
 
@@ -29,33 +30,54 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     private val args : FavoritesFragmentArgs by navArgs()
     private var favorites : MutableList<DevicesResponse> = arrayListOf()
     var devices : List<DevicesResponse> = arrayListOf()
+    lateinit var userId : String
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
+
         baseNavBar.menu.getItem(1).isChecked = true
         devices = args.devices.allDevices
+        userId = args.userId
         getFavoriteDevices((activity as MainActivity).getUser().favourites)
         showAdapter()
+        initObserves()
+        initListener()
     }
 
     //******************************************* Init *********************************************
 
     private fun initListener(){
+        viewModel.fragmentFlag = Constant.FragmentFlag.FAVORITES
+        favorites_refresh.setOnRefreshListener {
+            viewModel.getUserById(userId)
+        }
     }
 
     private fun initObserves(){
+        viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
     }
 
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
+
+    private  val getUserByIdObserver = Observer<UserResponse>{
+        favorites_refresh.isRefreshing = false
+        it?.let {
+            (activity as MainActivity).setUser(it)
+        } ?: run{
+            toast("Se ha habido un error al obtener el usuario")
+        }
+        showAdapter()
+    }
+
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
         favorites.let{
-            rv_favorites.adapter = DevicesAdapter(it,null,Constant.AdapterFlag.FAVORITES,
+            rv_favorites.adapter = DevicesAdapter(it,null,Constant.FragmentFlag.FAVORITES,
                 (activity as MainActivity).getUser().favourites,{ deviceId,position->
                     favoriteAction(deviceId,position)
                 },{ deviceId ->

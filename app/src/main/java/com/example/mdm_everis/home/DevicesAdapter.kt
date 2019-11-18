@@ -52,7 +52,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                     favoriteAction(devices.id,position)
                 }
                 when(flag){
-                    Constant.AdapterFlag.RESERVES -> {
+                    Constant.FragmentFlag.RESERVES -> {
                         setVisibilityReserves(this)
                         setDataReserves(this,devices.id)
                     }

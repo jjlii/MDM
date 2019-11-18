@@ -25,10 +25,15 @@ class Constant{
         const val EVERIS_EMAIL_EXTENSIONS = "@everis.com"
     }
 
-    object AdapterFlag{
-        const val RESERVES = "RESERVES"
-        const val FAVORITES = "FAVORITES"
-        const val DEVICES = "DEVICES"
+    object FragmentFlag{
+        const val LOGIN = "F_LOGIN"
+        const val SIGN_UP = "F_SIGN_UP"
+        const val RESERVES = "F_RESERVES"
+        const val FAVORITES = "F_FAVORITES"
+        const val DEVICES = "F_DEVICES"
+        const val PROFILE = "F_PROFILE"
+        const val DEVICE_DETAILS = "F_DEVICE_DETAILS"
+        const val RESERVE_PROCESS = "F_RESERVE_PROCESS"
     }
 
 }

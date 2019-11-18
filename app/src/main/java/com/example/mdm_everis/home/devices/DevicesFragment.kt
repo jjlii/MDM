@@ -2,6 +2,7 @@ package com.example.mdm_everis.home.devices
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,22 +32,41 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fragmentFlag = Constant.FragmentFlag.DEVICES
         showNavbar(true)
         baseNavBar.menu.getItem(2).isChecked = true
         devices = args.devices.allDevices
+        initObserver()
         showAdapter()
+        devices_refresh.setOnRefreshListener {
+            viewModel.allDevices()
+        }
     }
 
+
     //******************************************* Init *********************************************
+
+    private fun initObserver(){
+        viewModel.devicesLD.observe(this,devicesObserver)
+    }
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
+    private val devicesObserver = Observer<List<DevicesResponse>>{
+        devices_refresh.isRefreshing = false
+        it?.let {
+            devices = it
+        }?: run{
+            toast("Error al cargar los dispositivos")
+        }
+        showAdapter()
+    }
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
         val user = (activity as MainActivity).getUser()
         devices.let {
-            rv_devices.adapter = DevicesAdapter(it,null, Constant.AdapterFlag.DEVICES,
+            rv_devices.adapter = DevicesAdapter(it,null, Constant.FragmentFlag.DEVICES,
                 user.favourites,{ deviceId,_->
                 favoriteAction(deviceId)
             },{deviceId ->

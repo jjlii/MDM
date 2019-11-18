@@ -14,7 +14,6 @@ import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.utils.CalendarUtils
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.login_card_view.*
 
@@ -29,6 +28,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     //******************************************* End BaseFragment abstract ************************
 
     lateinit var user : UserResponse
+    var userId = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,6 +60,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     }
 
     private fun initObservers(){
+        viewModel.fragmentFlag = Constant.FragmentFlag.LOGIN
         viewModel.loginLD.observe(this,loginObserver)
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
         viewModel.devicesLD.observe(this,devicesObserver)
@@ -80,6 +81,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             Constant.ErrorGeneral.ERROR_DESCONOCIDO -> toast(it)
             Constant.ErrorLogin.EMAIL_NO_VERIFIED -> toast(it)
             else ->{
+                userId = it
                 viewModel.getUserById(it)
                 viewModel.getUserReserves(it)
             }
@@ -93,17 +95,17 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         } ?: run{
             toast("Se ha habido un error al obtener el usuario")
         }
-        viewModel.allDevies()
+        viewModel.allDevices()
     }
 
     private val devicesObserver = Observer<List<DevicesResponse>>{
         var devices : Devices
         it?.apply {
             devices = Devices(it)
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices))
+            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices,userId = userId))
         }?: run{
             devices = Devices(arrayListOf())
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices))
+            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices,userId = userId))
             toast("Error")
         }
     }

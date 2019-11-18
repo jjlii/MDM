@@ -6,67 +6,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.mdm_everis.home.profile.ProfileFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl1Profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl2Profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:layout_marginStart="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gl1Profile"
-        android:text="@string/your_profile"
-        android:textSize="32sp"
-        android:textColor="@color/colorWhite"
-        android:elevation="1dp"/>
-    <View
-        android:id="@+id/viewBackColor"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/gl1Profile"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorAccent"/>
-
-    <FrameLayout
-        android:id="@+id/fProfile"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/profile_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toTopOf="@id/gl2Profile"
-        app:layout_constraintStart_toStartOf="parent">
-        <include
-            layout="@layout/profile_data_card_view" />
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/btn_log_out"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="55dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/cerrar_sesion"
-        android:background="@drawable/round_corner_button"
-        android:textColor="@color/colorWhite" />
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl1Profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.2" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl2Profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_marginStart="35dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/gl1Profile"
+                android:text="@string/your_profile"
+                android:textSize="32sp"
+                android:textColor="@color/colorWhite"
+                android:elevation="1dp"/>
+            <View
+                android:id="@+id/viewBackColor"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/gl1Profile"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/colorAccent"/>
+
+            <FrameLayout
+                android:id="@+id/fProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toTopOf="@id/gl2Profile"
+                app:layout_constraintStart_toStartOf="parent">
+                <include
+                    layout="@layout/profile_data_card_view" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btn_log_out"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="55dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/cerrar_sesion"
+                android:background="@drawable/round_corner_button"
+                android:textColor="@color/colorWhite" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

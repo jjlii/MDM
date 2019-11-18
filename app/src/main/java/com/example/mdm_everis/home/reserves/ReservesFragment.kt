@@ -38,21 +38,32 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     }
     lateinit var user : UserResponse
     lateinit var devices: Devices
+    lateinit var userId : String
 
     private var myReserves : MutableList<DevicesResponse> = arrayListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fragmentFlag = Constant.FragmentFlag.RESERVES
+        initObservers()
         user = (activity as MainActivity).getUser()
         devices = args.devices
+        userId = args.userId
         showNavbar(true)
         navBar.menu.getItem(0).isChecked = true
         navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        reserves_refresh.setOnRefreshListener {
+            viewModel.getUserReserves(user.id)
+        }
         showAdapter()
     }
 
     //******************************************* Init *********************************************
 
+    private fun initObservers(){
+        viewModel.userReservesLD.observe(this,getUserReserveObserver)
+        viewModel.failureLD.observe(this,errorObserver)
+    }
 
 
     //******************************************* End Init *****************************************
@@ -67,7 +78,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_favourites -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(devices))
+                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(devices,userId))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_devices -> {
@@ -77,7 +88,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_profile -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToProfile())
+                findNavController().navigate(ReservesFragmentDirections.actionToProfile(userId))
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -89,11 +100,28 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
     //******************************************* Observers ****************************************
 
+    private val getUserReserveObserver = Observer<List<ReserveResponse>?>{
+        reserves_refresh.isRefreshing = false
+        it?.let {
+            (activity as MainActivity).setUserReserves(it)
+        }
+        showAdapter()
+    }
+
+    private val errorObserver = Observer<Failure>{
+        it?.let {
+            toast(it.toString())
+        }
+    }
+
+    //******************************************* End Observers ************************************
+
+
     private fun showAdapter (){
         myReserves = arrayListOf()
         val userReserve = (activity as MainActivity).getUserReserves()
         getMyReserves(userReserve)
-        rv_reserves.adapter = DevicesAdapter(myReserves,userReserve,Constant.AdapterFlag.RESERVES,user.favourites,{
+        rv_reserves.adapter = DevicesAdapter(myReserves,userReserve,Constant.FragmentFlag.RESERVES,user.favourites,{
                 deviceId, _->
             favoriteAction(deviceId)
         },{deviceId->
@@ -104,10 +132,6 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         rv_reserves.layoutManager = LinearLayoutManager(context)
 
     }
-    //******************************************* End Observers ************************************
-
-
-
 
     private fun favoriteAction(deviceId : String){
         val newFavorites = user.favourites
