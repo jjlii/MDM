@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.navigation.findNavController
+import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private var user : UserResponse = UserResponse("","","", arrayListOf())
     private var userReserves : List<ReserveResponse> = arrayListOf()
+    private var devices : List<DevicesResponse> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,12 @@ class MainActivity : AppCompatActivity() {
 
     fun setUserReserves(newReserves : List<ReserveResponse>){
         userReserves = newReserves
+    }
+
+    fun getDevice() = devices
+
+    fun setDevice(newDevices : List<DevicesResponse>){
+        devices = newDevices
     }
 
 

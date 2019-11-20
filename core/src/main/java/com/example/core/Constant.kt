@@ -36,4 +36,9 @@ class Constant{
         const val RESERVE_PROCESS = "F_RESERVE_PROCESS"
     }
 
+    object Hours{
+        const val NINE = 32400000
+        const val THREE = 54000000
+    }
+
 }

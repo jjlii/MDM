@@ -1,4 +1,4 @@
-package com.example.mdm_everis
+package com.example.mdm_everis.koin
 
 import com.example.mdm_everis.device_details.DeviceDetailsViewModel
 import com.example.mdm_everis.device_details.reserve.ReserveProcessViewModel

@@ -9,7 +9,7 @@ import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
-import com.example.mdm_everis.Devices
+import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
@@ -27,7 +27,6 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
 
-    lateinit var user : UserResponse
     var userId = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,8 +89,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private  val getUserByIdObserver = Observer<UserResponse>{
         it?.let {
-            user = it
-            (activity as MainActivity).setUser(user)
+            (activity as MainActivity).setUser(it)
         } ?: run{
             toast("Se ha habido un error al obtener el usuario")
         }
@@ -99,14 +97,9 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     }
 
     private val devicesObserver = Observer<List<DevicesResponse>>{
-        var devices : Devices
+        findNavController().navigate(LoginFragmentDirections.actionLoginToHome(userId))
         it?.apply {
-            devices = Devices(it)
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices,userId = userId))
-        }?: run{
-            devices = Devices(arrayListOf())
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome(devices = devices,userId = userId))
-            toast("Error")
+            (activity as MainActivity).setDevice(it)
         }
     }
 

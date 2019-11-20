@@ -2,9 +2,7 @@ package com.example.mdm_everis.home.reserves
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,7 +12,7 @@ import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
-import com.example.mdm_everis.Devices
+import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
@@ -37,7 +35,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         (activity as MainActivity).getNavBar()
     }
     lateinit var user : UserResponse
-    lateinit var devices: Devices
+    private var devices: List<DevicesResponse> = arrayListOf()
     lateinit var userId : String
 
     private var myReserves : MutableList<DevicesResponse> = arrayListOf()
@@ -47,12 +45,16 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         viewModel.fragmentFlag = Constant.FragmentFlag.RESERVES
         initObservers()
         user = (activity as MainActivity).getUser()
-        devices = args.devices
+        devices = (activity as MainActivity).getDevice()
         userId = args.userId
         showNavbar(true)
         navBar.menu.getItem(0).isChecked = true
         navBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         reserves_refresh.setOnRefreshListener {
+            reserves_refresh.isRefreshing = false
+            if (devices.isEmpty()){
+                viewModel.allDevices()
+            }
             viewModel.getUserReserves(user.id)
         }
         showAdapter()
@@ -63,6 +65,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     private fun initObservers(){
         viewModel.userReservesLD.observe(this,getUserReserveObserver)
         viewModel.failureLD.observe(this,errorObserver)
+        viewModel.devicesLD.observe(this,devicesObserver)
     }
 
 
@@ -78,12 +81,12 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
             R.id.nav_favourites -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(devices,userId))
+                findNavController().navigate(ReservesFragmentDirections.actionToFavorites(userId))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_devices -> {
                 findNavController().popBackStack(R.id.reserves_screen,false)
-                findNavController().navigate(ReservesFragmentDirections.actionToDevices(devices))
+                findNavController().navigate(ReservesFragmentDirections.actionToDevices())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile -> {
@@ -101,7 +104,6 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     //******************************************* Observers ****************************************
 
     private val getUserReserveObserver = Observer<List<ReserveResponse>?>{
-        reserves_refresh.isRefreshing = false
         it?.let {
             (activity as MainActivity).setUserReserves(it)
         }
@@ -111,6 +113,15 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     private val errorObserver = Observer<Failure>{
         it?.let {
             toast(it.toString())
+        }
+    }
+
+    private val devicesObserver = Observer<List<DevicesResponse>> {
+        it?.let {
+            devices = it
+            (activity as MainActivity).setDevice(it)
+        }?: run{
+            toast("Error al cargar los dispositivos")
         }
     }
 
@@ -126,7 +137,12 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             favoriteAction(deviceId)
         },{deviceId->
             findNavController().navigate(ReservesFragmentDirections.actionReservesToDeviceDetails(
-                Devices(navigateToDetails(deviceId,devices.allDevices))
+                Devices(
+                    navigateToDetails(
+                        deviceId,
+                        devices
+                    )
+                )
             ))
         })
         rv_reserves.layoutManager = LinearLayoutManager(context)
@@ -140,15 +156,15 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             false -> newFavorites.add(deviceId)
         }
         user.favourites = newFavorites
+        rv_reserves.adapter?.notifyDataSetChanged()
         (activity as MainActivity).setUser(user)
     }
 
     private fun getMyReserves(reservesResponse : List<ReserveResponse>?){
-        devices.allDevices.forEach { device->
-            reservesResponse?.forEach {reserve->
-                if (device.id == reserve.deviceId){
+        reservesResponse?.forEach {reserve ->
+            devices.forEach{device ->
+                if (device.id == reserve.deviceId)
                     myReserves.add(device)
-                }
             }
         }
     }

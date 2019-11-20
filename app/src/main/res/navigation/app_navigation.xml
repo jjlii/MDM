@@ -38,11 +38,6 @@
         >
 
         <argument
-            android:name="devices"
-            app:argType="com.example.mdm_everis.Devices"
-            app:nullable="false"/>
-
-        <argument
             android:name="userId"
             app:argType="string"/>
 
@@ -68,10 +63,7 @@
         android:id="@+id/favorites_screen"
         android:name="com.example.mdm_everis.home.favorites.FavoritesFragment"
         tools:layout="@layout/favorites_fragment">
-        <argument
-            android:name="devices"
-            app:argType="com.example.mdm_everis.Devices"
-            app:nullable="false"/>
+
         <argument
             android:name="userId"
             app:argType="string"/>
@@ -85,11 +77,6 @@
         android:id="@+id/devices_screen"
         android:name="com.example.mdm_everis.home.devices.DevicesFragment"
         tools:layout="@layout/devices_fragment">
-
-        <argument
-            android:name="devices"
-            app:argType="com.example.mdm_everis.Devices"
-            app:nullable="false"/>
 
         <action
             android:id="@+id/action_devices_to_device_details"
@@ -113,7 +100,7 @@
 
         <argument
             android:name="device"
-            app:argType="com.example.mdm_everis.Devices"
+            app:argType="com.example.mdm_everis.parcelable_data.Devices"
             app:nullable="false"
             />
 
@@ -130,7 +117,7 @@
 
         <argument
             android:name="device"
-            app:argType="com.example.mdm_everis.Devices"
+            app:argType="com.example.mdm_everis.parcelable_data.Devices"
             app:nullable="false"/>
 
     </fragment>

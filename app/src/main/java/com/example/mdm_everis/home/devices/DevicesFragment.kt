@@ -8,8 +8,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
-import com.example.domain.user.UserResponse
-import com.example.mdm_everis.Devices
+import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
@@ -25,8 +24,6 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     override fun getViewModel() = DevicesViewModel::class
 
     //******************************************* End BaseFragment abstract ************************
-
-    private val args : DevicesFragmentArgs by navArgs()
     var devices : List<DevicesResponse> = arrayListOf()
 
 
@@ -35,10 +32,11 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         viewModel.fragmentFlag = Constant.FragmentFlag.DEVICES
         showNavbar(true)
         baseNavBar.menu.getItem(2).isChecked = true
-        devices = args.devices.allDevices
+        devices = (activity as MainActivity).getDevice()
         initObserver()
         showAdapter()
         devices_refresh.setOnRefreshListener {
+            devices_refresh.isRefreshing = false
             viewModel.allDevices()
         }
     }
@@ -53,9 +51,9 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     //******************************************* Observers ****************************************
     private val devicesObserver = Observer<List<DevicesResponse>>{
-        devices_refresh.isRefreshing = false
         it?.let {
             devices = it
+            (activity as MainActivity).setDevice(it)
         }?: run{
             toast("Error al cargar los dispositivos")
         }
@@ -66,12 +64,18 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     private fun showAdapter(){
         val user = (activity as MainActivity).getUser()
         devices.let {
-            rv_devices.adapter = DevicesAdapter(it,null, Constant.FragmentFlag.DEVICES,
+            rv_devices.adapter = DevicesAdapter(it, arrayListOf(), Constant.FragmentFlag.DEVICES,
                 user.favourites,{ deviceId,_->
                 favoriteAction(deviceId)
             },{deviceId ->
                     findNavController().navigate(DevicesFragmentDirections.actionDevicesToDeviceDetails(
-                        Devices(navigateToDetails(deviceId,devices))))
+                        Devices(
+                            navigateToDetails(
+                                deviceId,
+                                devices
+                            )
+                        )
+                    ))
             })
             rv_devices.layoutManager = LinearLayoutManager(context)
         }
@@ -85,6 +89,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
             false -> newFavorites.add(deviceId)
         }
         user.favourites = newFavorites
+        rv_devices.adapter?.notifyDataSetChanged()
         (activity as MainActivity).setUser(user)
     }
 

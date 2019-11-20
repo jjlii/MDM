@@ -1,12 +1,10 @@
 package com.example.mdm_everis.device_details
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.devices.DevicesResponse
-import com.example.mdm_everis.Devices
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.squareup.picasso.Picasso

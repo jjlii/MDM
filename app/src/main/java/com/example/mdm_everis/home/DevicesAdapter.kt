@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DevicesAdapter(private var devices : List<DevicesResponse>,
-                     private var reserves : List<ReserveResponse>?,
+                     private var reserves : List<ReserveResponse>,
                      private var flag : String,
                      private var favoritesId : MutableList<String>,
                      private val favoriteAction : (deviceId : String,position : Int)->Unit,
@@ -22,13 +22,14 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
 
     private var mobile = ""
     private var so = ""
+    private var reservesCopy : MutableList<ReserveResponse> = arrayListOf()
 
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.devices_items,parent,false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder{
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.devices_items,parent,false))
+    }
     override fun getItemCount()= devices.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,32 +38,37 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
 
 
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        fun bind(devices : DevicesResponse,position: Int){
+        fun bind(device : DevicesResponse, position: Int){
             with(itemView){
-                mobile = "${devices.brand} ${devices.model}"
-                so = "${devices.so} ${devices.version}"
+                mobile = "${device.brand} ${device.model}"
+                so = "${device.so} ${device.version}"
                 tv_device_c.text = mobile
                 tv_so_c.text = so
-                btn_favorite.isChecked = favoritesId.contains(devices.id)
+                btn_favorite.isChecked = favoritesId.contains(device.id)
                 setOnClickListener {
-                    touchAction(devices.id)
+                    touchAction(device.id)
                 }
 
                 btn_favorite.setOnClickListener {
-                    favoriteAction(devices.id,position)
+                    favoriteAction(device.id,position)
                 }
                 when(flag){
                     Constant.FragmentFlag.RESERVES -> {
+                        if(reservesCopy.isEmpty()&&reserves.isNotEmpty()){
+                            reservesCopy = reserves.toMutableList()
+                        }
                         setVisibilityReserves(this)
-                        setDataReserves(this,devices.id)
+                        setDataReserves(this,device.id)
                     }
                     else -> {
                         setVisibilityNotReserves(this)
-                        tv_screen_size_c.text = devices.screenSize
-                        tv_screen_r_c.text = devices.screenResolution
+                        tv_screen_size_c.text = device.screenSize
+                        tv_screen_r_c.text = device.screenResolution
                     }
                 }
-                Picasso.get().load(devices.picture).into(iv_img_device)
+                Picasso.get().load(device.picture).
+                    placeholder(R.drawable.ic_phone_android_black_24dp).
+                    into(iv_img_device)
             }
 
         }
@@ -99,17 +105,17 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
         }
 
         private fun setDataReserves(view: View, deviceId : String){
-
             var startDate = ""
             var endDate = ""
-            val reserve = reserves?.single{
+            val r = reservesCopy.filter{
                 it.deviceId == deviceId
             }
-            reserve?.let {
-                startDate = convertLongToDate(it.startDate.toLong())
-                endDate = convertLongToDate(it.endDate.toLong())
-            }
-            reserve?.let {
+            val reserve : ReserveResponse
+            r.let {
+                reserve = it[0]
+                startDate = convertLongToDate(reserve.startDate.toLong())
+                endDate = convertLongToDate(reserve.endDate.toLong())
+                reservesCopy.remove(reserve)
                 with(view){
                     tv_f_start_content.text = startDate
                     tv_f_end_content.text = endDate
@@ -117,10 +123,10 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
             }
         }
 
-        private fun convertLongToDate(time : Long) : String {
-            val date = Date(time)
-            val format = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.getDefault())
-            return format.format(date)
+        private fun convertLongToDate(date : Long) : String {
+            val d = Date(date)
+            val f = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.getDefault())
+            return f.format(d)
         }
     }
 

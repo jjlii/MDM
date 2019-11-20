@@ -51,6 +51,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
     private fun initListener(){
         viewModel.fragmentFlag = Constant.FragmentFlag.PROFILE
         profile_refresh.setOnRefreshListener {
+            profile_refresh.isRefreshing = false
             viewModel.getUserById(userId)
         }
     }
@@ -62,7 +63,6 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     //******************************************* Observers ****************************************
     private  val getUserByIdObserver = Observer<UserResponse>{
-        profile_refresh.isRefreshing = false
         it?.let {
             (activity as MainActivity).setUser(it)
         } ?: run{

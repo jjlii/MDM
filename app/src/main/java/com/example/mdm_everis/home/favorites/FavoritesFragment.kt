@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.user.UserResponse
-import com.example.mdm_everis.Devices
+import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.home.DevicesAdapter
-import com.example.mdm_everis.home.devices.DevicesFragmentDirections
 import kotlinx.android.synthetic.main.favorites_fragment.*
 
 class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
@@ -38,7 +37,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         showNavbar(true)
 
         baseNavBar.menu.getItem(1).isChecked = true
-        devices = args.devices.allDevices
+        devices = (activity as MainActivity).getDevice()
         userId = args.userId
         getFavoriteDevices((activity as MainActivity).getUser().favourites)
         showAdapter()
@@ -51,11 +50,16 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     private fun initListener(){
         viewModel.fragmentFlag = Constant.FragmentFlag.FAVORITES
         favorites_refresh.setOnRefreshListener {
+            favorites_refresh.isRefreshing = false
+            if (devices.isEmpty()){
+                viewModel.allDevices()
+            }
             viewModel.getUserById(userId)
         }
     }
 
     private fun initObserves(){
+        viewModel.devicesLD.observe(this,devicesObserver)
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
     }
 
@@ -73,16 +77,30 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         showAdapter()
     }
 
+    private val devicesObserver = Observer<List<DevicesResponse>> {
+        it?.let {
+            devices = it
+            (activity as MainActivity).setDevice(it)
+        }?: run{
+            toast("Error al cargar los dispositivos")
+        }
+    }
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
         favorites.let{
-            rv_favorites.adapter = DevicesAdapter(it,null,Constant.FragmentFlag.FAVORITES,
+            rv_favorites.adapter = DevicesAdapter(it, arrayListOf(),Constant.FragmentFlag.FAVORITES,
                 (activity as MainActivity).getUser().favourites,{ deviceId,position->
                     favoriteAction(deviceId,position)
                 },{ deviceId ->
                     findNavController().navigate(FavoritesFragmentDirections.actionFavoriteToDeviceDetails(
-                        Devices(navigateToDetails(deviceId,devices))))
+                        Devices(
+                            navigateToDetails(
+                                deviceId,
+                                devices
+                            )
+                        )
+                    ))
                 })
             rv_favorites.layoutManager = LinearLayoutManager(context)
         }

@@ -149,7 +149,6 @@
                 app:layout_constraintStart_toEndOf="@id/tv_f_end"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingStart="5dp"
-                android:text="04/10/2019"
                 android:visibility="gone"
                 android:lines="1"
                 android:ellipsize="end" />
