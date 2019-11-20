@@ -10,7 +10,8 @@ import com.example.domain.reserves.ReserveResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.splitWithSpace
+import com.example.mdm_everis.splitWithSpaceAfter
+import com.example.mdm_everis.splitWithSpaceBefore
 import kotlinx.android.synthetic.main.reserve_process_fragment.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.text.SimpleDateFormat
@@ -91,13 +92,35 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val date = changeFormat(year,monthOfYear,dayOfMonth)
+
+        val longDateAtNice = (stringDateToLong(date,"dd/MM/yyyy")+Constant.Hours.NINE).toString()
+        val longDateAtThree = (stringDateToLong(date,"dd/MM/yyyy")+Constant.Hours.THREE).toString()
         when(editTextClick){
             "start" -> {
                 et_start_date.setText(date)
-
+                ly_end_date.visibility = View.VISIBLE
+                et_end_date.setText("")
+                btn_start_morning.visibility = View.VISIBLE
+                btn_start_afternoon.visibility = View.VISIBLE
             }
             "end" ->{
                 et_end_date.setText(date)
+                btn_end_morning.visibility = View.VISIBLE
+                btn_end_afternoon.visibility = View.VISIBLE
+            }
+        }
+        when{
+            checkEnableEndDate(longDateAtNice)->{
+                when(editTextClick){
+                    "start" -> btn_start_morning.visibility = View.GONE
+                    "end" -> btn_end_morning.visibility = View.GONE
+                }
+            }
+            checkEnableEndDate(longDateAtThree)->{
+                when(editTextClick){
+                    "start" -> btn_start_afternoon.visibility = View.GONE
+                    "end"-> btn_end_afternoon.visibility = View.GONE
+                }
             }
         }
 
@@ -109,14 +132,12 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         datePickerDialog = DatePickerDialog.newInstance(this,myYear,myMonth,myDay)
         datePickerDialog.isThemeDark = false
         datePickerDialog.setTitle(title)
+        maxC = Calendar.getInstance()
+        maxC.set(Calendar.MONTH, myMonth + 1)
         disableWeekend()
         when(tag){
             "StartDatePickerDialog"-> {
-                maxC = Calendar.getInstance()
                 minC = Calendar.getInstance()
-                maxC.set(Calendar.MONTH, myMonth + 1)
-                datePickerDialog.maxDate = maxC
-                datePickerDialog.minDate = minC
             }
             "EndDatePickerDialog"-> {
                 var foundEndD = false
@@ -127,39 +148,42 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                 var endM : String
                 var endY : String
                 var endDate: String
+                val auxC = Calendar.getInstance()
                 with(minC){
                     set(Calendar.DAY_OF_MONTH,startD!!.toInt())
-                    set(Calendar.MONTH,startM!!.toInt())
+                    set(Calendar.MONTH,startM!!.toInt()-1)
                     set(Calendar.YEAR,startY!!.toInt())
                 }
                 deviceReserve.forEach {
-                    if (!foundEndD){
-                        endDate = convertLongToDate(it.startDate.toLong(),"dd/MM/yyyy")
-                        endD = endDate.substring(0..1)
-                        endM = endDate.substring(3..4)
-                        endY = endDate.substring(6..9)
+                    endDate = convertLongToDate(it.startDate.toLong(),"dd/MM/yyyy")
+                    endD = endDate.substring(0..1)
+                    endM = endDate.substring(3..4)
+                    endY = endDate.substring(6..9)
+                    with(auxC){
+                        set(Calendar.YEAR,endY.toInt())
+                        set(Calendar.MONTH,endM.toInt()-1)
+                        set(Calendar.DAY_OF_MONTH,endD.toInt())
+                    }
+                    if (minC<auxC && auxC<maxC){
                         with(maxC){
                             set(Calendar.YEAR,endY.toInt())
                             set(Calendar.MONTH,endM.toInt()-1)
                             set(Calendar.DAY_OF_MONTH,endD.toInt())
                         }
-                        if (minC<maxC){
-                            foundEndD = true
-                        }
+                        foundEndD = true
                     }
                 }
                 if (!foundEndD){
                     maxC = Calendar.getInstance()
                     maxC.set(Calendar.MONTH, myMonth + 1)
                 }
-                datePickerDialog.minDate = minC
-                datePickerDialog.maxDate = maxC
             }
         }
+        datePickerDialog.maxDate = maxC
+        datePickerDialog.minDate = minC
         val days : Array<Calendar> = disableDays.toTypedArray()
         datePickerDialog.disabledDays = days
         datePickerDialog.show((activity as MainActivity).fragmentManager,tag)
-
     }
 
     private fun changeFormat(year:Int,month:Int,day:Int): String{
@@ -167,7 +191,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         val sMonth = if (realMonth<10){
             "0$realMonth"
         }else{
-            "$month"
+            "$realMonth"
         }
         val sDay= if (day<10){
             "0$day"
@@ -206,8 +230,13 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         val dayValue = myDay
         val monthDay = 31
         var found = false
-        val startDay = stringDateToLong(startDate.splitWithSpace(),"dd/MM/yyyy")
-        val endDay = stringDateToLong(endDate.splitWithSpace(),"dd/MM/yyyy")
+        val startDay = stringDateToLong(startDate.splitWithSpaceBefore(),"dd/MM/yyyy")
+        val endDay = stringDateToLong(endDate.splitWithSpaceBefore(),"dd/MM/yyyy")
+        if (!checkEndHour(startDate,endDate)){
+            day = Calendar.getInstance()
+            day.timeInMillis=startDay
+            disableDays.add(day)
+        }
         for (i in 0 .. monthDay){
             day = Calendar.getInstance()
             day = setMomentOfDay(day,dayValue + i)
@@ -247,6 +276,16 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             it.startDate == date
         }.any()
 
+    private fun checkEndHour(startD: String,endD: String) : Boolean {
+        val sd = startD.splitWithSpaceBefore()
+        val sh = startD.splitWithSpaceAfter()
+        val ed = endD.splitWithSpaceBefore()
+        if (sh == "09:00"){
+            if (sd == ed)
+                return true
+        }
+        return false
+    }
     //******************************************* End DatePicker ***********************************
 
     private fun stringDateToLong(strDate : String, format : String) : Long{

@@ -11,4 +11,6 @@ fun View.hideKeyboard(){
     imm.hideSoftInputFromWindow(windowToken,0)
 }
 
-fun String.splitWithSpace() : String = this.substringBefore(" ", "Not found delimiter")
+fun String.splitWithSpaceBefore() : String = this.substringBefore(" ", "Not found delimiter")
+
+fun String.splitWithSpaceAfter() : String = this.substringAfter(" ","Not found delimiter")
