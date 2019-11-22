@@ -10,5 +10,5 @@ interface ReservesRepository {
 
     suspend fun getDeviceReserves(deviceId : String) : Either<Failure,List<ReserveResponse>?>
 
-    suspend fun createNewReserve(deviceId : String) : Either<Failure,String>
+    suspend fun createNewReserve(reserve : ReserveResponse ,deviceId : String) : Either<Failure,String?>
 }

@@ -3,11 +3,13 @@ package com.example.data.repository_imp
 import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
+import com.example.core.failure.ReserveFailure
 import com.example.data.retrofit.ReservesRetrofit
 import com.example.domain.repository.ReservesRepository
 import com.example.domain.reserves.ReserveResponse
 
 class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): ReservesRepository {
+
 
     override suspend fun getUserReserves(userId: String): Either<Failure, List<ReserveResponse>?> {
         return try {
@@ -35,7 +37,20 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
         }
     }
 
-    override suspend fun createNewReserve(deviceId: String): Either<Failure, String> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun createNewReserve(reserve: ReserveResponse, deviceId: String): Either<Failure, String?> {
+        return try {
+            val res = reservesRetrofit.postDeviceReserves(reserve,deviceId)
+            when(res.code()){
+                200-> Either.Sucess(res.body())
+                400-> Either.Failure(ReserveFailure.InvalidReserve)
+                else -> Either.Failure(Failure.ServerError)
+            }
+        }catch (e : Exception){
+            Log.e("Error createNewReserve",e.message.toString())
+            Either.Failure(Failure.Unknown)
+        }
     }
+
+
+
 }
