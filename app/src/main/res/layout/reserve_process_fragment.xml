@@ -25,40 +25,38 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ToggleButton
-        android:id="@+id/btn_start_morning"
+    <RadioGroup
+        android:id="@+id/rg_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ly_start_date"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@id/ly_start_date"
-        app:layout_constraintEnd_toEndOf="@id/ly_start_date"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-        android:textOn="@string/turno_de_ma_ana_09_00"
-        android:textOff="@string/turno_de_ma_ana_09_00"
-        android:background="@drawable/time_button"
-        android:visibility="gone"/>
-    <ToggleButton
-        android:id="@+id/btn_start_afternoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_start_morning"
-        app:layout_constraintStart_toStartOf="@id/btn_start_morning"
-        app:layout_constraintEnd_toEndOf="@id/btn_start_morning"
-        android:paddingStart="60dp"
-        android:paddingEnd="60dp"
-        android:textOn="@string/turno_de_tarde_15_00"
-        android:textOff="@string/turno_de_tarde_15_00"
-        android:background="@drawable/time_button"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@id/ly_start_date"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/start_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turno_de_ma_ana_09_00"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/start_afternoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turno_de_tarde_15_00"
+            android:checked="false" />
+
+    </RadioGroup>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ly_end_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_start_afternoon"
+        app:layout_constraintTop_toBottomOf="@id/rg_start"
         app:layout_constraintStart_toStartOf="@id/ly_start_date"
         android:visibility="gone">
 
@@ -71,42 +69,39 @@
             android:focusable="false"/>
 
     </com.google.android.material.textfield.TextInputLayout>
-    <ToggleButton
-        android:id="@+id/btn_end_morning"
+
+    <RadioGroup
+        android:id="@+id/rg_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ly_end_date"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@id/ly_end_date"
-        app:layout_constraintEnd_toEndOf="@id/ly_end_date"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-        android:textOn="@string/turno_de_ma_ana_09_00"
-        android:textOff="@string/turno_de_ma_ana_09_00"
-        android:background="@drawable/time_button"
-        android:visibility="gone" />
-    <ToggleButton
-        android:id="@+id/btn_end_afternoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_end_morning"
-        app:layout_constraintStart_toStartOf="@id/btn_end_morning"
-        app:layout_constraintEnd_toEndOf="@id/btn_end_morning"
-        android:paddingStart="60dp"
-        android:paddingEnd="60dp"
-        android:textOn="@string/turno_de_tarde_15_00"
-        android:textOff="@string/turno_de_tarde_15_00"
-        android:background="@drawable/time_button"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@id/ly_end_date"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/end_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turno_de_ma_ana_09_00"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/end_afternoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turno_de_tarde_15_00"
+            android:checked="false" />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/btn_reserve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_end_afternoon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="50dp"
+        app:layout_constraintTop_toBottomOf="@id/rg_end"
         app:layout_constraintStart_toStartOf="@id/ly_start_date"
         app:layout_constraintEnd_toEndOf="@id/ly_start_date"
         android:paddingStart="70dp"
@@ -115,5 +110,7 @@
         android:textColor="@color/colorWhite"
         android:background="@drawable/round_corner_button"
         android:visibility="gone"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
