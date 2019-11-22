@@ -22,8 +22,8 @@ class KoinApp {
             viewModel { DevicesViewModel(androidApplication(),get(),get(),get()) }
             viewModel { SignUpViewModel(androidApplication(),get(),get(),get(),get()) }
             viewModel { ProfileViewModel(androidApplication(),get(),get(),get()) }
-            viewModel { DeviceDetailsViewModel(androidApplication(),get(),get(),get()) }
-            viewModel { ReserveProcessViewModel(androidApplication(),get(),get(),get(),get()) }
+            viewModel { DeviceDetailsViewModel(androidApplication(),get(),get(),get(),get()) }
+            viewModel { ReserveProcessViewModel(androidApplication(),get(),get(),get()) }
         }
     }
 }

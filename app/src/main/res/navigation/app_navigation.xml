@@ -120,5 +120,10 @@
             app:argType="com.example.mdm_everis.parcelable_data.Devices"
             app:nullable="false"/>
 
+        <argument
+            android:name="reserves"
+            app:argType="com.example.mdm_everis.parcelable_data.Reserves"
+            app:nullable="false"/>
+
     </fragment>
 </navigation>

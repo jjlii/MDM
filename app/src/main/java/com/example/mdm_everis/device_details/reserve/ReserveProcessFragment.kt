@@ -4,7 +4,6 @@ package com.example.mdm_everis.device_details.reserve
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
-import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.mdm_everis.MainActivity
@@ -51,6 +50,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         super.onViewCreated(view, savedInstanceState)
         showNavbar(false)
         device = args.device.allDevices[0]
+        deviceReserve = args.reserves.allReserves
         initObserver()
         initListener()
     }
@@ -58,9 +58,6 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     //******************************************* Init *********************************************
 
     private fun initListener(){
-        device?.let {
-            viewModel.deviceReserves(it.id)
-        }
 
         et_start_date.setOnClickListener {
             editTextClick = "start"
@@ -77,16 +74,12 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     }
 
     private fun initObserver(){
-        viewModel.deviceReservesLD.observe(this,androidx.lifecycle.Observer {
-            deviceReserve = it
-        })
-        viewModel.reserveProcessFailureLD.observe(this,androidx.lifecycle.Observer {
-            toast(it.toString())
-        })
     }
+
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
+
     //******************************************* End Observers ************************************
 
 

@@ -1,5 +1,6 @@
 package com.example.domain.reserves
 
+import java.io.Serializable
 
 
 data class ReserveResponse (
@@ -8,4 +9,4 @@ data class ReserveResponse (
     val startDate : String,
     val endDate : String,
     val deviceId : String
-)
+): Serializable

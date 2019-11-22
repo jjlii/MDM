@@ -5,8 +5,10 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.reserves.ReserveResponse
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.parcelable_data.Reserves
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.device_details_fragment.*
 import kotlinx.android.synthetic.main.device_details_fragment.btn_reserve
@@ -29,16 +31,33 @@ class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
         showNavbar(false)
         device = args.device.allDevices[0]
         setData()
+        initObserver()
         initListener()
     }
 
     //******************************************* Init *********************************************
+
     private fun initListener(){
         btn_reserve.setOnClickListener {
-            findNavController().navigate(DeviceDetailsFragmentDirections.actionDeviceDetailsToReserveProcess(args.device))
+            device?.let {
+                viewModel.deviceReserves(it.id)
+            }
         }
 
     }
+
+    private fun initObserver(){
+        viewModel.deviceReservesLD.observe(this,androidx.lifecycle.Observer {
+            findNavController().navigate(DeviceDetailsFragmentDirections.
+                actionDeviceDetailsToReserveProcess(args.device,
+                    Reserves(it))
+            )
+        })
+        viewModel.reserveProcessFailureLD.observe(this,androidx.lifecycle.Observer {
+            toast(it.toString())
+        })
+    }
+
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
