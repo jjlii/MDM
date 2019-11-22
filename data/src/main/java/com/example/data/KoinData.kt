@@ -18,11 +18,9 @@ class KoinData {
             single{Network.initRetrofit().create(UserRetrofit :: class.java)}
             single {Network.initRetrofit().create(ReservesRetrofit :: class.java) }
             single<DevicesRepository>{ DevicesRepositoryImp(get()) }
-            single<SignUpRepository>{ SignUpRepositoryImp() }
+            single<ReservesRepository> { ReservesRepositoryImp(get())  }
             single<UserRepository>{ UserRepositoryImp(get()) }
-            single<GetDeviceByIdRepository>{ GetDeviceByIdRepositoryImp(get()) }
-            single<UserReservesRepository>{UserReservesRepositoryImp(get())}
-            single<DeviceReservesRepository> {DeviceReservesRepositoryImp(get())}
+            single<SignUpRepository>{ SignUpRepositoryImp() }
         }
     }
 }

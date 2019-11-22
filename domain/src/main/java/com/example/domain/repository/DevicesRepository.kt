@@ -8,4 +8,6 @@ interface DevicesRepository {
 
     suspend fun getAllDevices() : Either<Failure,List<DevicesResponse>?>
 
+    suspend fun getDeviceById(deviceId : String) : Either<Failure,DevicesResponse?>
+
 }

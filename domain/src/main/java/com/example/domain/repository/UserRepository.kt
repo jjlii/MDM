@@ -5,5 +5,7 @@ import com.example.core.failure.Failure
 import com.example.domain.user.UserResponse
 
 interface UserRepository {
+
     suspend fun getUserById(userId : String) : Either<Failure, UserResponse?>
+
 }

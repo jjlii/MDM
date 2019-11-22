@@ -70,6 +70,9 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             editTextClick = "end"
             setCalendar("Fecha fin de reserva","EndDatePickerDialog")
         }
+        btn_reserve.setOnClickListener {
+
+        }
 
     }
 

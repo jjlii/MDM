@@ -10,6 +10,7 @@ import java.lang.Exception
 
 class DevicesRepositoryImp(private val devicesRetrofit : DevicesRetrofit) :
     DevicesRepository {
+
     override suspend fun getAllDevices(): Either<Failure, List<DevicesResponse>?> {
         return try {
             val resp = devicesRetrofit.getAllDevices()
@@ -19,6 +20,19 @@ class DevicesRepositoryImp(private val devicesRetrofit : DevicesRetrofit) :
             }
         }catch (e : Exception){
             Log.e("Error getAllDevices",e.message.toString())
+            Either.Failure(Failure.Unknown)
+        }
+    }
+
+    override suspend fun getDeviceById(deviceId: String): Either<Failure, DevicesResponse?> {
+        return try {
+            val res = devicesRetrofit.getDeviceById(deviceId)
+            when(res.isSuccessful){
+                true -> Either.Sucess(res.body())
+                false -> Either.Failure(Failure.ServerError)
+            }
+        }catch (e : Exception){
+            Log.e("Error getDeviceById",e.message.toString())
             Either.Failure(Failure.Unknown)
         }
     }

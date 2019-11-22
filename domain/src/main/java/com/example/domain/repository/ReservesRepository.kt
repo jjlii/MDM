@@ -4,8 +4,11 @@ import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.domain.reserves.ReserveResponse
 
-interface DeviceReservesRepository {
+interface ReservesRepository {
+
+    suspend fun getUserReserves(userId : String) : Either<Failure, List<ReserveResponse>?>
 
     suspend fun getDeviceReserves(deviceId : String) : Either<Failure,List<ReserveResponse>?>
 
+    suspend fun createNewReserve(deviceId : String) : Either<Failure,String>
 }
