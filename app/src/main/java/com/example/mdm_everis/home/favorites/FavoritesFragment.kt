@@ -35,7 +35,8 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(true)
-
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.FAVORITES)
+        viewModel.fragmentFlag=Constant.FragmentFlag.FAVORITES
         baseNavBar.menu.getItem(1).isChecked = true
         devices = (activity as MainActivity).getDevice()
         userId = args.userId

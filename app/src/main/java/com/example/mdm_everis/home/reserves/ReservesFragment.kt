@@ -42,6 +42,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.RESERVES)
         viewModel.fragmentFlag = Constant.FragmentFlag.RESERVES
         initObservers()
         user = (activity as MainActivity).getUser()

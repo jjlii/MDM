@@ -29,6 +29,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.DEVICES)
         viewModel.fragmentFlag = Constant.FragmentFlag.DEVICES
         showNavbar(true)
         baseNavBar.menu.getItem(2).isChecked = true

@@ -4,6 +4,7 @@ package com.example.mdm_everis.device_details.reserve
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
+import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.mdm_everis.MainActivity
@@ -48,6 +49,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.RESERVE_PROCESS)
+        viewModel.fragmentFlag = Constant.FragmentFlag.RESERVE_PROCESS
         showNavbar(false)
         device = args.device.allDevices[0]
         deviceReserve = args.reserves.allReserves

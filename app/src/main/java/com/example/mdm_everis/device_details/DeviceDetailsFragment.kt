@@ -5,9 +5,11 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.core.Constant
 import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
+import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.parcelable_data.Reserves
@@ -30,6 +32,8 @@ class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.DEVICE_DETAILS)
+        viewModel.fragmentFlag = Constant.FragmentFlag.DEVICE_DETAILS
         showNavbar(false)
         device = args.device.allDevices[0]
         setData()

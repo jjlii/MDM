@@ -40,6 +40,8 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.PROFILE)
+        viewModel.fragmentFlag = Constant.FragmentFlag.PROFILE
         baseNavBar.menu.getItem(3).isChecked = true
         userId = args.userId
         setData()
