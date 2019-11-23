@@ -2,8 +2,10 @@ package com.example.mdm_everis.device_details
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.mdm_everis.R
@@ -47,20 +49,25 @@ class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
     }
 
     private fun initObserver(){
-        viewModel.deviceReservesLD.observe(this,androidx.lifecycle.Observer {
-            findNavController().navigate(DeviceDetailsFragmentDirections.
-                actionDeviceDetailsToReserveProcess(args.device,
-                    Reserves(it))
-            )
-        })
-        viewModel.reserveProcessFailureLD.observe(this,androidx.lifecycle.Observer {
-            toast(it.toString())
-        })
+        viewModel.deviceReservesLD.observe(this,deviceReservesObserver)
+        viewModel.reserveProcessFailureLD.observe(this,failureObserver)
     }
 
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
+
+    private val deviceReservesObserver = Observer<List<ReserveResponse>>{
+        findNavController().navigate(DeviceDetailsFragmentDirections.
+            actionDeviceDetailsToReserveProcess(args.device,
+                Reserves(it))
+        )
+    }
+
+    private val failureObserver = Observer<Failure>{
+        toast(it.toString())
+    }
+    
     //******************************************* End Observers ************************************
 
     private fun setData(){
