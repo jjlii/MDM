@@ -23,5 +23,17 @@ class UserRepositoryImp(private val userRetrofit: UserRetrofit) :
         }
     }
 
+    override suspend fun createUser(user: UserResponse): Either<Failure, String> {
+        return try {
+            val resp = userRetrofit.createUser(user)
+            when(resp.isSuccessful){
+                true ->Either.Sucess("User created")
+                false -> Either.Failure(Failure.ServerError)
+            }
+        }catch (e : Exception){
+            Log.e("Error getAllDevices",e.message.toString())
+            Either.Failure(Failure.Unknown)
+        }
+    }
 
 }

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import kotlinx.android.synthetic.main.sign_up_card_view.*
@@ -20,6 +21,8 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
     override fun getViewModel() = SignUpViewModel::class
 
     //******************************************* End BaseFragment abstract ************************
+
+    private lateinit var user : UserResponse
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,15 +57,33 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
 
     private fun initObservers(){
         viewModel.signUpLD.observe(this,signUpObserver)
+        viewModel.createUserLD.observe(this,createUserObserver)
     }
 
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
 
-    private val signUpObserver = Observer<String>{
-        if(it != "Error"){
-            val alertDialog = AlertDialog.Builder(context)
+    private val signUpObserver = Observer<String>{uid->
+        if(uid != "Error"){
+            user = UserResponse(uid,et_email.text.toString(),
+                et_full_name.text.toString(), arrayListOf())
+            viewModel.createUser(user)
+        }else{
+            toast(Constant.ErrorSignUp.ERROR_REGISTRO)
+        }
+    }
+
+    private val createUserObserver = Observer<String>{
+        val alertDialog = AlertDialog.Builder(context)
+        if (it != "User created"){
+            alertDialog.setTitle("Error")
+            alertDialog.setMessage("No se ha podido registrar su usuario.")
+            alertDialog.setPositiveButton("Reintentar"
+            ) { _, _ ->
+                viewModel.createUser(user)
+            }
+        }else{
             alertDialog.setTitle("Correo de verificación")
             alertDialog.setMessage("Ve a tu correo de EVERIS y verifica tu correo. Si no lo has recibido el correo revisa tus datos.")
             alertDialog.setPositiveButton("Sí, ir al login"
@@ -70,10 +91,8 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
                 findNavController().navigate(SignUpFragmentDirections.actionSignUpToLogin())
             }
             alertDialog.setNeutralButton("Cancelar",null)
-            alertDialog.show()
-        }else{
-            toast(Constant.ErrorSignUp.ERROR_REGISTRO)
         }
+        alertDialog.show()
     }
 
     //******************************************* End Observers ************************************

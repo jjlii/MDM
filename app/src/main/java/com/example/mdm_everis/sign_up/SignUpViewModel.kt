@@ -9,20 +9,26 @@ import com.example.domain.user.User
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.login.LoginUseCase
 import com.example.domain.reserves.UserReservesUseCase
+import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.sign_up.SignUpUseCase
 import com.example.domain.user.GetUserByIdUserCase
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.base.BaseViewModel
 
 class SignUpViewModel(application: Application,
                       getUserByIdUserCase: GetUserByIdUserCase,
                       devicesUseCase: DevicesUseCase,
                       userReservesUseCase: UserReservesUseCase,
-                      private val signUpUseCase: SignUpUseCase) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase) {
+                      private val signUpUseCase: SignUpUseCase,
+                      private val createUserUseCase: CreateUserUseCase) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase) {
 
     //********************************** LiveData **************************************************
 
     private val signUpMLD = MutableLiveData<String>()
     val signUpLD : LiveData<String> = signUpMLD
+
+    private val createUserMLD = MutableLiveData<String>()
+    val createUserLD : LiveData<String> = createUserMLD
 
     //********************************** End LiveData **********************************************
 
@@ -39,7 +45,6 @@ class SignUpViewModel(application: Application,
     }
 
     private fun handleSuccessSignUp( user : String){
-        loadingMLD.value = false
         signUpMLD.value = user
         Log.i("User",user)
     }
@@ -51,5 +56,28 @@ class SignUpViewModel(application: Application,
     }
 
     //********************************** End Sign up ***********************************************
+
+    //********************************** Create User ***********************************************
+
+    fun createUser(user : UserResponse){
+        createUserUseCase(user){
+            it.fold(
+                ::handleFailureCreateUser,
+                ::handleSuccessCreateUser
+            )
+        }
+    }
+
+    private fun handleFailureCreateUser(failure: Failure){
+        loadingMLD.value = false
+        createUserMLD.value = failure.toString()
+    }
+
+    private fun handleSuccessCreateUser(s: String){
+        loadingMLD.value = false
+        createUserMLD.value = s
+    }
+
+    //********************************** End Create User *******************************************
 
 }
