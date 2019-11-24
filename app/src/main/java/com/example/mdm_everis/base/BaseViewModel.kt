@@ -12,6 +12,7 @@ import com.example.domain.user.User
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.login.LoginUseCase
+import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.user.GetUserByIdUserCase
@@ -20,7 +21,9 @@ import com.example.domain.user.UserResponse
 abstract class BaseViewModel(application : Application,
                              private val getUserByIdUserCase: GetUserByIdUserCase,
                              private val devicesUseCase: DevicesUseCase,
-                             private val userReservesUseCase: UserReservesUseCase): AndroidViewModel(application) {
+                             private val userReservesUseCase: UserReservesUseCase,
+                             private val deviceReservesUseCase: DeviceReservesUseCase
+): AndroidViewModel(application) {
 
     //********************************** LiveData **************************************************
 
@@ -39,6 +42,10 @@ abstract class BaseViewModel(application : Application,
 
     private val failureMLD = MutableLiveData<Failure>()
     val failureLD : LiveData<Failure> = failureMLD
+
+    private val deviceReservesMLD = MutableLiveData<List<ReserveResponse>>()
+    val deviceReservesLD : LiveData<List<ReserveResponse>> = deviceReservesMLD
+
     //********************************** End LiveData **********************************************
 
     //********************************** Get User **************************************************
@@ -126,6 +133,30 @@ abstract class BaseViewModel(application : Application,
     }
 
     //********************************** End Get User Reserves *************************************
+
+    //********************************** GET Device Reserves ***************************************
+
+    fun deviceReserves(deviceId : String){
+        loadingMLD.value = true
+        deviceReservesUseCase(deviceId){
+            it.fold(
+                ::handleFailureDeviceReserves,
+                ::handleSuccessDeviceReserves
+            )
+        }
+    }
+
+    private fun handleFailureDeviceReserves(failure: Failure){
+        loadingMLD.value = false
+        failureMLD.value = failure
+    }
+
+    private fun handleSuccessDeviceReserves(list: List<ReserveResponse>?) {
+        loadingMLD.value = false
+        deviceReservesMLD.value = list
+    }
+
+    //********************************** End GET Device Reserves ***********************************
 
 
 

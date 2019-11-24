@@ -18,12 +18,13 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                      private var flag : String,
                      private var favoritesId : MutableList<String>,
                      private val favoriteAction : (deviceId : String,position : Int)->Unit,
-                     private val touchAction :(deviceId : String) -> Unit ) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
+                     private val touchAction :(deviceId : String) -> Unit) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
     private var so = ""
     private var reservesCopy : MutableList<ReserveResponse> = arrayListOf()
-
+    val v = View.VISIBLE
+    val g = View.GONE
 
 
 
@@ -76,8 +77,6 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
 
 
         private fun setVisibilityReserves(view: View){
-            val v = View.VISIBLE
-            val g = View.GONE
             view.apply {
                 tv_screen_size.visibility = g
                 tv_screen_size_c.visibility = g
@@ -87,11 +86,10 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                 tv_f_start_content.visibility = v
                 tv_f_end.visibility = v
                 tv_f_end_content.visibility = v
+                btn_reserve.text = "CANCELAR"
             }
         }
         private fun setVisibilityNotReserves(view: View){
-            val v = View.VISIBLE
-            val g = View.GONE
             view.apply {
                 tv_screen_size.visibility = v
                 tv_screen_size_c.visibility = v
@@ -101,6 +99,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                 tv_f_start_content.visibility = g
                 tv_f_end.visibility = g
                 tv_f_end_content.visibility = g
+                btn_reserve.text = "RESERVAR"
             }
         }
 

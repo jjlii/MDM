@@ -16,6 +16,6 @@ interface ReservesRetrofit {
     suspend fun getDeviceReserves(@Path("deviceId")deviceId : String) : Response<List<ReserveResponse>>
 
     @POST("reserves/device/{deviceId}")
-    suspend fun postDeviceReserves(@Body reserve : ReserveResponse, @Path("deviceId")deviceId: String ) : Response<String>
+    suspend fun postDeviceReserves(@Body reserve : ReserveResponse, @Path("deviceId")deviceId: String ) : Response<ReserveResponse>
 
 }

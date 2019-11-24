@@ -1,15 +1,22 @@
 package com.example.mdm_everis.device_details.reserve
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.core.Constant
+import com.example.core.failure.Failure
+import com.example.core.failure.ReserveFailure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.sign_up.SignUpFragmentDirections
 import com.example.mdm_everis.splitWithSpaceAfter
 import com.example.mdm_everis.splitWithSpaceBefore
 import kotlinx.android.synthetic.main.reserve_process_fragment.*
@@ -29,8 +36,10 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     lateinit var datePickerDialog: DatePickerDialog
     private val args : ReserveProcessFragmentArgs by navArgs()
-    var device : DevicesResponse? = null
+    lateinit var device : DevicesResponse
     private var deviceReserve : List<ReserveResponse> = arrayListOf()
+    lateinit var user : UserResponse
+    lateinit var newReserve : ReserveResponse
 
     //*******************************************  Calendar ****************************************
     private val c = Calendar.getInstance()
@@ -50,6 +59,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setFragment(Constant.FragmentFlag.RESERVE_PROCESS)
+        user = (activity as MainActivity).getUser()
         viewModel.fragmentFlag = Constant.FragmentFlag.RESERVE_PROCESS
         showNavbar(false)
         device = args.device.allDevices[0]
@@ -61,7 +71,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     //******************************************* Init *********************************************
 
     private fun initListener(){
-
+        var startDate : Long
+        var endDate : Long
         et_start_date.setOnClickListener {
             editTextClick = "start"
             setCalendar("Fecha inicio de reserva","StartDatePickerDialog")
@@ -71,17 +82,67 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             setCalendar("Fecha fin de reserva","EndDatePickerDialog")
         }
         btn_reserve.setOnClickListener {
-
+            startDate = stringDateToLong(et_start_date.text.toString(),"dd/MM/yyyy")+Constant.Hours.NINE
+            endDate = stringDateToLong(et_end_date.text.toString(),"dd/MM/yyyy") + Constant.Hours.NINE
+            newReserve = ReserveResponse("",user.id,startDate.toString(),endDate.toString(),device.id)
+            viewModel.createNewReserve(newReserve,device.id)
         }
 
     }
 
     private fun initObserver(){
+        viewModel.deviceReservesLD.observe(this,deviceReservesObserver)
+        viewModel.failureLD.observe(this,failureObserver)
+        viewModel.createReserveLD.observe(this,createReserveObserver)
+        viewModel.createReserveFailure.observe(this,createReserveFailureObserver)
     }
 
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
+
+    private val deviceReservesObserver = Observer<List<ReserveResponse>>{
+        deviceReserve = it
+    }
+
+    private val failureObserver = Observer<Failure>{
+        toast(it.toString())
+    }
+
+    private val createReserveObserver = Observer<ReserveResponse>{
+        val alertDialog = AlertDialog.Builder(context)
+        val userReserve = (activity as MainActivity).getUserReserves().toMutableList()
+        userReserve.add(newReserve)
+        (activity as MainActivity).setUserReserves(userReserve)
+        alertDialog.setTitle("Confirmación de la reserva")
+        alertDialog.setMessage("Ha reservado el dispositivo desde " + et_start_date.text.toString()
+        + " hasta " + et_end_date.text.toString()
+                +". Recuerde hacer un uso responsable del dispositivo y devolverlo en la fecha establecida.")
+        alertDialog.setPositiveButton("Aceptar"
+        ) { _, _ ->
+            findNavController().navigate(ReserveProcessFragmentDirections.actionReserveProcessToReserves(user.id))
+        }
+        alertDialog.show()
+    }
+
+    private val createReserveFailureObserver = Observer<Failure>{
+        val alertDialog = AlertDialog.Builder(context)
+        et_start_date.setText("")
+        et_end_date.setText("")
+        et_end_date.visibility = View.GONE
+        btn_reserve.visibility = View.GONE
+        if (it == ReserveFailure.InvalidReserve ){
+            alertDialog.setTitle("Fecha no disponible")
+            alertDialog.setMessage("UPSS! Has sido muy lento alguien reservado esa fecha. ")
+            alertDialog.setPositiveButton("Aceptar"
+            ) { _, _ ->
+                viewModel.deviceReserves(device.id)
+            }
+            alertDialog.show()
+        }else{
+            toast("No se ha podido crear la reserva")
+        }
+    }
 
     //******************************************* End Observers ************************************
 

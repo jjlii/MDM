@@ -37,7 +37,7 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
         }
     }
 
-    override suspend fun createNewReserve(reserve: ReserveResponse, deviceId: String): Either<Failure, String?> {
+    override suspend fun createNewReserve(reserve: ReserveResponse, deviceId: String): Either<Failure, ReserveResponse?> {
         return try {
             val res = reservesRetrofit.postDeviceReserves(reserve,deviceId)
             when(res.code()){

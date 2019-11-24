@@ -8,6 +8,7 @@ import com.example.core.failure.Failure
 import com.example.domain.user.User
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.login.LoginUseCase
+import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.sign_up.SignUpUseCase
@@ -19,8 +20,10 @@ class SignUpViewModel(application: Application,
                       getUserByIdUserCase: GetUserByIdUserCase,
                       devicesUseCase: DevicesUseCase,
                       userReservesUseCase: UserReservesUseCase,
+                      deviceReservesUseCase: DeviceReservesUseCase,
                       private val signUpUseCase: SignUpUseCase,
-                      private val createUserUseCase: CreateUserUseCase) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase) {
+                      private val createUserUseCase: CreateUserUseCase) :
+    BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase) {
 
     //********************************** LiveData **************************************************
 

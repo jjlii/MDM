@@ -39,4 +39,5 @@
     <string name="fecha_fin_de_la_reserva">Fecha fin de la reserva</string>
     <string name="turno_de_ma_ana_09_00">Turno de mañana (09:00)</string>
     <string name="turno_de_tarde_15_00">Turno de tarde (15:00)</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

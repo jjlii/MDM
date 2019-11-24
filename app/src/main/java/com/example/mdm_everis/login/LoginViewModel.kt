@@ -8,6 +8,7 @@ import com.example.core.failure.Failure
 import com.example.core.failure.UserFailure
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.login.LoginUseCase
+import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.user.GetUserByIdUserCase
 import com.example.domain.user.User
@@ -17,8 +18,9 @@ class LoginViewModel(application: Application,
                      getUserByIdUserCase: GetUserByIdUserCase,
                      devicesUseCase: DevicesUseCase,
                      userReservesUseCase: UserReservesUseCase,
+                     deviceReservesUseCase: DeviceReservesUseCase,
                      private val loginUseCase : LoginUseCase
-) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase){
+) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase){
 
     //********************************** LiveData **************************************************
 

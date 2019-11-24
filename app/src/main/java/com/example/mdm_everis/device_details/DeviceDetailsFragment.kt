@@ -54,7 +54,7 @@ class DeviceDetailsFragment : BaseFragment<DeviceDetailsViewModel>() {
 
     private fun initObserver(){
         viewModel.deviceReservesLD.observe(this,deviceReservesObserver)
-        viewModel.reserveProcessFailureLD.observe(this,failureObserver)
+        viewModel.failureLD.observe(this,failureObserver)
     }
 
     //******************************************* End Init *****************************************

@@ -187,7 +187,8 @@
                 app:layout_constraintStart_toEndOf="@id/iv_img_device"
                 app:layout_constraintEnd_toStartOf="@id/btn_favorite"
                 android:background="@drawable/round_corner_button"
-                android:text="@string/reservar"/>
+                android:text="@string/cancelar"
+                android:visibility="visible"/>
 
             <ToggleButton
                 android:id="@+id/btn_favorite"

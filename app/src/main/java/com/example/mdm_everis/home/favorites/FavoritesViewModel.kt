@@ -10,6 +10,7 @@ import com.example.domain.devices.DevicesResponse
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.devices.GetDeviceByIdUseCase
 import com.example.domain.login.LoginUseCase
+import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.user.GetUserByIdUserCase
 import com.example.mdm_everis.base.BaseViewModel
@@ -17,8 +18,9 @@ import com.example.mdm_everis.base.BaseViewModel
 class FavoritesViewModel(application: Application,
                          getUserByIdUserCase: GetUserByIdUserCase,
                          devicesUseCase: DevicesUseCase,
-                         userReservesUseCase: UserReservesUseCase) :
-    BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase) {
+                         userReservesUseCase: UserReservesUseCase,
+                         deviceReservesUseCase: DeviceReservesUseCase) :
+    BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase) {
 
     //********************************** LiveData **************************************************
     //********************************** End LiveData **********************************************

@@ -125,5 +125,8 @@
             app:argType="com.example.mdm_everis.parcelable_data.Reserves"
             app:nullable="false"/>
 
+        <action
+            android:id="@+id/action_reserve_process_to_reserves"
+            app:destination="@id/reserves_screen"/>
     </fragment>
 </navigation>
