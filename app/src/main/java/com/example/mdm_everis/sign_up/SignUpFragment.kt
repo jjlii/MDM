@@ -7,6 +7,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
+import com.example.core.failure.Failure
+import com.example.core.failure.UserFailure
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
@@ -76,14 +78,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
 
     private val createUserObserver = Observer<String>{
         val alertDialog = AlertDialog.Builder(context)
-        if (it != "User created"){
-            alertDialog.setTitle("Error")
-            alertDialog.setMessage("No se ha podido registrar su usuario.")
-            alertDialog.setPositiveButton("Reintentar"
-            ) { _, _ ->
-                viewModel.createUser(user)
-            }
-        }else{
+        if (it == "User created"){
             alertDialog.setTitle("Correo de verificación")
             alertDialog.setMessage("Ve a tu correo de EVERIS y verifica tu correo. Si no lo has recibido el correo revisa tus datos.")
             alertDialog.setPositiveButton("Sí, ir al login"
@@ -91,6 +86,13 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
                 findNavController().navigate(SignUpFragmentDirections.actionSignUpToLogin())
             }
             alertDialog.setNeutralButton("Cancelar",null)
+        }else{
+            alertDialog.setTitle("Error")
+            alertDialog.setMessage("No se ha podido registrar su usuario.")
+            alertDialog.setPositiveButton("Reintentar"
+            ) { _, _ ->
+                viewModel.createUser(user)
+            }
         }
         alertDialog.show()
     }

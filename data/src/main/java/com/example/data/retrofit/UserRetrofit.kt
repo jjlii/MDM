@@ -13,6 +13,6 @@ interface UserRetrofit {
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserResponse>
 
     @POST("/users")
-    suspend fun createUser(@Body user : UserResponse) : Response<String>
+    suspend fun createUser(@Body user : UserResponse) : Response<UserResponse>
 
 }

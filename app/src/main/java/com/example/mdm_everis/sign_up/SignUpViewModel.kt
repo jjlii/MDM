@@ -30,6 +30,9 @@ class SignUpViewModel(application: Application,
     private val createUserMLD = MutableLiveData<String>()
     val createUserLD : LiveData<String> = createUserMLD
 
+    private val signUpFailureMLD = MutableLiveData<Failure>()
+    val signUpFailureLD : LiveData<Failure> = signUpFailureMLD
+
     //********************************** End LiveData **********************************************
 
     //********************************** Sign up ***************************************************
@@ -51,7 +54,7 @@ class SignUpViewModel(application: Application,
 
     private fun handleFailureSignUp( failure : Failure){
         loadingMLD.value = false
-        signUpMLD.value = "Error"
+        signUpFailureMLD.value = failure
         Log.i("failure", failure.toString())
     }
 

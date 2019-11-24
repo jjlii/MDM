@@ -31,7 +31,7 @@ class UserRepositoryImp(private val userRetrofit: UserRetrofit) :
                 false -> Either.Failure(Failure.ServerError)
             }
         }catch (e : Exception){
-            Log.e("Error getAllDevices",e.message.toString())
+            Log.e("Error createUser",e.message.toString())
             Either.Failure(Failure.Unknown)
         }
     }

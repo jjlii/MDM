@@ -6,5 +6,6 @@ sealed class UserFailure: Failure.FeatureFailure() {
     object InvalidEmailFormat : UserFailure()
     object InvalidPassword : UserFailure()
     object EmailNoVerified : UserFailure()
+    object EmailExist : UserFailure()
 
 }

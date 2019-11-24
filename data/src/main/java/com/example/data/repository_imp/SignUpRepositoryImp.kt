@@ -3,6 +3,7 @@ package com.example.data.repository_imp
 import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
+import com.example.core.failure.UserFailure
 import com.example.domain.user.User
 import com.example.domain.sign_up.SignUpRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -26,7 +27,11 @@ class SignUpRepositoryImp : SignUpRepository {
             } ?: Either.Failure(Failure.Unknown)
         }catch (firebaseE : FirebaseAuthException){
             Log.e("Codigo Error Sign Up",firebaseE.errorCode)
-            Either.Failure(Failure.Unknown)
+            if(firebaseE.errorCode == "ERROR_EMAIL_ALREADY_IN_USE"){
+                Either.Failure(UserFailure.EmailExist)
+            }else{
+                Either.Failure(Failure.Unknown)
+            }
         }catch (e : Exception){
             Log.i("Exception",e.message.toString())
             Either.Failure(Failure.Unknown)

@@ -5,7 +5,6 @@ import com.example.core.UseCase
 import com.example.core.failure.Failure
 import com.example.domain.repository.UserRepository
 import com.example.domain.user.UserResponse
-import retrofit2.Retrofit
 
 class CreateUserUseCase(private val userRepository: UserRepository) : UseCase<Failure,String,UserResponse>(){
 
