@@ -111,14 +111,16 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                 it.deviceId == deviceId
             }
             val reserve : ReserveResponse
-            r.let {
-                reserve = it[0]
-                startDate = convertLongToDate(reserve.startDate.toLong())
-                endDate = convertLongToDate(reserve.endDate.toLong())
-                reservesCopy.remove(reserve)
-                with(view){
-                    tv_f_start_content.text = startDate
-                    tv_f_end_content.text = endDate
+            if (r.isNotEmpty()){
+                r.let {
+                    reserve = it[0]
+                    startDate = convertLongToDate(reserve.startDate.toLong())
+                    endDate = convertLongToDate(reserve.endDate.toLong())
+                    reservesCopy.remove(reserve)
+                    with(view){
+                        tv_f_start_content.text = startDate
+                        tv_f_end_content.text = endDate
+                    }
                 }
             }
         }
