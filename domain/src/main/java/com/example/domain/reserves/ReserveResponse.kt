@@ -7,6 +7,6 @@ data class ReserveResponse (
     val id : String,
     val userId : String,
     val startDate : String,
-    val endDate : String,
+    var endDate : String,
     val deviceId : String
 ): Serializable

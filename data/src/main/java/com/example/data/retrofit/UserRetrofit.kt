@@ -9,10 +9,10 @@ import retrofit2.http.Path
 
 interface UserRetrofit {
 
-    @GET("/users/{userId}")
+    @GET("users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserResponse>
 
-    @POST("/users")
+    @POST("users")
     suspend fun createUser(@Body user : UserResponse) : Response<UserResponse>
 
 }

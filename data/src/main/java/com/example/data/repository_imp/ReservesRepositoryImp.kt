@@ -10,7 +10,6 @@ import com.example.domain.reserves.ReserveResponse
 
 class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): ReservesRepository {
 
-
     override suspend fun getUserReserves(userId: String): Either<Failure, List<ReserveResponse>?> {
         return try {
             val res = reservesRetrofit.getUserReserves(userId)
@@ -51,6 +50,30 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
         }
     }
 
+    override suspend fun deleteReserve(deviceId: String, reserveId: String): Either<Failure, ReserveResponse?> {
+        return try {
+            val res = reservesRetrofit.deleteDeviceReserve(deviceId,reserveId)
+            when(res.isSuccessful){
+                true -> Either.Sucess(res.body())
+                false -> Either.Failure(Failure.ServerError)
+            }
+        }catch (e : Exception){
+            Log.e("Error createNewReserve",e.message.toString())
+            Either.Failure(Failure.Unknown)
+        }
+    }
 
+    override suspend fun createCaducatedReserve(reserve: ReserveResponse): Either<Failure, String?> {
+        return try {
+            val res = reservesRetrofit.createCaducatedReserve(reserve)
+            when(res.isSuccessful){
+                true -> Either.Sucess("Success")
+                false -> Either.Failure(Failure.ServerError)
+            }
+        }catch (e : Exception){
+            Log.e("Error caducatedReserve",e.message.toString())
+            Either.Failure(Failure.Unknown)
+        }
+    }
 
 }

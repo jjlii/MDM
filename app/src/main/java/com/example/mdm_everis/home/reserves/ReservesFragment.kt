@@ -1,6 +1,7 @@
 package com.example.mdm_everis.home.reserves
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.home.DevicesAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.reserves_fragment.*
+import java.util.*
 
 class ReservesFragment : BaseFragment<ReservesViewModel>() {
 
@@ -37,6 +39,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     lateinit var user : UserResponse
     private var devices: List<DevicesResponse> = arrayListOf()
     lateinit var userId : String
+    lateinit var deviceDeletedName : String
 
     private var myReserves : MutableList<DevicesResponse> = arrayListOf()
 
@@ -67,6 +70,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         viewModel.userReservesLD.observe(this,getUserReserveObserver)
         viewModel.failureLD.observe(this,errorObserver)
         viewModel.devicesLD.observe(this,devicesObserver)
+        viewModel.deleteReserveLD.observe(this,deleteReserveObserver)
     }
 
 
@@ -126,6 +130,24 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         }
     }
 
+    private val deleteReserveObserver = Observer<ReserveResponse>{
+        val newEndDate = Calendar.getInstance()
+        val sDate : String = convertLongToDate(it.startDate.toLong(),"dd/MM/yyyy HH:mm")
+        val eDate : String = convertLongToDate(newEndDate.timeInMillis,"dd/MM/yyyy HH:mm")
+        val msg = "Se ha cancelado la reserva:\n" +
+                "Dispositivo: ${deviceDeletedName}\n"+
+                "Fecha incio reserva: ${sDate}\n"+
+                "Fecha fin de reserva: ${eDate}"
+        it.endDate = newEndDate.timeInMillis.toString()
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Reserva cancelada")
+        alertDialog.setMessage(msg)
+
+        alertDialog.setPositiveButton("Aceptar"){ _,_ ->
+            showAdapter()
+        }
+    }
+
     //******************************************* End Observers ************************************
 
 
@@ -136,15 +158,10 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         rv_reserves.adapter = DevicesAdapter(myReserves,userReserve,Constant.FragmentFlag.RESERVES,user.favourites,{
                 deviceId, _->
             favoriteAction(deviceId)
+        },{deviceId, reserve ->
+            reserveAction(deviceId,reserve)
         },{deviceId->
-            findNavController().navigate(ReservesFragmentDirections.actionReservesToDeviceDetails(
-                Devices(
-                    navigateToDetails(
-                        deviceId,
-                        devices
-                    )
-                )
-            ))
+            touchAction(deviceId)
         })
         rv_reserves.layoutManager = LinearLayoutManager(context)
 
@@ -161,6 +178,33 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         (activity as MainActivity).setUser(user)
     }
 
+    private fun reserveAction(deviceId: String,reserve : ReserveResponse?){
+        val alertDialog = AlertDialog.Builder(context)
+        val allDevices = (activity as MainActivity).getDevice()
+        val d = getDeviceDetails(deviceId,allDevices)[0]
+        deviceDeletedName = "${d.brand} ${d.model}"
+        alertDialog.setTitle("Cancelar reserva")
+        alertDialog.setMessage("¿Estás seguro de que quiere cancelar la reserva del dispositivo \"${deviceDeletedName}\"?")
+        alertDialog.setPositiveButton("Aceptar"){_,_ ->
+            reserve?.let {
+                viewModel.deleteReserve(deviceId,it.id)
+            }
+        }
+        alertDialog.setNeutralButton("Cancelar",null)
+        alertDialog.show()
+    }
+
+    private fun touchAction(deviceId: String){
+        findNavController().navigate(ReservesFragmentDirections.actionReservesToDeviceDetails(
+            Devices(
+                getDeviceDetails(
+                    deviceId,
+                    devices
+                )
+            )
+        ))
+    }
+
     private fun getMyReserves(reservesResponse : List<ReserveResponse>?){
         reservesResponse?.forEach {reserve ->
             devices.forEach{device ->
@@ -169,4 +213,5 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             }
         }
     }
+
 }

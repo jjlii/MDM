@@ -18,6 +18,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                      private var flag : String,
                      private var favoritesId : MutableList<String>,
                      private val favoriteAction : (deviceId : String,position : Int)->Unit,
+                     private val reserveAction : (deviceId : String,reserve : ReserveResponse?)->Unit,
                      private val touchAction :(deviceId : String) -> Unit) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
@@ -60,9 +61,19 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                         }
                         setVisibilityReserves(this)
                         setDataReserves(this,device.id)
+                        btn_reserve.setOnClickListener {
+                            val myReserve = getReserve(stringDateToLong(
+                                tv_f_start_content.text.toString(),
+                                "dd/MM/yyyy HH:mm").toString()
+                            )
+                            reserveAction(device.id,myReserve)
+                        }
                     }
                     else -> {
                         setVisibilityNotReserves(this)
+                        btn_reserve.setOnClickListener {
+                            reserveAction(device.id,null)
+                        }
                         tv_screen_size_c.text = device.screenSize
                         tv_screen_r_c.text = device.screenResolution
                     }
@@ -128,6 +139,18 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
             val d = Date(date)
             val f = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.getDefault())
             return f.format(d)
+        }
+
+        private fun stringDateToLong(strDate : String, format : String) : Long{
+            val f = SimpleDateFormat(format, Locale.getDefault())
+            val date = f.parse(strDate)
+            return date.time
+        }
+
+        private fun getReserve(startDate : String) : ReserveResponse{
+            return reserves.single {
+                it.startDate == startDate
+            }
         }
     }
 

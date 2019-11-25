@@ -71,6 +71,11 @@
         <action
             android:id="@+id/action_favorite_to_device_details"
             app:destination="@id/device_details_screen"/>
+
+        <action
+            android:id="@+id/action_favorite_to_reserve_process"
+            app:destination="@id/reserve_process_screen" />
+
     </fragment>
 
     <fragment
@@ -81,6 +86,10 @@
         <action
             android:id="@+id/action_devices_to_device_details"
             app:destination="@id/device_details_screen"/>
+
+        <action
+            android:id="@+id/action_devices_to_reserve_process"
+            app:destination="@id/reserve_process_screen" />
 
     </fragment>
 

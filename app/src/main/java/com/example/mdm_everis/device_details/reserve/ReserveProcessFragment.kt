@@ -330,15 +330,5 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     }
     //******************************************* End DatePicker ***********************************
 
-    private fun stringDateToLong(strDate : String, format : String) : Long{
-        val f = SimpleDateFormat(format, Locale.getDefault())
-        val date = f.parse(strDate)
-        return date.time
-    }
-    private fun convertLongToDate(date : Long,format : String) : String {
-        val d = Date(date)
-        val f = SimpleDateFormat(format,Locale.getDefault())
-        return f.format(d)
-    }
 
 }

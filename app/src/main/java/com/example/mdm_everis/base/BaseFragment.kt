@@ -15,6 +15,8 @@ import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.hideKeyboard
 import org.koin.android.viewmodel.ext.android.viewModelByClass
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.reflect.KClass
 
 abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
@@ -90,7 +92,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     fun toast( message: String, duration: Int = Toast.LENGTH_LONG)=
         Toast.makeText(context, message , duration).show()
 
-    fun navigateToDetails(deviceId : String, devices : List<DevicesResponse>) : List<DevicesResponse> {
+    fun getDeviceDetails(deviceId : String, devices : List<DevicesResponse>) : List<DevicesResponse> {
         val device : MutableList<DevicesResponse> = arrayListOf()
         device.add(0,
             devices.single {
@@ -98,6 +100,17 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
             }
         )
         return device
+    }
+
+    fun stringDateToLong(strDate : String, format : String) : Long{
+        val f = SimpleDateFormat(format, Locale.getDefault())
+        val date = f.parse(strDate)
+        return date.time
+    }
+    fun convertLongToDate(date : Long,format : String) : String {
+        val d = Date(date)
+        val f = SimpleDateFormat(format, Locale.getDefault())
+        return f.format(d)
     }
 
 }

@@ -8,7 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
+import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
@@ -16,6 +18,7 @@ import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.home.DevicesAdapter
+import com.example.mdm_everis.parcelable_data.Reserves
 import kotlinx.android.synthetic.main.favorites_fragment.*
 
 class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
@@ -29,6 +32,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     private val args : FavoritesFragmentArgs by navArgs()
     private var favorites : MutableList<DevicesResponse> = arrayListOf()
     var devices : List<DevicesResponse> = arrayListOf()
+    lateinit var selectDeviceId : String
     lateinit var userId : String
 
 
@@ -62,7 +66,10 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     private fun initObserves(){
         viewModel.devicesLD.observe(this,devicesObserver)
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
+        viewModel.deviceReservesLD.observe(this,deviceReservesObserver)
+        viewModel.failureLD.observe(this,failureObserver)
     }
+
 
     //******************************************* End Init *****************************************
 
@@ -86,6 +93,17 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
             toast("Error al cargar los dispositivos")
         }
     }
+
+    private val deviceReservesObserver = Observer<List<ReserveResponse>>{
+        findNavController().navigate(FavoritesFragmentDirections.actionFavoriteToReserveProcess(
+            Devices(getDeviceDetails(selectDeviceId,devices)),
+            Reserves(it))
+        )
+    }
+
+    private val failureObserver = Observer<Failure>{
+        toast(it.toString())
+    }
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
@@ -93,15 +111,11 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
             rv_favorites.adapter = DevicesAdapter(it, arrayListOf(),Constant.FragmentFlag.FAVORITES,
                 (activity as MainActivity).getUser().favourites,{ deviceId,position->
                     favoriteAction(deviceId,position)
-                },{ deviceId ->
-                    findNavController().navigate(FavoritesFragmentDirections.actionFavoriteToDeviceDetails(
-                        Devices(
-                            navigateToDetails(
-                                deviceId,
-                                devices
-                            )
-                        )
-                    ))
+                },{deviceId, _ ->
+                    reserveAction(deviceId)
+                },
+                { deviceId ->
+                    touchAction(deviceId)
                 })
             rv_favorites.layoutManager = LinearLayoutManager(context)
         }
@@ -133,6 +147,22 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
             user.favourites = newFavorites
             (activity as MainActivity).setUser(user)
         }
+    }
+
+    private fun reserveAction(deviceId: String){
+        selectDeviceId = deviceId
+        viewModel.deviceReserves(deviceId)
+    }
+
+    private fun touchAction(deviceId: String){
+        findNavController().navigate(FavoritesFragmentDirections.actionFavoriteToDeviceDetails(
+            Devices(
+                getDeviceDetails(
+                    deviceId,
+                    devices
+                )
+            )
+        ))
     }
 
 }
