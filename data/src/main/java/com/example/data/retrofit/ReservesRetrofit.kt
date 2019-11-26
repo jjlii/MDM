@@ -1,5 +1,6 @@
 package com.example.data.retrofit
 
+import com.example.domain.reserves.CaducatedReserveResponse
 import com.example.domain.reserves.ReserveResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -24,6 +25,6 @@ interface ReservesRetrofit {
 
     @POST("caducatedReserve")
     suspend fun createCaducatedReserve(@Body reserve : ReserveResponse)
-            : Response<String>
+            : Response<CaducatedReserveResponse>
 
 }

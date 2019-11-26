@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.Constant
 import com.example.core.failure.Failure
+import com.example.core.failure.ReserveFailure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
@@ -39,10 +40,9 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     lateinit var user : UserResponse
     private var devices: List<DevicesResponse> = arrayListOf()
     lateinit var userId : String
-    lateinit var deviceDeletedName : String
-
+    private lateinit var deviceDeletedName : String
     private var myReserves : MutableList<DevicesResponse> = arrayListOf()
-
+    private lateinit var deletedReserve : ReserveResponse
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setFragment(Constant.FragmentFlag.RESERVES)
@@ -71,6 +71,8 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         viewModel.failureLD.observe(this,errorObserver)
         viewModel.devicesLD.observe(this,devicesObserver)
         viewModel.deleteReserveLD.observe(this,deleteReserveObserver)
+        viewModel.reserveFailureLD.observe(this,errorCancelObserver)
+        viewModel.createCaducatedReserveLD.observe(this,createCaducatedReserveObserver)
     }
 
 
@@ -121,6 +123,31 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         }
     }
 
+    private val errorCancelObserver = Observer<Failure>{
+        val alertDialog = AlertDialog.Builder(context)
+        when(it){
+            ReserveFailure.ErrorDeleteReserve ->{
+                alertDialog.setTitle("Error al cancelar la reserva")
+                alertDialog.setMessage("No se ha podido cancelar la reserva")
+                alertDialog.setPositiveButton("Aceptar",null)
+            }
+            ReserveFailure.ErrorCreateCaducatedReserve ->{
+                alertDialog.setTitle("Error al registrar la cancelación")
+                alertDialog.setMessage("No se ha podido cancelar la reserva")
+                alertDialog.setPositiveButton("Reintentar"){
+                    _,_ ->
+                    viewModel.createCaducatedReserve(deletedReserve,true)
+                }
+            }
+            else -> {
+                alertDialog.setTitle("Error deconocido")
+                alertDialog.setMessage("Se ha producido un error desconocido")
+                alertDialog.setPositiveButton("Aceptar",null)
+            }
+        }
+        alertDialog.show()
+    }
+
     private val devicesObserver = Observer<List<DevicesResponse>> {
         it?.let {
             devices = it
@@ -130,22 +157,33 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         }
     }
 
-    private val deleteReserveObserver = Observer<ReserveResponse>{
+    private val deleteReserveObserver = Observer<ReserveResponse>{r->
         val newEndDate = Calendar.getInstance()
-        val sDate : String = convertLongToDate(it.startDate.toLong(),"dd/MM/yyyy HH:mm")
-        val eDate : String = convertLongToDate(newEndDate.timeInMillis,"dd/MM/yyyy HH:mm")
+        r.endDate = newEndDate.timeInMillis.toString()
+        deletedReserve = r
+        viewModel.createCaducatedReserve(r,false)
+    }
+
+    private val createCaducatedReserveObserver = Observer<String>{
+        val sDate : String = convertLongToDate(deletedReserve.startDate.toLong(),"dd/MM/yyyy HH:mm")
+        val eDate : String = convertLongToDate(deletedReserve.endDate.toLong(),"dd/MM/yyyy HH:mm")
         val msg = "Se ha cancelado la reserva:\n" +
                 "Dispositivo: ${deviceDeletedName}\n"+
                 "Fecha incio reserva: ${sDate}\n"+
-                "Fecha fin de reserva: ${eDate}"
-        it.endDate = newEndDate.timeInMillis.toString()
+                "Fecha fin de reserva: $eDate"
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle("Reserva cancelada")
         alertDialog.setMessage(msg)
-
         alertDialog.setPositiveButton("Aceptar"){ _,_ ->
+            val userR = (activity as MainActivity).getUserReserves().toMutableList()
+            val newUserReserves = arrayListOf<ReserveResponse>()
+            userR.filterTo(newUserReserves,{
+                it.startDate != deletedReserve.startDate
+            })
+            (activity as MainActivity).setUserReserves(newUserReserves)
             showAdapter()
         }
+        alertDialog.show()
     }
 
     //******************************************* End Observers ************************************
@@ -158,8 +196,12 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         rv_reserves.adapter = DevicesAdapter(myReserves,userReserve,Constant.FragmentFlag.RESERVES,user.favourites,{
                 deviceId, _->
             favoriteAction(deviceId)
-        },{deviceId, reserve ->
-            reserveAction(deviceId,reserve)
+        },{deviceId, startDate ->
+            val auxReserves = (activity as MainActivity).getUserReserves()
+            val auxReserve = auxReserves.single {
+                it.startDate == startDate
+            }
+            reserveAction(deviceId,auxReserve)
         },{deviceId->
             touchAction(deviceId)
         })

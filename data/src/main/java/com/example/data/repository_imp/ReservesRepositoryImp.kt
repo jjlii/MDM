@@ -15,7 +15,7 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
             val res = reservesRetrofit.getUserReserves(userId)
             when(res.isSuccessful){
                 true -> Either.Sucess(res.body())
-                false -> Either.Failure(Failure.ServerError)
+                false -> Either.Failure(ReserveFailure.ErrorGetUserReserves)
             }
         }catch (e : Exception){
             Log.e("Error getUserReserves",e.message.toString())
@@ -28,7 +28,7 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
             val res = reservesRetrofit.getDeviceReserves(deviceId)
             when(res.isSuccessful){
                 true -> Either.Sucess(res.body())
-                false -> Either.Failure(Failure.ServerError)
+                false -> Either.Failure(ReserveFailure.ErrorGetReserve)
             }
         }catch (e : Exception){
             Log.e("Error getUserReserves",e.message.toString())
@@ -42,7 +42,7 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
             when(res.code()){
                 200-> Either.Sucess(res.body())
                 400-> Either.Failure(ReserveFailure.InvalidReserve)
-                else -> Either.Failure(Failure.ServerError)
+                else -> Either.Failure(ReserveFailure.ErrorCreateReserve)
             }
         }catch (e : Exception){
             Log.e("Error createNewReserve",e.message.toString())
@@ -55,7 +55,7 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
             val res = reservesRetrofit.deleteDeviceReserve(deviceId,reserveId)
             when(res.isSuccessful){
                 true -> Either.Sucess(res.body())
-                false -> Either.Failure(Failure.ServerError)
+                false -> Either.Failure(ReserveFailure.ErrorDeleteReserve)
             }
         }catch (e : Exception){
             Log.e("Error createNewReserve",e.message.toString())
@@ -68,7 +68,7 @@ class ReservesRepositoryImp(private val reservesRetrofit: ReservesRetrofit): Res
             val res = reservesRetrofit.createCaducatedReserve(reserve)
             when(res.isSuccessful){
                 true -> Either.Sucess("Success")
-                false -> Either.Failure(Failure.ServerError)
+                false -> Either.Failure(ReserveFailure.ErrorCreateCaducatedReserve)
             }
         }catch (e : Exception){
             Log.e("Error caducatedReserve",e.message.toString())

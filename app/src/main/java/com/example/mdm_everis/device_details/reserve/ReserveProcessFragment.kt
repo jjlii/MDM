@@ -189,7 +189,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                 var endDate: String
                 val auxC = Calendar.getInstance()
                 with(minC){
-                    set(Calendar.DAY_OF_MONTH,startD!!.toInt()-1)
+                    set(Calendar.DAY_OF_MONTH,startD!!.toInt())
                     set(Calendar.MONTH,startM!!.toInt()-1)
                     set(Calendar.YEAR,startY!!.toInt())
                 }

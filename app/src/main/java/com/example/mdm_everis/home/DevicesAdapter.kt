@@ -18,7 +18,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                      private var flag : String,
                      private var favoritesId : MutableList<String>,
                      private val favoriteAction : (deviceId : String,position : Int)->Unit,
-                     private val reserveAction : (deviceId : String,reserve : ReserveResponse?)->Unit,
+                     private val reserveAction : (deviceId : String,startDate : String?)->Unit,
                      private val touchAction :(deviceId : String) -> Unit) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
 
     private var mobile = ""
@@ -62,11 +62,10 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                         setVisibilityReserves(this)
                         setDataReserves(this,device.id)
                         btn_reserve.setOnClickListener {
-                            val myReserve = getReserve(stringDateToLong(
+                            val sD = stringDateToLong(
                                 tv_f_start_content.text.toString(),
                                 "dd/MM/yyyy HH:mm").toString()
-                            )
-                            reserveAction(device.id,myReserve)
+                            reserveAction(device.id,sD)
                         }
                     }
                     else -> {

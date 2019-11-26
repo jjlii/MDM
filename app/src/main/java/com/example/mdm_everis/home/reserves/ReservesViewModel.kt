@@ -17,7 +17,8 @@ class ReservesViewModel(application: Application,
                         devicesUseCase: DevicesUseCase,
                         userReservesUseCase: UserReservesUseCase,
                         deviceReservesUseCase: DeviceReservesUseCase,
-                        private val deleteReserveUseCase: DeleteReserveUseCase) :
+                        private val deleteReserveUseCase: DeleteReserveUseCase,
+                        private val createCaducatedReserveUseCase: CreateCaducatedReserveUseCase) :
     BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase) {
 
 
@@ -27,7 +28,10 @@ class ReservesViewModel(application: Application,
     val deleteReserveLD : LiveData<ReserveResponse> = deleteReserveMLD
 
     private val reserveFailureMLD = MutableLiveData<Failure>()
-    val reserveFailure : LiveData<Failure> = reserveFailureMLD
+    val reserveFailureLD : LiveData<Failure> = reserveFailureMLD
+
+    private val createCaducatedReserveMLD = MutableLiveData<String>()
+    val createCaducatedReserveLD : LiveData<String> = createCaducatedReserveMLD
 
     //********************************** End LiveData **********************************************
 
@@ -49,13 +53,32 @@ class ReservesViewModel(application: Application,
     }
 
     private fun handleSuccessDeleteReserve(reserveResponse: ReserveResponse?){
-        loadingMLD.value = false
         deleteReserveMLD.value = reserveResponse
     }
 
     //********************************** End Delete Reserve ****************************************
+    //********************************** Create Caducate Reserve ***********************************
 
+    fun createCaducatedReserve(reserve : ReserveResponse,mostrarLoading: Boolean){
+        loadingMLD.value = mostrarLoading
+        createCaducatedReserveUseCase(reserve){
+            it.fold(
+                ::handleFailureCaducatedReserve,
+                ::handleSuccessCaducatedReserve
+            )
+        }
+    }
 
+    private fun handleFailureCaducatedReserve(failure: Failure){
+        loadingMLD.value = false
+        reserveFailureMLD.value = failure
+    }
 
+    private fun handleSuccessCaducatedReserve(s: String?) {
+        loadingMLD.value = false
+        createCaducatedReserveMLD.value = s
+    }
+
+    //********************************** End create Caducate Reserve *******************************
 
 }
