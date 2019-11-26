@@ -109,7 +109,8 @@ abstract class BaseViewModel(application : Application,
     //********************************** Get User Reserves *****************************************
 
     fun getUserReserves(userId : String){
-        if (fragmentFlag != Constant.FragmentFlag.LOGIN){
+        if (fragmentFlag != Constant.FragmentFlag.LOGIN ||
+                fragmentFlag != Constant.FragmentFlag.RESERVE_PROCESS){
             loadingMLD.value = true
         }
         userReservesUseCase(userId){

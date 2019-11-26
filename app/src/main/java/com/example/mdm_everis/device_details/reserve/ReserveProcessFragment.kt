@@ -99,6 +99,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         viewModel.failureLD.observe(this,failureObserver)
         viewModel.createReserveLD.observe(this,createReserveObserver)
         viewModel.createReserveFailure.observe(this,createReserveFailureObserver)
+        viewModel.userReservesLD.observe(this,getUserReserveObserver)
     }
 
     //******************************************* End Init *****************************************
@@ -114,19 +115,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     }
 
     private val createReserveObserver = Observer<ReserveResponse>{
-        val alertDialog = AlertDialog.Builder(context)
-        val userReserve = (activity as MainActivity).getUserReserves().toMutableList()
-        userReserve.add(newReserve)
-        (activity as MainActivity).setUserReserves(userReserve)
-        alertDialog.setTitle("Confirmación de la reserva")
-        alertDialog.setMessage("Ha reservado el dispositivo desde " + et_start_date.text.toString()
-        + " hasta " + et_end_date.text.toString()
-                +". Recuerde hacer un uso responsable del dispositivo y devolverlo en la fecha establecida.")
-        alertDialog.setPositiveButton("Aceptar"
-        ) { _, _ ->
-            findNavController().navigate(ReserveProcessFragmentDirections.actionReserveProcessToReserves(user.id))
-        }
-        alertDialog.show()
+        viewModel.getUserReserves(user.id)
     }
 
     private val createReserveFailureObserver = Observer<Failure>{
@@ -146,6 +135,23 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         }else{
             toast("No se ha podido crear la reserva")
         }
+    }
+
+    private val getUserReserveObserver = Observer<List<ReserveResponse>?>{
+        it?.let {
+            (activity as MainActivity).setUserReserves(it)
+        }
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Confirmación de la reserva")
+        alertDialog.setMessage("Ha reservado el dispositivo desde " + et_start_date.text.toString()
+                + " hasta " + et_end_date.text.toString()
+                +". Recuerde hacer un uso responsable del dispositivo y devolverlo en la fecha establecida.")
+        alertDialog.setPositiveButton("Aceptar"
+        ) { _, _ ->
+            findNavController().navigate(ReserveProcessFragmentDirections.actionReserveProcessToReserves(user.id))
+        }
+        alertDialog.show()
+
     }
 
     //******************************************* End Observers ************************************
@@ -180,8 +186,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             "StartDatePickerDialog"-> {
                 minC= Calendar.getInstance()
                 val strMinC = getMinCStartDate()
-                val longMinC = stringDateToLong(strMinC,Constant.DateFormat.DATE_WITHOUT_TIME)
                 if (strMinC != "No encontrado"){
+                    val longMinC = stringDateToLong(strMinC,Constant.DateFormat.DATE_WITHOUT_TIME)
                     val dateMinC = convertLongToDate(longMinC,Constant.DateFormat.DATE_WITHOUT_TIME)
                     with(minC){
                         set(Calendar.DAY_OF_MONTH,dateMinC.substring(0..1).toInt())
@@ -209,19 +215,6 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                     set(Calendar.DAY_OF_MONTH,startD!!.toInt()+1)
                     set(Calendar.MONTH,startM!!.toInt()-1)
                     set(Calendar.YEAR,startY!!.toInt())
-                    /*
-                    when(startM?.toInt()){
-                        12-> {
-                            set(Calendar.MONTH,0)
-                            set(Calendar.YEAR,startY!!.toInt()+1)
-                        }
-                        else->{
-                            set(Calendar.MONTH,startM!!.toInt()-1)
-                            set(Calendar.YEAR,startY!!.toInt())
-                        }
-                    }
-
-                     */
 
                 }
                 deviceReserve.forEach {
@@ -230,34 +223,12 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                     endM = endDate.substring(3..4)
                     endY = endDate.substring(6..9)
                     with(auxC){
-                        /*
-                        when(endM.toInt()){
-                            12-> {
-                                set(Calendar.YEAR,endY.toInt()+1)
-                                set(Calendar.MONTH,0)
-                            }
-                            else ->{
-                                set(Calendar.MONTH,endM.toInt()-1)
-                                set(Calendar.YEAR,endY.toInt())
-                            }
-                        }*/
                         set(Calendar.MONTH,endM.toInt()-1)
                         set(Calendar.YEAR,endY.toInt())
                         set(Calendar.DAY_OF_MONTH,endD.toInt())
                     }
                     if (minC<auxC && auxC<maxC){
                         with(maxC){
-                            /*
-                            when(endM.toInt()){
-                                12->{
-                                    set(Calendar.MONTH,0)
-                                    set(Calendar.YEAR,endY.toInt()+1)
-                                }
-                                else ->{
-                                    set(Calendar.MONTH,endM.toInt()-1)
-                                    set(Calendar.YEAR,endY.toInt())
-                                }
-                            }*/
                             set(Calendar.MONTH,endM.toInt()-1)
                             set(Calendar.YEAR,endY.toInt())
                             set(Calendar.DAY_OF_MONTH,endD.toInt())

@@ -47,7 +47,6 @@ class ReserveProcessViewModel(application: Application,
     }
 
     private fun createReserveSuccess(reserveResponse: ReserveResponse?) {
-        loadingMLD.value = false
         createReserveMLD.value = reserveResponse
     }
 
