@@ -50,6 +50,9 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     private val myDay = c.get(Calendar.DAY_OF_MONTH)
     private var editTextClick = ""
     private var disableDays : MutableList<Calendar> = arrayListOf()
+    private var  startD : String? =null
+    var  startM : String? = null
+    var startY : String? = null
     //*******************************************  End Calendar ************************************
 
 
@@ -173,23 +176,22 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         datePickerDialog.setTitle(title)
         maxC = Calendar.getInstance()
         maxC.set(Calendar.MONTH, myMonth + 1)
-        getReservedDays(tag)
         when(tag){
             "StartDatePickerDialog"-> {
                 minC = Calendar.getInstance()
             }
             "EndDatePickerDialog"-> {
                 var foundEndD = false
-                val startD : String? = et_start_date.text?.substring(0..1)
-                val startM : String? = et_start_date.text?.substring(3..4)
-                val startY : String? = et_start_date.text?.substring(6..9)
+                startD = et_start_date.text?.substring(0..1)
+                startM = et_start_date.text?.substring(3..4)
+                startY = et_start_date.text?.substring(6..9)
                 var endD : String
                 var endM : String
                 var endY : String
                 var endDate: String
                 val auxC = Calendar.getInstance()
                 with(minC){
-                    set(Calendar.DAY_OF_MONTH,startD!!.toInt())
+                    set(Calendar.DAY_OF_MONTH,startD!!.toInt()+1)
                     set(Calendar.MONTH,startM!!.toInt()-1)
                     set(Calendar.YEAR,startY!!.toInt())
                 }
@@ -214,10 +216,12 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                 }
                 if (!foundEndD){
                     maxC = Calendar.getInstance()
-                    maxC.set(Calendar.MONTH, myMonth + 1)
+                    maxC.set(Calendar.DAY_OF_MONTH,minC[Calendar.DAY_OF_MONTH])
+                    maxC.set(Calendar.MONTH, minC[Calendar.MONTH] + 1)
                 }
             }
         }
+        getReservedDays(tag)
         datePickerDialog.maxDate = maxC
         datePickerDialog.minDate = minC
         val days : Array<Calendar> = disableDays.toTypedArray()
@@ -240,12 +244,19 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         return "$sDay/$sMonth/$year"
     }
 
-    private fun disableWeekend(){
+    private fun disableWeekend(tag: String){
         var day : Calendar
         val dayValue = myDay
         val monthDay = 31
         for (i  in 0 .. monthDay ){
             day = Calendar.getInstance()
+            if (tag=="EndDatePickerDialog"){
+                with(day){
+                    set(Calendar.DAY_OF_MONTH,startD!!.toInt()+1)
+                    set(Calendar.MONTH,startM!!.toInt()-1)
+                    set(Calendar.YEAR,startY!!.toInt())
+                }
+            }
             day.set(Calendar.DAY_OF_MONTH, dayValue + i)
             if (day[Calendar.DAY_OF_WEEK] == Calendar.SATURDAY
                 || day[Calendar.DAY_OF_WEEK] == Calendar.SUNDAY ){
@@ -256,7 +267,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     private fun getReservedDays(tag : String){
         disableDays = arrayListOf()
-        disableWeekend()
+        disableWeekend(tag)
         if (deviceReserve.isNotEmpty()){
             deviceReserve.forEach {reserve ->
                 disableDays(convertLongToDate(reserve.startDate.toLong(),"dd/MM/yyyy HH:mm"),convertLongToDate(reserve.endDate.toLong(),"dd/MM/yyyy HH:mm"),tag)
