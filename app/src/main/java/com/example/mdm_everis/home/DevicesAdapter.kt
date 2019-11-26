@@ -64,7 +64,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                         btn_reserve.setOnClickListener {
                             val sD = stringDateToLong(
                                 tv_f_start_content.text.toString(),
-                                "dd/MM/yyyy HH:mm").toString()
+                                Constant.DateFormat.DATE_WITH_TIME).toString()
                             reserveAction(device.id,sD)
                         }
                     }
@@ -136,7 +136,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
 
         private fun convertLongToDate(date : Long) : String {
             val d = Date(date)
-            val f = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.getDefault())
+            val f = SimpleDateFormat(Constant.DateFormat.DATE_WITH_TIME,Locale.getDefault())
             return f.format(d)
         }
 

@@ -41,4 +41,10 @@ class Constant{
         const val THREE = 54000000
     }
 
+    object DateFormat{
+        const val DATE_WITH_TIME = "dd/MM/yyyy HH:mm"
+        const val DATE_WITHOUT_TIME = "dd/MM/yyyy"
+
+    }
+
 }

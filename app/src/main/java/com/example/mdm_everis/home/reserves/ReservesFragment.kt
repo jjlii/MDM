@@ -165,8 +165,8 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     }
 
     private val createCaducatedReserveObserver = Observer<String>{
-        val sDate : String = convertLongToDate(deletedReserve.startDate.toLong(),"dd/MM/yyyy HH:mm")
-        val eDate : String = convertLongToDate(deletedReserve.endDate.toLong(),"dd/MM/yyyy HH:mm")
+        val sDate : String = convertLongToDate(deletedReserve.startDate.toLong(),Constant.DateFormat.DATE_WITH_TIME)
+        val eDate : String = convertLongToDate(deletedReserve.endDate.toLong(),Constant.DateFormat.DATE_WITH_TIME)
         val msg = "Se ha cancelado la reserva:\n" +
                 "Dispositivo: ${deviceDeletedName}\n"+
                 "Fecha incio reserva: ${sDate}\n"+
