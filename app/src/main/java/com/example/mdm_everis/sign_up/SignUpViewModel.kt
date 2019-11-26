@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.core.failure.Failure
 import com.example.domain.user.User
 import com.example.domain.devices.DevicesUseCase
-import com.example.domain.login.LoginUseCase
 import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.sign_up.CreateUserUseCase
@@ -76,7 +75,7 @@ class SignUpViewModel(application: Application,
 
     private fun handleFailureCreateUser(failure: Failure){
         loadingMLD.value = false
-        createUserMLD.value = failure.toString()
+        signUpFailureMLD.value = failure
     }
 
     private fun handleSuccessCreateUser(s: String){

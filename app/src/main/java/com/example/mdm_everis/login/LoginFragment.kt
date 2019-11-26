@@ -32,6 +32,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(false)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.LOGIN)
         initObservers()
         initListener()
     }

@@ -2,8 +2,9 @@ package com.example.domain
 
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.devices.GetDeviceByIdUseCase
-import com.example.domain.login.LoginUseCase
+import com.example.domain.sessionManage.LoginUseCase
 import com.example.domain.reserves.*
+import com.example.domain.sessionManage.SignOutUseCase
 import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.sign_up.SignUpUseCase
 import com.example.domain.user.GetUserByIdUserCase
@@ -23,6 +24,7 @@ class KoinDomain {
             factory { CreateReserveUseCase(get()) }
             factory { DeleteReserveUseCase(get()) }
             factory { CreateCaducatedReserveUseCase(get()) }
+            factory { SignOutUseCase(get()) }
         }
     }
 }

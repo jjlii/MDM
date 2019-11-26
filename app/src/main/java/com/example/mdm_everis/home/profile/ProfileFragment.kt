@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.core.Constant
+import com.example.core.failure.Failure
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
@@ -56,14 +58,20 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
             profile_refresh.isRefreshing = false
             viewModel.getUserById(userId)
         }
+        btn_log_out.setOnClickListener {
+            viewModel.signOut()
+        }
     }
     private fun initObserves(){
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
+        viewModel.signOutLD.observe(this,signOutObserver)
+        viewModel.signOutFailureLD.observe(this,errorSignOutObserver)
     }
 
     //******************************************* End Init *****************************************
 
     //******************************************* Observers ****************************************
+
     private  val getUserByIdObserver = Observer<UserResponse>{
         it?.let {
             (activity as MainActivity).setUser(it)
@@ -71,6 +79,16 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
             toast("Se ha habido un error al obtener el usuario")
         }
         setData()
+    }
+
+    private val signOutObserver = Observer<Boolean>{
+        (activity as MainActivity).setUserReserves(arrayListOf())
+        (activity as MainActivity).setUser(UserResponse("","","", arrayListOf()))
+        findNavController().navigate(ProfileFragmentDirections.actionProfileToLogin())
+    }
+
+    private val errorSignOutObserver = Observer<Failure>{
+        toast("Se ha producido un error")
     }
     //******************************************* End Observers ************************************
 

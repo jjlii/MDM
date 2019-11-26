@@ -7,7 +7,7 @@ import com.example.core.Constant
 import com.example.core.failure.Failure
 import com.example.core.failure.UserFailure
 import com.example.domain.devices.DevicesUseCase
-import com.example.domain.login.LoginUseCase
+import com.example.domain.sessionManage.LoginUseCase
 import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.user.GetUserByIdUserCase
