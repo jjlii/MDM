@@ -6,6 +6,10 @@ import com.example.core.failure.Failure
 import com.example.data.retrofit.UserRetrofit
 import com.example.domain.repository.UserRepository
 import com.example.domain.user.UserResponse
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class UserRepositoryImp(private val userRetrofit: UserRetrofit) :
     UserRepository {

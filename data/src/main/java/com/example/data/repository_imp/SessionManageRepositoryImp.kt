@@ -4,15 +4,14 @@ import android.util.Log
 import com.example.core.Either
 import com.example.core.failure.Failure
 import com.example.core.failure.UserFailure
-import com.example.domain.sessionManage.SessionManageRepository
+import com.example.domain.repository.SessionManageRepository
 import com.example.domain.user.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
 class SessionManageRepositoryImp : SessionManageRepository {
-
+    
     private val auth by lazy {
         FirebaseAuth.getInstance()
     }

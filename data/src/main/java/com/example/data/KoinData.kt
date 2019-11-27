@@ -5,7 +5,7 @@ import com.example.data.repository_imp.*
 import com.example.data.retrofit.DevicesRetrofit
 import com.example.data.retrofit.ReservesRetrofit
 import com.example.data.retrofit.UserRetrofit
-import com.example.domain.sessionManage.SessionManageRepository
+import com.example.domain.repository.SessionManageRepository
 import com.example.domain.repository.*
 import com.example.domain.sign_up.SignUpRepository
 import org.koin.dsl.module.module
