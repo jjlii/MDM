@@ -25,7 +25,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:orientation="vertical"
-            android:background="@color/colorWhite"
             android:gravity="center">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -74,7 +73,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:orientation="vertical"
-            android:background="@color/colorWhite"
             android:gravity="center">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -124,7 +122,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:orientation="vertical"
-            android:background="@color/colorWhite"
             android:gravity="center">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -174,7 +171,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:orientation="vertical"
-            android:background="@color/colorWhite"
             android:gravity="center">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -202,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/android"
+                android:text="@string/tablet"
                 android:textAllCaps="false"
                 android:textSize="10sp" />
         </LinearLayout>

@@ -3,16 +3,21 @@ package com.example.mdm_everis.home.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
+import com.example.mdm_everis.Categories
 import com.example.mdm_everis.R
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.category_item.view.*
 import kotlinx.android.synthetic.main.devices_items.view.*
 
 class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
                              private var favoritesId : MutableList<String>,
+                             private var categories : Categories,
+                             private var categoriesAction : (categories : Categories) -> List<DevicesResponse>,
                              private val favoriteAction : (deviceId : String,position : Int)->Unit,
                              private val reserveAction : (deviceId : String,startDate : String?)->Unit,
                              private val touchAction :(deviceId : String) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -57,6 +62,7 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
     inner class HeaderViewHolder(itemView : View ) : RecyclerView.ViewHolder(itemView){
         fun bind(){
             with(itemView){
+
                 Picasso.get().load(Constant.CategoryPhoto.ANDROID).
                     into(iv_android)
                 Picasso.get().load(Constant.CategoryPhoto.IOS).
@@ -65,6 +71,83 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
                     into(iv_phone)
                 Picasso.get().load(Constant.CategoryPhoto.TABLET).
                     into(iv_tablet)
+                setCategoriesColor(this)
+                clickListener(this)
+            }
+        }
+
+        private fun setCategoriesColor(view: View){
+            with(view){
+                if (categories.android){
+                    cv_android.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                }else{
+                    cv_android.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                }
+                if (categories.ios){
+                    cv_ios.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                }else{
+                    cv_ios.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                }
+                if (categories.phone){
+                    cv_phone.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                }else{
+                    cv_phone.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                }
+                if (categories.tablet){
+                    cv_tablet.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                }else{
+                    cv_tablet.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                }
+                categoriesAction(categories)
+            }
+        }
+
+        private fun clickListener(view: View){
+            with(view){
+                cv_android.setOnClickListener {
+                    if (!categories.android){
+                        categories.android = true
+                        cv_android.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                    }else{
+                        categories.android = false
+                        cv_android.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                    }
+                    devices = categoriesAction(categories)
+                    notifyDataSetChanged()
+                }
+                cv_ios.setOnClickListener {
+                    if (!categories.ios){
+                        categories.ios = true
+                        cv_ios.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                    }else{
+                        categories.ios = false
+                        cv_ios.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                    }
+                    devices = categoriesAction(categories)
+                    notifyDataSetChanged()
+                }
+                cv_phone.setOnClickListener {
+                    if (!categories.phone){
+                        categories.phone = true
+                        cv_phone.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                    }else{
+                        categories.phone = false
+                        cv_phone.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                    }
+                    devices = categoriesAction(categories)
+                    notifyDataSetChanged()
+                }
+                cv_tablet.setOnClickListener {
+                    if (!categories.tablet){
+                        categories.tablet = true
+                        cv_tablet.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent))
+                    }else{
+                        categories.tablet = false
+                        cv_tablet.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
+                    }
+                    devices = categoriesAction(categories)
+                    notifyDataSetChanged()
+                }
             }
         }
     }

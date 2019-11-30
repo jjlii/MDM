@@ -2,7 +2,6 @@ package com.example.mdm_everis.home.devices
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,14 +9,16 @@ import com.example.core.Constant
 import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
+import com.example.domain.user.UserResponse
+import com.example.mdm_everis.Categories
 import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.adapters.DevicesAdapter
 import com.example.mdm_everis.home.adapters.DevicesCategoryAdapter
 import com.example.mdm_everis.parcelable_data.Reserves
+import kotlinx.android.synthetic.main.category_item.*
 import kotlinx.android.synthetic.main.devices_fragment.*
 
 class DevicesFragment : BaseFragment<DevicesViewModel>() {
@@ -29,8 +30,10 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
     var devices : List<DevicesResponse> = arrayListOf()
-    lateinit var selectDeviceId : String
-
+    private var filterDevices : List<DevicesResponse> = arrayListOf()
+    private lateinit var selectDeviceId : String
+    lateinit var categories : Categories
+    lateinit var user:UserResponse
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +43,8 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         showNavbar(true)
         baseNavBar.menu.getItem(2).isChecked = true
         devices = (activity as MainActivity).getDevice()
+        user = (activity as MainActivity).getUser()
+        categories = Categories(android = false, ios = false, phone = false, tablet = false)
         initObserver()
         showAdapter()
         devices_refresh.setOnRefreshListener {
@@ -77,6 +82,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
                 Reserves(it)
             )
         )
+        cv_android.setOnClickListener {  }
     }
 
     private val failureObserver = Observer<Failure>{
@@ -85,9 +91,14 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
-        val user = (activity as MainActivity).getUser()
+        categoriesFilter()
         devices.let {
-            rv_devices.adapter = DevicesCategoryAdapter(it,user.favourites,
+            rv_devices.adapter = DevicesCategoryAdapter(filterDevices,user.favourites, categories,
+                {  c->
+                    categories = c
+                    categoriesFilter()
+                    filterDevices
+                },
                 { deviceId, _ ->
                     favoriteAction(deviceId)
                 },
@@ -127,6 +138,63 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
                 )
             )
         ))
+    }
+
+
+
+    private fun categoriesFilter(){
+        when{
+            categories.android && !categories.ios && !categories.phone && !categories.tablet ||
+                    categories.android && !categories.ios && categories.phone && categories.tablet->{
+                filterDevices = devices.filter {
+                    it.so == "ANDROID"
+                }
+            }
+            !categories.android && categories.ios && !categories.phone && !categories.tablet ||
+                    !categories.android && categories.ios && categories.phone && categories.tablet-> {
+                filterDevices = devices.filter {
+                    it.so == "IOS"
+                }
+            }
+            !categories.android && !categories.ios && categories.phone && !categories.tablet -> {
+                filterDevices = devices.filter {
+                    it.isMobile
+                }
+            }
+            !categories.android && !categories.ios && !categories.phone && categories.tablet -> {
+                filterDevices = devices.filter {
+                    !it.isMobile
+                }
+            }
+            categories.android && categories.ios && !categories.phone && !categories.tablet -> {
+                filterDevices = devices.filter {
+                    it.so == "ANDROID" || it.so == "IOS"
+                }
+            }
+            categories.android && !categories.ios && categories.phone && !categories.tablet -> {
+                filterDevices = devices.filter {
+                    it.so == "ANDROID" && it.isMobile
+                }
+            }
+            categories.android && !categories.ios && !categories.phone && categories.tablet -> {
+                filterDevices = devices.filter {
+                    it.so == "ANDROID" && !it.isMobile
+                }
+            }
+            !categories.android && categories.ios && categories.phone && !categories.tablet -> {
+                filterDevices = devices.filter {
+                    it.so == "IOS" && it.isMobile
+                }
+            }
+            !categories.android && categories.ios && !categories.phone && categories.tablet -> {
+                filterDevices = devices.filter {
+                    it.so == "IOS" && !it.isMobile
+                }
+            }
+            else->{
+                filterDevices = devices
+            }
+        }
     }
 
 
