@@ -1,4 +1,4 @@
-package com.example.mdm_everis.home
+package com.example.mdm_everis.home.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +19,7 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                      private var favoritesId : MutableList<String>,
                      private val favoriteAction : (deviceId : String,position : Int)->Unit,
                      private val reserveAction : (deviceId : String,startDate : String?)->Unit,
-                     private val touchAction :(deviceId : String) -> Unit) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>(){
-
+                     private val touchAction :(deviceId : String) -> Unit) : RecyclerView.Adapter<DevicesAdapter.ItemViewHolder>(){
     private var mobile = ""
     private var so = ""
     private var reservesCopy : MutableList<ReserveResponse> = arrayListOf()
@@ -28,18 +27,20 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
     val g = View.GONE
 
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder{
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.devices_items,parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ItemViewHolder {
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.devices_items,parent,false))
     }
     override fun getItemCount()= devices.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(devices[position],position)
+    override fun onBindViewHolder(holderItem: ItemViewHolder, position: Int) {
+        holderItem.bind(devices[position],position)
     }
 
+    override fun getItemId(position: Int): Long {
+        return devices[position].id.hashCode().toLong()
+    }
 
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+    inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         fun bind(device : DevicesResponse, position: Int){
             with(itemView){
                 mobile = "${device.brand} ${device.model}"

@@ -40,4 +40,8 @@
     <string name="turno_de_ma_ana_09_00">Turno de mañana (09:00)</string>
     <string name="turno_de_tarde_15_00">Turno de tarde (15:00)</string>
     <string name="cancelar">Cancelar</string>
+    <string name="android">ANDROID</string>
+    <string name="ios">IOS</string>
+    <string name="movil">Móvil</string>
+    <string name="tablet">Tablet</string>
 </resources>

@@ -17,7 +17,7 @@ import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.DevicesAdapter
+import com.example.mdm_everis.home.adapters.DevicesAdapter
 import com.example.mdm_everis.parcelable_data.Reserves
 import kotlinx.android.synthetic.main.favorites_fragment.*
 
@@ -54,6 +54,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     private fun initListener(){
         viewModel.fragmentFlag = Constant.FragmentFlag.FAVORITES
+
         favorites_refresh.setOnRefreshListener {
             favorites_refresh.isRefreshing = false
             if (devices.isEmpty()){
@@ -108,10 +109,14 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     private fun showAdapter(){
         favorites.let{
-            rv_favorites.adapter = DevicesAdapter(it, arrayListOf(),Constant.FragmentFlag.FAVORITES,
-                (activity as MainActivity).getUser().favourites,{ deviceId,position->
-                    favoriteAction(deviceId,position)
-                },{deviceId, _ ->
+            rv_favorites.adapter = DevicesAdapter(it,
+                arrayListOf(),
+                Constant.FragmentFlag.FAVORITES,
+                (activity as MainActivity).getUser().favourites,
+                { deviceId, position ->
+                    favoriteAction(deviceId, position)
+                },
+                { deviceId, _ ->
                     reserveAction(deviceId)
                 },
                 { deviceId ->

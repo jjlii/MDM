@@ -44,7 +44,13 @@ class Constant{
     object DateFormat{
         const val DATE_WITH_TIME = "dd/MM/yyyy HH:mm"
         const val DATE_WITHOUT_TIME = "dd/MM/yyyy"
+    }
 
+    object CategoryPhoto{
+        const val ANDROID = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2FAndroid.png?alt=media&token=71bb17f5-a646-4184-a89d-b9b6ec318ea6"
+        const val IOS = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2FApple.png?alt=media&token=9e8e8852-db15-4966-aadf-2c470d2df754"
+        const val PHONE = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2Fphone.png?alt=media&token=4accda78-4dcf-4cc3-b212-672dc1387cec"
+        const val TABLET = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2Ftablet.png?alt=media&token=2c4236c8-71b1-4c2b-9ad8-7e91636379e4"
     }
 
 }

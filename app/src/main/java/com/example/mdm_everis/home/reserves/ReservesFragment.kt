@@ -19,7 +19,7 @@ import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.DevicesAdapter
+import com.example.mdm_everis.home.adapters.DevicesAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.reserves_fragment.*
 import java.util.*
@@ -193,18 +193,24 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         myReserves = arrayListOf()
         val userReserve = (activity as MainActivity).getUserReserves()
         getMyReserves(userReserve)
-        rv_reserves.adapter = DevicesAdapter(myReserves,userReserve,Constant.FragmentFlag.RESERVES,user.favourites,{
-                deviceId, _->
-            favoriteAction(deviceId)
-        },{deviceId, startDate ->
-            val auxReserves = (activity as MainActivity).getUserReserves()
-            val auxReserve = auxReserves.single {
-                it.startDate == startDate
-            }
-            reserveAction(deviceId,auxReserve)
-        },{deviceId->
-            touchAction(deviceId)
-        })
+        rv_reserves.adapter = DevicesAdapter(
+            myReserves,
+            userReserve,
+            Constant.FragmentFlag.RESERVES,
+            user.favourites,
+            { deviceId, _ ->
+                favoriteAction(deviceId)
+            },
+            { deviceId, startDate ->
+                val auxReserves = (activity as MainActivity).getUserReserves()
+                val auxReserve = auxReserves.single {
+                    it.startDate == startDate
+                }
+                reserveAction(deviceId, auxReserve)
+            },
+            { deviceId ->
+                touchAction(deviceId)
+            })
         rv_reserves.layoutManager = LinearLayoutManager(context)
 
     }

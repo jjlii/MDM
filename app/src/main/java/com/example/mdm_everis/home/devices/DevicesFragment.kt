@@ -2,6 +2,7 @@ package com.example.mdm_everis.home.devices
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,8 @@ import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.DevicesAdapter
+import com.example.mdm_everis.home.adapters.DevicesAdapter
+import com.example.mdm_everis.home.adapters.DevicesCategoryAdapter
 import com.example.mdm_everis.parcelable_data.Reserves
 import kotlinx.android.synthetic.main.devices_fragment.*
 
@@ -28,6 +30,8 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     //******************************************* End BaseFragment abstract ************************
     var devices : List<DevicesResponse> = arrayListOf()
     lateinit var selectDeviceId : String
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +47,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
             viewModel.allDevices()
         }
     }
+
 
 
     //******************************************* Init *********************************************
@@ -82,14 +87,16 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     private fun showAdapter(){
         val user = (activity as MainActivity).getUser()
         devices.let {
-            rv_devices.adapter = DevicesAdapter(it, arrayListOf(), Constant.FragmentFlag.DEVICES,
-                user.favourites,{ deviceId,_->
-                favoriteAction(deviceId)
-            },{deviceId, _ ->
+            rv_devices.adapter = DevicesCategoryAdapter(it,user.favourites,
+                { deviceId, _ ->
+                    favoriteAction(deviceId)
+                },
+                { deviceId, _ ->
                     reserveAction(deviceId)
-                },{deviceId ->
+                },
+                { deviceId ->
                     touchAction(deviceId)
-            })
+                })
             rv_devices.layoutManager = LinearLayoutManager(context)
         }
     }
