@@ -23,7 +23,7 @@ interface ReservesRetrofit {
     suspend fun deleteDeviceReserve(@Path("deviceId") deviceId : String, @Path("reserveId") reserveId: String)
             : Response<ReserveResponse>
 
-    @POST("caducatedReserve")
+    @POST("caducatedReserves")
     suspend fun createCaducatedReserve(@Body reserve : ReserveResponse)
             : Response<CaducatedReserveResponse>
 
