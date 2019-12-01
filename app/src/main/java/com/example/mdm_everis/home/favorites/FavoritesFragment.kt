@@ -150,6 +150,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
                 notifyItemRangeChanged(position,newFavorites.size)
             }
             user.favourites = newFavorites
+            userChanged = true
             (activity as MainActivity).setUser(user)
         }
     }

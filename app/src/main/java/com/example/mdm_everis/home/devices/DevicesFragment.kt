@@ -121,6 +121,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         }
         user.favourites = newFavorites
         rv_devices.adapter?.notifyDataSetChanged()
+        userChanged = true
         (activity as MainActivity).setUser(user)
     }
 

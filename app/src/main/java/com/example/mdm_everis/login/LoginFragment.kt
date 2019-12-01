@@ -90,6 +90,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private  val getUserByIdObserver = Observer<UserResponse>{
         it?.let {
+            userChanged = true
             (activity as MainActivity).setUser(it)
         } ?: run{
             toast("Se ha habido un error al obtener el usuario")

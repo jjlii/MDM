@@ -12,6 +12,7 @@ import com.example.domain.devices.DevicesUseCase
 import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.reserves.UserReservesUseCase
+import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.user.GetUserByIdUserCase
 import com.example.domain.user.UserResponse
 
@@ -19,7 +20,8 @@ abstract class BaseViewModel(application : Application,
                              private val getUserByIdUserCase: GetUserByIdUserCase,
                              private val devicesUseCase: DevicesUseCase,
                              private val userReservesUseCase: UserReservesUseCase,
-                             private val deviceReservesUseCase: DeviceReservesUseCase
+                             private val deviceReservesUseCase: DeviceReservesUseCase,
+                             private val createUserUseCase: CreateUserUseCase
 ): AndroidViewModel(application) {
 
     //********************************** LiveData **************************************************
@@ -42,6 +44,9 @@ abstract class BaseViewModel(application : Application,
 
     private val deviceReservesMLD = MutableLiveData<List<ReserveResponse>>()
     val deviceReservesLD : LiveData<List<ReserveResponse>> = deviceReservesMLD
+
+    private val createUserMLD = MutableLiveData<String>()
+    val createUserLD : LiveData<String> = createUserMLD
 
     //********************************** End LiveData **********************************************
 
@@ -156,6 +161,28 @@ abstract class BaseViewModel(application : Application,
 
     //********************************** End GET Device Reserves ***********************************
 
+    //********************************** Create User ***********************************************
+
+    fun createUser(user : UserResponse){
+        createUserUseCase(user){
+            it.fold(
+                ::handleFailureCreateUser,
+                ::handleSuccessCreateUser
+            )
+        }
+    }
+
+    private fun handleFailureCreateUser(failure: Failure){
+        loadingMLD.value = false
+        failureMLD.value = failure
+    }
+
+    private fun handleSuccessCreateUser(s: String){
+        loadingMLD.value = false
+        createUserMLD.value = s
+    }
+
+    //********************************** End Create User *******************************************
 
 
 }

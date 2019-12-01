@@ -223,6 +223,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
         }
         user.favourites = newFavorites
         rv_reserves.adapter?.notifyDataSetChanged()
+        userChanged = true
         (activity as MainActivity).setUser(user)
     }
 

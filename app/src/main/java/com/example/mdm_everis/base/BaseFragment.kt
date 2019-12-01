@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.domain.devices.DevicesResponse
+import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.hideKeyboard
@@ -34,7 +35,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         (activity as MainActivity).getNavBar()
     }
     private var progressDialog: AlertDialog? = null
-
+    var userChanged = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +48,13 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayout(),container,false)
+    }
+
+    override fun onPause() {
+        if(userChanged){
+            viewModel.createUser((activity as MainActivity).getUser())
+        }
+        super.onPause()
     }
 
     //******************************************* Loading Dialog ***********************************
@@ -111,6 +119,10 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         val d = Date(date)
         val f = SimpleDateFormat(format, Locale.getDefault())
         return f.format(d)
+    }
+
+    fun callCreateUser(user : UserResponse){
+        viewModel.createUser(user)
     }
 
 }

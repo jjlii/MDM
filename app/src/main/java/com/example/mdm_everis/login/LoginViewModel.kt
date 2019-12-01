@@ -10,6 +10,7 @@ import com.example.domain.devices.DevicesUseCase
 import com.example.domain.sessionManage.LoginUseCase
 import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
+import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.user.GetUserByIdUserCase
 import com.example.domain.user.User
 import com.example.mdm_everis.base.BaseViewModel
@@ -19,8 +20,9 @@ class LoginViewModel(application: Application,
                      devicesUseCase: DevicesUseCase,
                      userReservesUseCase: UserReservesUseCase,
                      deviceReservesUseCase: DeviceReservesUseCase,
+                     createUserUseCase: CreateUserUseCase,
                      private val loginUseCase : LoginUseCase
-) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase){
+) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase){
 
     //********************************** LiveData **************************************************
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.reserves.*
+import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.user.GetUserByIdUserCase
 import com.example.mdm_everis.base.BaseViewModel
 
@@ -14,8 +15,9 @@ class ReserveProcessViewModel(application: Application,
                               devicesUseCase: DevicesUseCase,
                               userReservesUseCase: UserReservesUseCase,
                               deviceReservesUseCase: DeviceReservesUseCase,
+                              createUserUseCase: CreateUserUseCase,
                               private val createReserveUseCase: CreateReserveUseCase)
-    : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase) {
+    : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase) {
 
     //********************************** LiveData **************************************************
 

@@ -1,14 +1,12 @@
 package com.example.mdm_everis.sign_up
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
 import com.example.core.failure.Failure
-import com.example.core.failure.UserFailure
 import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
@@ -63,6 +61,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
         viewModel.signUpLD.observe(this,signUpObserver)
         viewModel.createUserLD.observe(this,createUserObserver)
         viewModel.signUpFailureLD.observe(this,errorSignUpObserver)
+        viewModel.failureLD.observe(this,errorSignUpObserver)
     }
 
     //******************************************* End Init *****************************************
@@ -72,8 +71,10 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
     private val signUpObserver = Observer<String>{uid->
         user = UserResponse(uid,et_email.text.toString(),
             et_full_name.text.toString(), arrayListOf())
-            viewModel.createUser(user)
+            callCreateUser(user)
     }
+
+
 
     private val errorSignUpObserver = Observer<Failure> {
         toast(Constant.ErrorSignUp.ERROR_REGISTRO)
