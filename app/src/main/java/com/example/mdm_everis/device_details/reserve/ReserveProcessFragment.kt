@@ -16,13 +16,11 @@ import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.sign_up.SignUpFragmentDirections
 import com.example.mdm_everis.splitWithSpaceAfter
 import com.example.mdm_everis.splitWithSpaceBefore
 import kotlinx.android.synthetic.main.reserve_process_fragment.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.lang.Exception
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -182,6 +180,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         datePickerDialog.isThemeDark = false
         datePickerDialog.setTitle(title)
         maxC = Calendar.getInstance()
+
         when(tag){
             "StartDatePickerDialog"-> {
                 minC= Calendar.getInstance()
@@ -197,8 +196,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                 }
                 with(maxC){
                     set(Calendar.DAY_OF_MONTH,minC[Calendar.DAY_OF_MONTH])
-                    set(Calendar.MONTH,minC[Calendar.MONTH]+1)
-                    set(Calendar.YEAR,minC[Calendar.YEAR])
+                    set(Calendar.MONTH,minC[Calendar.MONTH])
+                    set(Calendar.YEAR,minC[Calendar.YEAR]+2)
                 }
             }
             "EndDatePickerDialog"-> {
@@ -317,7 +316,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         var day : Calendar
         var timeInMillis : Long
         val dayValue = myDay
-        val monthDay = 31
+        val limit = 360
         var found = false
         val startDay = stringDateToLong(startDate.splitWithSpaceBefore(),Constant.DateFormat.DATE_WITHOUT_TIME)
         val endDay = stringDateToLong(endDate.splitWithSpaceBefore(),Constant.DateFormat.DATE_WITHOUT_TIME)
@@ -326,7 +325,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             day.timeInMillis=startDay
             disableDays.add(day)
         }
-        for (i in 0 .. monthDay){
+        for (i in 0 .. limit){
             day = Calendar.getInstance()
             day = setMomentOfDay(day,dayValue + i)
             timeInMillis = day.timeInMillis
