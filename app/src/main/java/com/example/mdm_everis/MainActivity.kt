@@ -1,19 +1,13 @@
 package com.example.mdm_everis
 
-import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
-import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.home.reserves.ReservesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 

@@ -8,27 +8,18 @@
     android:background="@color/colorTransparent"
     >
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/loading_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loading"
-        android:text="@string/consultando_la_base_de_datos"
-        android:textSize="16sp"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:textAlignment="center"/>
+        android:scaleType="fitCenter"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="loading.json"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

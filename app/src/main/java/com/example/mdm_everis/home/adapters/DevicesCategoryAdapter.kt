@@ -62,7 +62,6 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
     inner class HeaderViewHolder(itemView : View ) : RecyclerView.ViewHolder(itemView){
         fun bind(){
             with(itemView){
-
                 Picasso.get().load(Constant.CategoryPhoto.ANDROID).
                     into(iv_android)
                 Picasso.get().load(Constant.CategoryPhoto.IOS).
@@ -112,7 +111,7 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
                         categories.android = false
                         cv_android.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
                     }
-                    devices = categoriesAction(categories)
+                    devices = categoriesAction(categories).sortedWith(compareBy { it.brand })
                     notifyDataSetChanged()
                 }
                 cv_ios.setOnClickListener {
@@ -123,7 +122,7 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
                         categories.ios = false
                         cv_ios.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
                     }
-                    devices = categoriesAction(categories)
+                    devices = categoriesAction(categories).sortedWith(compareBy { it.brand })
                     notifyDataSetChanged()
                 }
                 cv_phone.setOnClickListener {
@@ -134,7 +133,7 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
                         categories.phone = false
                         cv_phone.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
                     }
-                    devices = categoriesAction(categories)
+                    devices = categoriesAction(categories).sortedWith(compareBy { it.brand })
                     notifyDataSetChanged()
                 }
                 cv_tablet.setOnClickListener {
@@ -145,7 +144,7 @@ class DevicesCategoryAdapter(private var devices : List<DevicesResponse>,
                         categories.tablet = false
                         cv_tablet.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorWhite))
                     }
-                    devices = categoriesAction(categories)
+                    devices = categoriesAction(categories).sortedWith(compareBy { it.brand })
                     notifyDataSetChanged()
                 }
             }

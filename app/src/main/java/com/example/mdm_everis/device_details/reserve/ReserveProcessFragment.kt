@@ -84,8 +84,14 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             setCalendar("Fecha fin de reserva","EndDatePickerDialog")
         }
         btn_reserve.setOnClickListener {
-            startDate = stringDateToLong(et_start_date.text.toString(),Constant.DateFormat.DATE_WITHOUT_TIME)+Constant.Hours.NINE
-            endDate = stringDateToLong(et_end_date.text.toString(),Constant.DateFormat.DATE_WITHOUT_TIME) + Constant.Hours.NINE
+            startDate = stringDateToLong(et_start_date.text.toString(),Constant.DateFormat.DATE_WITHOUT_TIME)
+            endDate = stringDateToLong(et_end_date.text.toString(),Constant.DateFormat.DATE_WITHOUT_TIME)
+            endDate += if(startDate == endDate){
+                Constant.Hours.SIX
+            }else{
+                Constant.Hours.NINE
+            }
+            startDate += Constant.Hours.NINE
             newReserve = ReserveResponse("",user.id,startDate.toString(),endDate.toString(),device.id)
             viewModel.createNewReserve(newReserve,device.id)
         }
@@ -211,10 +217,18 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                 var endDate: String
                 val auxC = Calendar.getInstance()
                 with(minC){
-                    set(Calendar.DAY_OF_MONTH,startD!!.toInt()+1)
+                    set(Calendar.DAY_OF_MONTH,startD!!.toInt())
                     set(Calendar.MONTH,startM!!.toInt()-1)
                     set(Calendar.YEAR,startY!!.toInt())
-
+                }
+                with(maxC){
+                    if(startM!!.toInt() == 12){
+                        set(Calendar.DAY_OF_MONTH,0)
+                    }else{
+                        set(Calendar.DAY_OF_MONTH,minC[Calendar.MONTH]+1)
+                    }
+                    set(Calendar.MONTH,startM!!.toInt())
+                    set(Calendar.YEAR,startY!!.toInt())
                 }
                 deviceReserve.forEach {
                     endDate = convertLongToDate(it.startDate.toLong(),Constant.DateFormat.DATE_WITHOUT_TIME)
@@ -316,7 +330,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         var day : Calendar
         var timeInMillis : Long
         val dayValue = myDay
-        val limit = 360
+        val limit = 730
         var found = false
         val startDay = stringDateToLong(startDate.splitWithSpaceBefore(),Constant.DateFormat.DATE_WITHOUT_TIME)
         val endDay = stringDateToLong(endDate.splitWithSpaceBefore(),Constant.DateFormat.DATE_WITHOUT_TIME)
@@ -370,11 +384,13 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         val sd = startD.splitWithSpaceBefore()
         val sh = startD.splitWithSpaceAfter()
         val ed = endD.splitWithSpaceBefore()
-        if (sh == "09:00"){
-            if (sd == ed)
-                return true
+        val eh = endD.splitWithSpaceAfter()
+        if(sd == ed){
+            if (sh == "09:00" && eh == "18:00"){
+                return false
+            }
         }
-        return false
+        return true
     }
 
     private fun getMinCStartDate() : String{

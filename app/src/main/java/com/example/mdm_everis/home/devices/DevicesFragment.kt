@@ -20,6 +20,7 @@ import com.example.mdm_everis.home.adapters.DevicesCategoryAdapter
 import com.example.mdm_everis.parcelable_data.Reserves
 import kotlinx.android.synthetic.main.category_item.*
 import kotlinx.android.synthetic.main.devices_fragment.*
+import kotlinx.android.synthetic.main.error_network.*
 
 class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
@@ -91,25 +92,32 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
-        categoriesFilter()
-        devices.let {
-            rv_devices.adapter = DevicesCategoryAdapter(filterDevices,user.favourites, categories,
-                {  c->
-                    categories = c
-                    categoriesFilter()
-                    filterDevices
-                },
-                { deviceId, _ ->
-                    favoriteAction(deviceId)
-                },
-                { deviceId, _ ->
-                    reserveAction(deviceId)
-                },
-                { deviceId ->
-                    touchAction(deviceId)
-                })
-            rv_devices.layoutManager = LinearLayoutManager(context)
+        if (devices.isEmpty()){
+            rv_devices.visibility=View.GONE
+            ly_error.visibility= View.VISIBLE
+            error_msg.text = Constant.Msg.ERROR_LOAD_DEVICES
+        }else{
+            categoriesFilter()
+            devices.let {
+                rv_devices.adapter = DevicesCategoryAdapter(filterDevices.sortedWith(compareBy { it.brand }),user.favourites, categories,
+                    {  c->
+                        categories = c
+                        categoriesFilter()
+                        filterDevices
+                    },
+                    { deviceId, _ ->
+                        favoriteAction(deviceId)
+                    },
+                    { deviceId, _ ->
+                        reserveAction(deviceId)
+                    },
+                    { deviceId ->
+                        touchAction(deviceId)
+                    })
+                rv_devices.layoutManager = LinearLayoutManager(context)
+            }
         }
+
     }
 
     private fun favoriteAction(deviceId : String){

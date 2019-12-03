@@ -6,7 +6,6 @@
     <string name="acerque_su_tarjeta_al_nfc">Acerque su tarjeta al NFC</string>
     <string name="mis_reservas">Mis Reservas</string>
     <string name="dispositivos">Dispositivos</string>
-    <string name="sign_up">Sign Up</string>
     <string name="bienvenido_a">Bienvenido/a: </string>
     <string name="login">Login</string>
     <string name="favoritos">Favoritos</string>
@@ -44,4 +43,6 @@
     <string name="ios">IOS</string>
     <string name="movil">Móvil</string>
     <string name="tablet">Tablet</string>
+    <string name="reg_strate">REGÍSTRATE</string>
+    <string name="crear_cuenta">CREAR CUENTA</string>
 </resources>

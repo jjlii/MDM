@@ -48,7 +48,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
                         viewModel.signUp(et_email.text.toString()+
                                 Constant.GeneralConstant.EVERIS_EMAIL_EXTENSIONS,et_password.text.toString())
                     }else{
-                        et_password.error = Constant.ErrorSignUp.PWD_TOO_EASY
+                        toast(Constant.ErrorSignUp.PWD_TOO_EASY)
                     }
                 }
             }

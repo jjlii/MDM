@@ -19,7 +19,10 @@ import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.home.adapters.DevicesAdapter
 import com.example.mdm_everis.parcelable_data.Reserves
+import kotlinx.android.synthetic.main.devices_fragment.*
+import kotlinx.android.synthetic.main.error_network.*
 import kotlinx.android.synthetic.main.favorites_fragment.*
+import kotlinx.android.synthetic.main.favorites_fragment.ly_error
 
 class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 

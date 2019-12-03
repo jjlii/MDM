@@ -38,7 +38,7 @@ class Constant{
 
     object Hours{
         const val NINE = 32400000
-        const val THREE = 54000000
+        const val SIX = 64800000
     }
 
     object DateFormat{
@@ -51,6 +51,12 @@ class Constant{
         const val IOS = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2FApple.png?alt=media&token=9e8e8852-db15-4966-aadf-2c470d2df754"
         const val PHONE = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2Fphone.png?alt=media&token=4accda78-4dcf-4cc3-b212-672dc1387cec"
         const val TABLET = "https://firebasestorage.googleapis.com/v0/b/mdm-everis-prueba.appspot.com/o/CategoryPNG%2Ftablet.png?alt=media&token=2c4236c8-71b1-4c2b-9ad8-7e91636379e4"
+    }
+
+    object Msg{
+        const val NOT_RESERVES = "No tienes reservas"
+        const val NOT_FAVORITES = "No tienes favoritos"
+        const val ERROR_LOAD_DEVICES = "Error al cargar los datos"
     }
 
 }
