@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    //private lateinit var firebaseAnalytics : FirebaseAnalytics
     lateinit var bottomNavigationView: BottomNavigationView
     private var fragment = ""
     private var user : UserResponse = UserResponse("","","", arrayListOf())
@@ -22,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         bottomNavigationView = this.bottom_navigation
-
     }
 
     override fun onBackPressed() {

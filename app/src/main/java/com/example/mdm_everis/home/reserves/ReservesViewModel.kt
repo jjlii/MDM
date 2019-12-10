@@ -58,8 +58,10 @@ class ReservesViewModel(application: Application,
     //********************************** End Delete Reserve ****************************************
     //********************************** Create Caducate Reserve ***********************************
 
-    fun createCaducatedReserve(reserve : ReserveResponse,mostrarLoading: Boolean){
-        loadingMLD.value = mostrarLoading
+    fun createCaducatedReserve(reserve : ReserveResponse, showLoading: Boolean){
+        if(showLoading){
+            loadingMLD.value = true
+        }
         createCaducatedReserveUseCase(reserve){
             it.fold(
                 ::handleFailureCaducatedReserve,

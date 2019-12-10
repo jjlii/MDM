@@ -20,6 +20,20 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_fileName="search_empty.json"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_empty_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:scaleType="fitCenter"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="empty_state_in_favorite-page.json"/>
+
     <TextView
         android:id="@+id/empty_msg"
         android:layout_width="wrap_content"

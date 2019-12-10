@@ -20,6 +20,7 @@ import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.home.adapters.DevicesAdapter
 import com.example.mdm_everis.parcelable_data.Reserves
 import kotlinx.android.synthetic.main.devices_fragment.*
+import kotlinx.android.synthetic.main.empty_list.*
 import kotlinx.android.synthetic.main.error_network.*
 import kotlinx.android.synthetic.main.favorites_fragment.*
 import kotlinx.android.synthetic.main.favorites_fragment.ly_error
@@ -48,7 +49,11 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         devices = (activity as MainActivity).getDevice()
         userId = args.userId
         getFavoriteDevices((activity as MainActivity).getUser().favourites)
-        showAdapter()
+        when{
+            devices.isEmpty()-> isErrorScreen()
+            favorites.isEmpty()-> isEmptyScreen()
+            else -> showAdapter()
+        }
         initObserves()
         initListener()
     }
@@ -156,6 +161,9 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
             userChanged = true
             (activity as MainActivity).setUser(user)
         }
+        if (newFavorites.isEmpty()){
+            isEmptyScreen()
+        }
     }
 
     private fun reserveAction(deviceId: String){
@@ -172,6 +180,22 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
                 )
             )
         ))
+    }
+
+    private fun isEmptyScreen(){
+        rv_favorites.visibility = View.GONE
+        ly_empty_list.visibility = View.VISIBLE
+        ly_error.visibility = View.GONE
+        empty_msg.visibility = View.GONE
+        lottie_empty_list.visibility = View.GONE
+        lottie_empty_favorites.visibility = View.VISIBLE
+    }
+
+    private fun isErrorScreen(){
+        rv_favorites.visibility = View.GONE
+        ly_empty_list.visibility = View.GONE
+        ly_error.visibility = View.VISIBLE
+        error_msg.text = Constant.Msg.ERROR_LOAD_DEVICES
     }
 
 }

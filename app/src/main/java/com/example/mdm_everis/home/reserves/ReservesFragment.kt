@@ -181,7 +181,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
             val userR = (activity as MainActivity).getUserReserves().toMutableList()
             val newUserReserves = arrayListOf<ReserveResponse>()
             userR.filterTo(newUserReserves,{
-                it.startDate != deletedReserve.startDate
+            it.id != deletedReserve.id
             })
             (activity as MainActivity).setUserReserves(newUserReserves)
             showAdapter()
@@ -226,7 +226,7 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
                     { deviceId, startDate ->
                         val auxReserves = (activity as MainActivity).getUserReserves()
                         val auxReserve = auxReserves.single {
-                            it.startDate == startDate
+                            it.startDate == startDate && it.deviceId == deviceId
                         }
                         reserveAction(deviceId, auxReserve)
                     },
