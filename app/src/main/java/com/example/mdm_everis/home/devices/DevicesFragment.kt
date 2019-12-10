@@ -83,7 +83,6 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
                 Reserves(it)
             )
         )
-        cv_android.setOnClickListener {  }
     }
 
     private val failureObserver = Observer<Failure>{

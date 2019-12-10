@@ -146,12 +146,6 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
             val date = f.parse(strDate)
             return date.time
         }
-
-        private fun getReserve(startDate : String) : ReserveResponse{
-            return reserves.single {
-                it.startDate == startDate
-            }
-        }
     }
 
 }
