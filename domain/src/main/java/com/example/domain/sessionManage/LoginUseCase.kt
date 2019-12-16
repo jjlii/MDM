@@ -6,10 +6,10 @@ import com.example.core.failure.Failure
 import com.example.domain.repository.SessionManageRepository
 import com.example.domain.user.User
 
-class LoginUseCase(private val sessionManageRepository: SessionManageRepository) : UseCase<Failure, String, User>(){
+class LoginUseCase(private val sessionManageRepository: SessionManageRepository) : UseCase<Failure, LoginResponse, User>(){
 
 
-    override suspend fun run(params: User): Either<Failure, String> = sessionManageRepository.
+    override suspend fun run(params: User): Either<Failure, LoginResponse> = sessionManageRepository.
         login(params)
 
 }

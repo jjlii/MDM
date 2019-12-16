@@ -55,7 +55,6 @@ class Constant{
 
     object Msg{
         const val NOT_RESERVES = "No tienes reservas"
-        const val NOT_FAVORITES = "No tienes favoritos"
         const val ERROR_LOAD_DEVICES = "Error al cargar los datos"
     }
 

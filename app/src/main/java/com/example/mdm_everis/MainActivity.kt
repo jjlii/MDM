@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var firebaseAnalytics : FirebaseAnalytics
     lateinit var bottomNavigationView: BottomNavigationView
     private var fragment = ""
-    private var user : UserResponse = UserResponse("","","", arrayListOf())
+    private var user : UserResponse = UserResponse("","","", arrayListOf(),"")
     private var userReserves : List<ReserveResponse> = arrayListOf()
     private var devices : List<DevicesResponse> = arrayListOf()
 

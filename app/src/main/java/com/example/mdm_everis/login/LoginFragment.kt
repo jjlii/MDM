@@ -6,10 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
 import com.example.core.failure.Failure
+import com.example.core.failure.UserFailure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
+import com.example.domain.sessionManage.LoginResponse
 import com.example.domain.user.UserResponse
-import com.example.mdm_everis.parcelable_data.Devices
 import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
@@ -28,6 +29,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     //******************************************* End BaseFragment abstract ************************
 
     var userId = ""
+    var notificationToken = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,6 +64,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     private fun initObservers(){
         viewModel.fragmentFlag = Constant.FragmentFlag.LOGIN
         viewModel.loginLD.observe(this,loginObserver)
+        viewModel.loginFailureLD.observe(this,loginErrorObserver)
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
         viewModel.devicesLD.observe(this,devicesObserver)
         viewModel.userReservesLD.observe(this,getUserReserveObserver)
@@ -72,24 +75,18 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     //******************************************* Observers ****************************************
 
-    private val loginObserver = Observer<String> {
-        when(it){
-            Constant.ErrorLogin.ERROR_CONEXION -> toast(it)
-            Constant.ErrorLogin.NO_EXISTE_USUARIO -> toast(it)
-            Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO -> toast(it)
-            Constant.ErrorLogin.CONTRESENIA_INCORRECTA -> toast(it)
-            Constant.ErrorGeneral.ERROR_DESCONOCIDO -> toast(it)
-            Constant.ErrorLogin.EMAIL_NO_VERIFIED -> toast(it)
-            else ->{
-                userId = it
-                viewModel.getUserById(it)
-                viewModel.getUserReserves(it)
-            }
-        }
+    private val loginObserver = Observer<LoginResponse> {
+        userId = it.userUid
+        notificationToken = it.notificationToken
+        viewModel.getUserById(it.userUid)
+        viewModel.getUserReserves(it.userUid)
     }
 
     private  val getUserByIdObserver = Observer<UserResponse>{
         it?.let {
+            if(it.notificationToken != notificationToken){
+                it.notificationToken = notificationToken
+            }
             userChanged = true
             (activity as MainActivity).setUser(it)
         } ?: run{
@@ -114,6 +111,17 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     private val errorObserver = Observer<Failure>{
         it?.let {
             toast(it.toString())
+        }
+    }
+
+    private val loginErrorObserver= Observer<Failure>{
+        when(it){
+            UserFailure.InvalidPassword -> toast(Constant.ErrorLogin.CONTRESENIA_INCORRECTA)
+            UserFailure.InvalidEmailFormat -> toast(Constant.ErrorLogin.FORMATO_EMAIL_INCORRECTO)
+            UserFailure.InvalidEmail-> toast(Constant.ErrorLogin.NO_EXISTE_USUARIO)
+            UserFailure.EmailNoVerified -> toast(Constant.ErrorLogin.EMAIL_NO_VERIFIED)
+            Failure.NetworkConnection -> toast(Constant.ErrorLogin.ERROR_CONEXION)
+            Failure.Unknown-> toast(Constant.ErrorGeneral.ERROR_DESCONOCIDO)
         }
     }
 

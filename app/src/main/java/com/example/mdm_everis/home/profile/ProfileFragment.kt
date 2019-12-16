@@ -83,7 +83,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     private val signOutObserver = Observer<Boolean>{
         (activity as MainActivity).setUserReserves(arrayListOf())
-        (activity as MainActivity).setUser(UserResponse("","","", arrayListOf()))
+        (activity as MainActivity).setUser(UserResponse("","","", arrayListOf(),""))
         findNavController().navigate(ProfileFragmentDirections.actionProfileToLogin())
     }
 

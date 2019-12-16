@@ -11,7 +11,9 @@ import com.example.domain.user.UserResponse
 import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.sign_up_card_view.*
+import kotlinx.coroutines.tasks.await
 
 
 class SignUpFragment : BaseFragment<SignUpViewModel>() {
@@ -69,8 +71,8 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
     //******************************************* Observers ****************************************
 
     private val signUpObserver = Observer<String>{uid->
-        user = UserResponse(uid,et_email.text.toString(),
-            et_full_name.text.toString(), arrayListOf())
+        user = UserResponse(uid,et_email.text.toString()+Constant.GeneralConstant.EVERIS_EMAIL_EXTENSIONS,
+            et_full_name.text.toString(), arrayListOf(),"")
             callCreateUser(user)
     }
 
