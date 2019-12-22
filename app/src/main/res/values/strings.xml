@@ -45,4 +45,8 @@
     <string name="tablet">Tablet</string>
     <string name="reg_strate">REGÍSTRATE</string>
     <string name="crear_cuenta">CREAR CUENTA</string>
+    <string name="reset_pwd">Restablecer contraseña</string>
+    <string name="tv_reset_pwd_text">Correo de Everis para resetear la contraseña</string>
+    <string name="email_text">Email</string>
+    <string name="resetear">Resetear</string>
 </resources>

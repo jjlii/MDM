@@ -23,6 +23,7 @@ class Constant{
 
     object GeneralConstant{
         const val EVERIS_EMAIL_EXTENSIONS = "@everis.com"
+        const val NEED_EMAIL = "ES NECESARIO INTRODUCIR SU EMAIL"
     }
 
     object FragmentFlag{

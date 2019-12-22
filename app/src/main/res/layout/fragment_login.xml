@@ -64,9 +64,20 @@
         <include layout="@layout/login_card_view"/>
     </FrameLayout>
 
+    <Button
+        android:id="@+id/btn_reset_pwd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
+        app:layout_constraintStart_toStartOf="@id/btn_sign_up"
+        app:layout_constraintEnd_toEndOf="@id/btn_sign_up"
+        android:background="@drawable/round_corner_button"
+        android:text="@string/reset_pwd"
+        android:textColor="@color/colorWhite"/>
 
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btn_sign_up"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

@@ -55,7 +55,6 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
 
-
     //Koin
     implementation 'org.koin:koin-android-viewmodel:1.0.2'
 

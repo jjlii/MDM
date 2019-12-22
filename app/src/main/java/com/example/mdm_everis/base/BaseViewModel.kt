@@ -13,11 +13,11 @@ import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.sign_up.CreateUserUseCase
-import com.example.domain.user.GetUserByIdUserCase
+import com.example.domain.user.GetUserByIdUseCase
 import com.example.domain.user.UserResponse
 
 abstract class BaseViewModel(application : Application,
-                             private val getUserByIdUserCase: GetUserByIdUserCase,
+                             private val getUserByIdUseCase: GetUserByIdUseCase,
                              private val devicesUseCase: DevicesUseCase,
                              private val userReservesUseCase: UserReservesUseCase,
                              private val deviceReservesUseCase: DeviceReservesUseCase,
@@ -56,7 +56,7 @@ abstract class BaseViewModel(application : Application,
         if (fragmentFlag != Constant.FragmentFlag.LOGIN){
             loadingMLD.value = true
         }
-        getUserByIdUserCase(userId){
+        getUserByIdUseCase(userId){
             it.fold(
                 ::handleFailGetUserById,
                 ::handleSuccessGetUserById

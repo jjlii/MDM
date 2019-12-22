@@ -3,28 +3,25 @@ package com.example.mdm_everis.login
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.core.Constant
 import com.example.core.failure.Failure
-import com.example.core.failure.UserFailure
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.sessionManage.LoginUseCase
 import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.sessionManage.LoginResponse
 import com.example.domain.sign_up.CreateUserUseCase
-import com.example.domain.user.GetUserByIdUserCase
+import com.example.domain.user.GetUserByIdUseCase
 import com.example.domain.user.User
-import com.example.domain.user.UserResponse
 import com.example.mdm_everis.base.BaseViewModel
 
 class LoginViewModel(application: Application,
-                     getUserByIdUserCase: GetUserByIdUserCase,
+                     getUserByIdUseCase: GetUserByIdUseCase,
                      devicesUseCase: DevicesUseCase,
                      userReservesUseCase: UserReservesUseCase,
                      deviceReservesUseCase: DeviceReservesUseCase,
                      createUserUseCase: CreateUserUseCase,
                      private val loginUseCase : LoginUseCase
-) : BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase){
+) : BaseViewModel(application,getUserByIdUseCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase){
 
     //********************************** LiveData **************************************************
 

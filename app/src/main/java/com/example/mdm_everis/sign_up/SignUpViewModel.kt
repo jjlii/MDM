@@ -11,18 +11,17 @@ import com.example.domain.reserves.DeviceReservesUseCase
 import com.example.domain.reserves.UserReservesUseCase
 import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.sign_up.SignUpUseCase
-import com.example.domain.user.GetUserByIdUserCase
-import com.example.domain.user.UserResponse
+import com.example.domain.user.GetUserByIdUseCase
 import com.example.mdm_everis.base.BaseViewModel
 
 class SignUpViewModel(application: Application,
-                      getUserByIdUserCase: GetUserByIdUserCase,
+                      getUserByIdUseCase: GetUserByIdUseCase,
                       devicesUseCase: DevicesUseCase,
                       userReservesUseCase: UserReservesUseCase,
                       deviceReservesUseCase: DeviceReservesUseCase,
                       createUserUseCase: CreateUserUseCase,
                       private val signUpUseCase: SignUpUseCase) :
-    BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase) {
+    BaseViewModel(application,getUserByIdUseCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase) {
 
     //********************************** LiveData **************************************************
 

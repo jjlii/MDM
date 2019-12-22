@@ -7,7 +7,8 @@ import com.example.domain.reserves.*
 import com.example.domain.sessionManage.SignOutUseCase
 import com.example.domain.sign_up.CreateUserUseCase
 import com.example.domain.sign_up.SignUpUseCase
-import com.example.domain.user.GetUserByIdUserCase
+import com.example.domain.user.GetUserByIdUseCase
+import com.example.domain.user.ResetPwdUseCase
 import org.koin.dsl.module.module
 
 class KoinDomain {
@@ -17,7 +18,7 @@ class KoinDomain {
             factory { DevicesUseCase(get()) }
             factory { SignUpUseCase(get()) }
             factory { CreateUserUseCase(get()) }
-            factory { GetUserByIdUserCase(get()) }
+            factory { GetUserByIdUseCase(get()) }
             factory { GetDeviceByIdUseCase(get()) }
             factory { UserReservesUseCase(get()) }
             factory { DeviceReservesUseCase(get()) }
@@ -25,6 +26,7 @@ class KoinDomain {
             factory { DeleteReserveUseCase(get()) }
             factory { CreateCaducatedReserveUseCase(get()) }
             factory { SignOutUseCase(get()) }
+            factory { ResetPwdUseCase(get()) }
         }
     }
 }

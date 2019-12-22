@@ -42,6 +42,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     //******************************************* Init *********************************************
 
     private fun initListener(){
+
         btn_login.setOnClickListener {
             when {
                 etUsername.text.toString() == "" -> etUsername.error = "Debes introducir el usuario"
@@ -52,13 +53,20 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
                 }
             }
         }
-        btnSignup.setOnClickListener {
+
+        btn_sign_up.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginToSignUp())
         }
+
+        btn_reset_pwd.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginToResetPwd())
+        }
+
         etPwd.setOnEditorActionListener{
             _,_,_ ->
             btn_login.callOnClick()
         }
+
     }
 
     private fun initObservers(){

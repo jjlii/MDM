@@ -7,6 +7,7 @@ import com.example.mdm_everis.home.devices.DevicesViewModel
 import com.example.mdm_everis.home.favorites.FavoritesViewModel
 import com.example.mdm_everis.home.profile.ProfileViewModel
 import com.example.mdm_everis.login.LoginViewModel
+import com.example.mdm_everis.reset_pwd.ResetPwdViewModel
 import com.example.mdm_everis.sign_up.SignUpViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.ext.koin.viewModel
@@ -24,6 +25,7 @@ class KoinApp {
             viewModel { ProfileViewModel(androidApplication(),get(),get(),get(),get(),get(),get()) }
             viewModel { DeviceDetailsViewModel(androidApplication(),get(),get(),get(),get(),get()) }
             viewModel { ReserveProcessViewModel(androidApplication(),get(),get(),get(),get(),get(),get()) }
+            viewModel { ResetPwdViewModel(androidApplication(),get(),get(),get(),get(),get(),get()) }
         }
     }
 }

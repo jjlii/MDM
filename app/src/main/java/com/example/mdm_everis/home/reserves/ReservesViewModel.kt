@@ -7,18 +7,18 @@ import com.example.core.failure.Failure
 import com.example.domain.devices.DevicesUseCase
 import com.example.domain.reserves.*
 import com.example.domain.sign_up.CreateUserUseCase
-import com.example.domain.user.GetUserByIdUserCase
+import com.example.domain.user.GetUserByIdUseCase
 import com.example.mdm_everis.base.BaseViewModel
 
 class ReservesViewModel(application: Application,
-                        getUserByIdUserCase: GetUserByIdUserCase,
+                        getUserByIdUseCase: GetUserByIdUseCase,
                         devicesUseCase: DevicesUseCase,
                         userReservesUseCase: UserReservesUseCase,
                         deviceReservesUseCase: DeviceReservesUseCase,
                         createUserUseCase: CreateUserUseCase,
                         private val deleteReserveUseCase: DeleteReserveUseCase,
                         private val createCaducatedReserveUseCase: CreateCaducatedReserveUseCase) :
-    BaseViewModel(application,getUserByIdUserCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase) {
+    BaseViewModel(application,getUserByIdUseCase,devicesUseCase,userReservesUseCase,deviceReservesUseCase,createUserUseCase) {
 
 
     //********************************** LiveData **************************************************

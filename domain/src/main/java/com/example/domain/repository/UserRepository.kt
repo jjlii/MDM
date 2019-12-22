@@ -11,4 +11,6 @@ interface UserRepository {
 
     suspend fun createUser(user : UserResponse) : Either<Failure,String>
 
+    suspend fun resetPwd(email : String) : Either<Failure,String>
+
 }

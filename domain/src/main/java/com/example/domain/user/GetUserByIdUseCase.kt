@@ -5,7 +5,7 @@ import com.example.core.UseCase
 import com.example.core.failure.Failure
 import com.example.domain.repository.UserRepository
 
-class GetUserByIdUserCase(private val userRepository: UserRepository) : UseCase<Failure,UserResponse?,String>() {
+class GetUserByIdUseCase(private val userRepository: UserRepository) : UseCase<Failure,UserResponse?,String>() {
 
     override suspend fun run(params: String): Either<Failure, UserResponse?> =
         userRepository.getUserById(params)
