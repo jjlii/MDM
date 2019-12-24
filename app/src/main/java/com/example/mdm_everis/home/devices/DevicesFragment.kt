@@ -31,9 +31,8 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
     var devices : List<DevicesResponse> = arrayListOf()
-    private var filterDevices : List<DevicesResponse> = arrayListOf()
     private lateinit var selectDeviceId : String
-    lateinit var categories : Categories
+
     lateinit var user:UserResponse
 
 
@@ -45,7 +44,7 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
         baseNavBar.menu.getItem(2).isChecked = true
         devices = (activity as MainActivity).getDevice()
         user = (activity as MainActivity).getUser()
-        categories = Categories(android = false, ios = false, phone = false, tablet = false)
+        viewModel.categories = Categories(android = false, ios = false, phone = false, tablet = false)
         initObserver()
         showAdapter()
         devices_refresh.setOnRefreshListener {
@@ -96,16 +95,19 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
             ly_error.visibility= View.VISIBLE
             error_msg.text = Constant.Msg.ERROR_LOAD_DEVICES
         }else{
-            categoriesFilter()
+            viewModel.categoriesFilter(devices)
             devices.let {
-                rv_devices.adapter = DevicesCategoryAdapter(filterDevices.sortedWith(compareBy { it.brand }),user.favourites, categories,
+                rv_devices.adapter = DevicesCategoryAdapter(viewModel.filterDevices.sortedWith(compareBy { it.brand }),user.favourites, viewModel.categories,
                     {  c->
-                        categories = c
-                        categoriesFilter()
-                        filterDevices
+                        viewModel.categories = c
+                        viewModel.categoriesFilter(devices)
+                        viewModel.filterDevices
                     },
                     { deviceId, _ ->
-                        favoriteAction(deviceId)
+                        val user = viewModel.favoriteAction(deviceId,(activity as MainActivity).getUser())
+                        rv_devices.adapter?.notifyDataSetChanged()
+                        userChanged = true
+                        (activity as MainActivity).setUser(user)
                     },
                     { deviceId, _ ->
                         reserveAction(deviceId)
@@ -117,19 +119,6 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
             }
         }
 
-    }
-
-    private fun favoriteAction(deviceId : String){
-        val user = (activity as MainActivity).getUser()
-        val newFavorites = user.favourites
-        when(newFavorites.contains(deviceId)){
-            true -> newFavorites.remove(deviceId)
-            false -> newFavorites.add(deviceId)
-        }
-        user.favourites = newFavorites
-        rv_devices.adapter?.notifyDataSetChanged()
-        userChanged = true
-        (activity as MainActivity).setUser(user)
     }
 
     private fun reserveAction(deviceId: String){
@@ -147,63 +136,4 @@ class DevicesFragment : BaseFragment<DevicesViewModel>() {
             )
         ))
     }
-
-
-
-    private fun categoriesFilter(){
-        when{
-            categories.android && !categories.ios && !categories.phone && !categories.tablet ||
-                    categories.android && !categories.ios && categories.phone && categories.tablet->{
-                filterDevices = devices.filter {
-                    it.so == "ANDROID"
-                }
-            }
-            !categories.android && categories.ios && !categories.phone && !categories.tablet ||
-                    !categories.android && categories.ios && categories.phone && categories.tablet-> {
-                filterDevices = devices.filter {
-                    it.so == "IOS"
-                }
-            }
-            !categories.android && !categories.ios && categories.phone && !categories.tablet -> {
-                filterDevices = devices.filter {
-                    it.isMobile
-                }
-            }
-            !categories.android && !categories.ios && !categories.phone && categories.tablet -> {
-                filterDevices = devices.filter {
-                    !it.isMobile
-                }
-            }
-            categories.android && categories.ios && !categories.phone && !categories.tablet -> {
-                filterDevices = devices.filter {
-                    it.so == "ANDROID" || it.so == "IOS"
-                }
-            }
-            categories.android && !categories.ios && categories.phone && !categories.tablet -> {
-                filterDevices = devices.filter {
-                    it.so == "ANDROID" && it.isMobile
-                }
-            }
-            categories.android && !categories.ios && !categories.phone && categories.tablet -> {
-                filterDevices = devices.filter {
-                    it.so == "ANDROID" && !it.isMobile
-                }
-            }
-            !categories.android && categories.ios && categories.phone && !categories.tablet -> {
-                filterDevices = devices.filter {
-                    it.so == "IOS" && it.isMobile
-                }
-            }
-            !categories.android && categories.ios && !categories.phone && categories.tablet -> {
-                filterDevices = devices.filter {
-                    it.so == "IOS" && !it.isMobile
-                }
-            }
-            else->{
-                filterDevices = devices
-            }
-        }
-    }
-
-
 }
