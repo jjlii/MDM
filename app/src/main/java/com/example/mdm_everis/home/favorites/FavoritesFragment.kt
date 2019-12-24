@@ -34,7 +34,6 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
 
     //******************************************* End BaseFragment abstract ************************
     private val args : FavoritesFragmentArgs by navArgs()
-    private var favorites : MutableList<DevicesResponse> = arrayListOf()
     var devices : List<DevicesResponse> = arrayListOf()
     lateinit var selectDeviceId : String
     lateinit var userId : String
@@ -48,10 +47,10 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         baseNavBar.menu.getItem(1).isChecked = true
         devices = (activity as MainActivity).getDevice()
         userId = args.userId
-        getFavoriteDevices((activity as MainActivity).getUser().favourites)
+        viewModel.getFavoriteDevices((activity as MainActivity).getUser().favourites,devices)
         when{
             devices.isEmpty()-> isErrorScreen()
-            favorites.isEmpty()-> isEmptyScreen()
+            viewModel.favorites.isEmpty()-> isEmptyScreen()
             else -> showAdapter()
         }
         initObserves()
@@ -116,7 +115,7 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
     //******************************************* End Observers ************************************
 
     private fun showAdapter(){
-        favorites.let{
+        viewModel.favorites.let{
             rv_favorites.adapter = DevicesAdapter(it,
                 arrayListOf(),
                 Constant.FragmentFlag.FAVORITES,
@@ -134,25 +133,14 @@ class FavoritesFragment :BaseFragment<FavoritesViewModel>() {
         }
     }
 
-    private fun getFavoriteDevices(favoritesId : MutableList<String>){
-        var index = 0
-        favorites.clear()
-        favoritesId.forEach {id ->
-            favorites.add(index,
-                devices.single {
-                    it.id == id
-                }
-            )
-            index++
-        }
-    }
+
 
     private fun favoriteAction(deviceId: String,position : Int){
         val user = (activity as MainActivity).getUser()
         val newFavorites = user.favourites
         if (newFavorites.contains(deviceId)){
             newFavorites.remove(deviceId)
-            favorites.removeAt(position)
+            viewModel.favorites.removeAt(position)
             rv_favorites.adapter?.apply {
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position,newFavorites.size)
