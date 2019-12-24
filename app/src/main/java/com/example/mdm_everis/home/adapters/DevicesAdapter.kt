@@ -8,6 +8,8 @@ import com.example.core.Constant
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.mdm_everis.R
+import com.example.mdm_everis.convertLongToDate
+import com.example.mdm_everis.stringDateToLong
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.devices_items.view.*
 import java.text.SimpleDateFormat
@@ -63,9 +65,8 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                         setVisibilityReserves(this)
                         setDataReserves(this,device.id)
                         btn_reserve.setOnClickListener {
-                            val sD = stringDateToLong(
-                                tv_f_start_content.text.toString(),
-                                Constant.DateFormat.DATE_WITH_TIME).toString()
+                            val sD = tv_f_start_content.text.toString()
+                                .stringDateToLong(Constant.DateFormat.DATE_WITH_TIME).toString()
                             reserveAction(device.id,sD)
                         }
                     }
@@ -124,8 +125,11 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
             if (r.isNotEmpty()){
                 r.let {
                     reserve = it[0]
-                    startDate = convertLongToDate(reserve.startDate.toLong())
-                    endDate = convertLongToDate(reserve.endDate.toLong())
+
+                    startDate = reserve.startDate.toLong()
+                        .convertLongToDate(Constant.DateFormat.DATE_WITH_TIME)
+                    endDate = reserve.endDate.toLong()
+                        .convertLongToDate(Constant.DateFormat.DATE_WITH_TIME)
                     reservesCopy.remove(reserve)
                     with(view){
                         tv_f_start_content.text = startDate
@@ -133,18 +137,6 @@ class DevicesAdapter(private var devices : List<DevicesResponse>,
                     }
                 }
             }
-        }
-
-        private fun convertLongToDate(date : Long) : String {
-            val d = Date(date)
-            val f = SimpleDateFormat(Constant.DateFormat.DATE_WITH_TIME,Locale.getDefault())
-            return f.format(d)
-        }
-
-        private fun stringDateToLong(strDate : String, format : String) : Long{
-            val f = SimpleDateFormat(format, Locale.getDefault())
-            val date = f.parse(strDate)
-            return date.time
         }
     }
 

@@ -19,6 +19,7 @@ import com.example.mdm_everis.MainActivity
 
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
+import com.example.mdm_everis.convertLongToDate
 import com.example.mdm_everis.home.adapters.DevicesAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.empty_list.*
@@ -168,8 +169,8 @@ class ReservesFragment : BaseFragment<ReservesViewModel>() {
     }
 
     private val createCaducatedReserveObserver = Observer<String>{
-        val sDate : String = convertLongToDate(deletedReserve.startDate.toLong(),Constant.DateFormat.DATE_WITH_TIME)
-        val eDate : String = convertLongToDate(deletedReserve.endDate.toLong(),Constant.DateFormat.DATE_WITH_TIME)
+        val sDate : String = deletedReserve.startDate.toLong().convertLongToDate(Constant.DateFormat.DATE_WITH_TIME)
+        val eDate : String = deletedReserve.endDate.toLong().convertLongToDate(Constant.DateFormat.DATE_WITH_TIME)
         val msg = "Se ha cancelado la reserva:\n" +
                 "Dispositivo: ${deviceDeletedName}\n"+
                 "Fecha incio reserva: ${sDate}\n"+
