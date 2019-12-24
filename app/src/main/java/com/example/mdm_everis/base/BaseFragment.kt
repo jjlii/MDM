@@ -110,16 +110,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         return device
     }
 
-    fun stringDateToLong(strDate : String, format : String) : Long{
-        val f = SimpleDateFormat(format, Locale.getDefault())
-        val date = f.parse(strDate)
-        return date.time
-    }
-    fun convertLongToDate(date : Long,format : String) : String {
-        val d = Date(date)
-        val f = SimpleDateFormat(format, Locale.getDefault())
-        return f.format(d)
-    }
+
 
     fun callCreateUser(user : UserResponse){
         viewModel.createUser(user)

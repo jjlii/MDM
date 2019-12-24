@@ -13,11 +13,8 @@ import com.example.core.failure.ReserveFailure
 import com.example.domain.devices.DevicesResponse
 import com.example.domain.reserves.ReserveResponse
 import com.example.domain.user.UserResponse
-import com.example.mdm_everis.MainActivity
-import com.example.mdm_everis.R
+import com.example.mdm_everis.*
 import com.example.mdm_everis.base.BaseFragment
-import com.example.mdm_everis.splitWithSpaceAfter
-import com.example.mdm_everis.splitWithSpaceBefore
 import com.example.mdm_everis.utils.notification.NotificationUtils
 import kotlinx.android.synthetic.main.reserve_process_fragment.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
@@ -34,25 +31,13 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     //******************************************* End BaseFragment abstract ************************
 
-    lateinit var datePickerDialog: DatePickerDialog
+
     private val args : ReserveProcessFragmentArgs by navArgs()
     lateinit var device : DevicesResponse
-    private var deviceReserve : List<ReserveResponse> = arrayListOf()
     lateinit var user : UserResponse
     lateinit var newReserve : ReserveResponse
 
     //*******************************************  Calendar ****************************************
-    private val c = Calendar.getInstance()
-    private var maxC = Calendar.getInstance()
-    private var minC = Calendar.getInstance()
-    private val myYear = c.get(Calendar.YEAR)
-    private val myMonth = c.get(Calendar.MONTH)
-    private val myDay = c.get(Calendar.DAY_OF_MONTH)
-    private var editTextClick = ""
-    private var disableDays : MutableList<Calendar> = arrayListOf()
-    private var  startD : String? =null
-    var  startM : String? = null
-    var startY : String? = null
     //*******************************************  End Calendar ************************************
 
 
@@ -66,7 +51,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         viewModel.fragmentFlag = Constant.FragmentFlag.RESERVE_PROCESS
         showNavbar(false)
         device = args.device.allDevices[0]
-        deviceReserve = args.reserves.allReserves
+        viewModel.deviceReserve = args.reserves.allReserves
         initObserver()
         initListener()
     }
@@ -77,16 +62,18 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
         var startDate : Long
         var endDate : Long
         et_start_date.setOnClickListener {
-            editTextClick = "start"
-            setCalendar("Fecha inicio de reserva","StartDatePickerDialog")
+            viewModel.editTextClick = "start"
+            viewModel.setCalendar(title = "Fecha inicio de reserva",tag = "StartDatePickerDialog",fragment = this,et_start_date = et_start_date)
+                .show((activity as MainActivity).fragmentManager,tag)
         }
         et_end_date.setOnClickListener {
-            editTextClick = "end"
-            setCalendar("Fecha fin de reserva","EndDatePickerDialog")
+            viewModel.editTextClick = "end"
+            viewModel.setCalendar(title = "Fecha fin de reserva",tag = "EndDatePickerDialog",fragment = this,et_start_date = et_start_date)
+                .show((activity as MainActivity).fragmentManager,tag)
         }
         btn_reserve.setOnClickListener {
-            startDate = stringDateToLong(et_start_date.text.toString(),Constant.DateFormat.DATE_WITHOUT_TIME)
-            endDate = stringDateToLong(et_end_date.text.toString(),Constant.DateFormat.DATE_WITHOUT_TIME)
+            startDate = et_start_date.text.toString().stringDateToLong(Constant.DateFormat.DATE_WITHOUT_TIME)
+            endDate = et_end_date.text.toString().stringDateToLong(Constant.DateFormat.DATE_WITHOUT_TIME)
             endDate += if(startDate == endDate){
                 Constant.Hours.SIX
             }else{
@@ -114,7 +101,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
     //******************************************* Observers ****************************************
 
     private val deviceReservesObserver = Observer<List<ReserveResponse>>{
-        deviceReserve = it
+        viewModel.deviceReserve = it
     }
 
     private val failureObserver = Observer<Failure>{
@@ -169,7 +156,7 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val date = changeFormat(year,monthOfYear,dayOfMonth)
-        when(editTextClick){
+        when(viewModel.editTextClick){
             "start" -> {
                 et_start_date.setText(date)
                 ly_end_date.visibility = View.VISIBLE
@@ -179,104 +166,6 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
                 et_end_date.setText(date)
                 btn_reserve.visibility = View.VISIBLE
             }
-        }
-    }
-
-
-
-    private fun setCalendar( title:String, tag : String){
-        datePickerDialog = DatePickerDialog.newInstance(this,myYear,myMonth,myDay)
-        datePickerDialog.isThemeDark = false
-        datePickerDialog.setTitle(title)
-        maxC = Calendar.getInstance()
-
-        when(tag){
-            "StartDatePickerDialog"-> {
-                minC= Calendar.getInstance()
-                val strMinC = getMinCStartDate()
-                if (strMinC != "No encontrado"){
-                    val longMinC = stringDateToLong(strMinC,Constant.DateFormat.DATE_WITHOUT_TIME)
-                    val dateMinC = convertLongToDate(longMinC,Constant.DateFormat.DATE_WITHOUT_TIME)
-                    with(minC){
-                        set(Calendar.DAY_OF_MONTH,dateMinC.substring(0..1).toInt())
-                        set(Calendar.MONTH,dateMinC.substring(3..4).toInt()-1)
-                        set(Calendar.YEAR,dateMinC.substring(6..9).toInt())
-                    }
-                }
-                with(maxC){
-                    set(Calendar.DAY_OF_MONTH,minC[Calendar.DAY_OF_MONTH])
-                    set(Calendar.MONTH,minC[Calendar.MONTH])
-                    set(Calendar.YEAR,minC[Calendar.YEAR]+2)
-                }
-            }
-            "EndDatePickerDialog"-> {
-                var foundEndD = false
-                startD = et_start_date.text?.substring(0..1)
-                startM = et_start_date.text?.substring(3..4)
-                startY = et_start_date.text?.substring(6..9)
-                var endD : String
-                var endM : String
-                var endY : String
-                var endDate: String
-                val auxC = Calendar.getInstance()
-                with(minC){
-                    set(Calendar.DAY_OF_MONTH,startD!!.toInt())
-                    set(Calendar.MONTH,startM!!.toInt()-1)
-                    set(Calendar.YEAR,startY!!.toInt())
-                }
-                with(maxC){
-                    if(startM!!.toInt() == 12){
-                        set(Calendar.DAY_OF_MONTH,0)
-                    }else{
-                        set(Calendar.DAY_OF_MONTH,minC[Calendar.MONTH]+1)
-                    }
-                    set(Calendar.MONTH,startM!!.toInt())
-                    set(Calendar.YEAR,startY!!.toInt())
-                }
-                deviceReserve.forEach {
-                    endDate = convertLongToDate(it.startDate.toLong(),Constant.DateFormat.DATE_WITHOUT_TIME)
-                    endD = endDate.substring(0..1)
-                    endM = endDate.substring(3..4)
-                    endY = endDate.substring(6..9)
-                    with(auxC){
-                        set(Calendar.MONTH,endM.toInt()-1)
-                        set(Calendar.YEAR,endY.toInt())
-                        set(Calendar.DAY_OF_MONTH,endD.toInt())
-                    }
-                    if (minC<auxC && auxC<maxC){
-                        with(maxC){
-                            set(Calendar.MONTH,endM.toInt()-1)
-                            set(Calendar.YEAR,endY.toInt())
-                            set(Calendar.DAY_OF_MONTH,endD.toInt())
-                        }
-                        foundEndD = true
-                    }
-                }
-                if (!foundEndD){
-                    maxC = Calendar.getInstance()
-                    maxC.set(Calendar.DAY_OF_MONTH,minC[Calendar.DAY_OF_MONTH])
-                    when(minC[Calendar.MONTH]){
-                        Calendar.DECEMBER-> {
-                            maxC.set(Calendar.MONTH, Calendar.JANUARY)
-                            maxC.set(Calendar.YEAR,minC[Calendar.YEAR] + 1)
-                        }
-                        else -> {
-                            maxC.set(Calendar.MONTH, minC[Calendar.MONTH] + 1)
-                            maxC.set(Calendar.YEAR,minC[Calendar.YEAR])
-                        }
-                    }
-                }
-            }
-        }
-        getReservedDays(tag)
-        datePickerDialog.maxDate = maxC
-        datePickerDialog.minDate = minC
-        val days : Array<Calendar> = disableDays.toTypedArray()
-        datePickerDialog.disabledDays = days
-        try {
-            datePickerDialog.show((activity as MainActivity).fragmentManager,tag)
-        }catch (error : Exception){
-            toast("No hay reservas disponibles")
         }
     }
 
@@ -293,138 +182,6 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             "$day"
         }
         return "$sDay/$sMonth/$year"
-    }
-
-    private fun disableWeekend(tag: String){
-        var day : Calendar
-        val dayValue = myDay
-        var i = 0
-        day = Calendar.getInstance()
-        if (tag=="EndDatePickerDialog"){
-            with(day){
-                set(Calendar.DAY_OF_MONTH,minC[Calendar.DAY_OF_MONTH]+1)
-                set(Calendar.MONTH,minC[Calendar.MONTH])
-                set(Calendar.YEAR,minC[Calendar.YEAR])
-            }
-        }
-        while (day.timeInMillis<maxC.timeInMillis){
-            day = Calendar.getInstance()
-            day.set(Calendar.DAY_OF_MONTH, dayValue + i)
-            i++
-            if (day[Calendar.DAY_OF_WEEK] == Calendar.SATURDAY
-                || day[Calendar.DAY_OF_WEEK] == Calendar.SUNDAY ){
-                disableDays.add(day)
-            }
-        }
-    }
-
-    private fun getReservedDays(tag : String){
-        disableDays = arrayListOf()
-        disableWeekend(tag)
-        if (deviceReserve.isNotEmpty()){
-            deviceReserve.forEach {reserve ->
-                disableDays(convertLongToDate(reserve.startDate.toLong(),Constant.DateFormat.DATE_WITH_TIME),
-                    convertLongToDate(reserve.endDate.toLong(),Constant.DateFormat.DATE_WITH_TIME),tag)
-            }
-        }
-    }
-
-    private fun disableDays( startDate : String, endDate : String,tag : String){
-        var day : Calendar
-        var timeInMillis : Long
-        val dayValue = myDay
-        val limit = 730
-        var found = false
-        val startDay = stringDateToLong(startDate.splitWithSpaceBefore(),Constant.DateFormat.DATE_WITHOUT_TIME)
-        val endDay = stringDateToLong(endDate.splitWithSpaceBefore(),Constant.DateFormat.DATE_WITHOUT_TIME)
-        if (!checkEndHour(startDate,endDate)&& tag =="StartDatePickerDialog"){
-            day = Calendar.getInstance()
-            day.timeInMillis=startDay
-            disableDays.add(day)
-        }
-        for (i in 0 .. limit){
-            day = Calendar.getInstance()
-            day = setMomentOfDay(day,dayValue + i)
-            timeInMillis = day.timeInMillis
-            if (timeInMillis == startDay && checkEnableStartDate(stringDateToLong(startDate,Constant.DateFormat.DATE_WITH_TIME).toString()) ||
-                timeInMillis == endDay && checkEnableEndDate(stringDateToLong(endDate,Constant.DateFormat.DATE_WITH_TIME).toString())){
-                if (tag =="StartDatePickerDialog"){
-                    disableDays.add(day)
-                }
-            }
-            if (timeInMillis > startDay || found){
-                found =
-                    if(timeInMillis< endDay){
-                        disableDays.add(day)
-                        true
-                    }else{
-                        false
-                    }
-            }
-        }
-    }
-
-    private fun setMomentOfDay(day : Calendar , dayValue : Int ) =
-        day.apply {
-            set(Calendar.DAY_OF_MONTH, dayValue)
-            set(Calendar.HOUR_OF_DAY,0)
-            set(Calendar.MINUTE,0)
-            set(Calendar.SECOND,0)
-            set(Calendar.MILLISECOND,0)
-        }
-
-    private fun checkEnableStartDate(date : String) : Boolean =
-        deviceReserve.filter {
-            it.endDate == date
-        }.any()
-
-    private fun checkEnableEndDate(date : String) : Boolean =
-        deviceReserve.filter {
-            it.startDate == date
-        }.any()
-
-    private fun checkEndHour(startD: String,endD: String) : Boolean {
-        val sd = startD.splitWithSpaceBefore()
-        val sh = startD.splitWithSpaceAfter()
-        val ed = endD.splitWithSpaceBefore()
-        val eh = endD.splitWithSpaceAfter()
-        if(sd == ed){
-            if (sh == "09:00" && eh == "18:00"){
-                return false
-            }
-        }
-        return true
-    }
-
-    private fun getMinCStartDate() : String{
-        val currentMoment = Calendar.getInstance().timeInMillis
-        val currentDate = convertLongToDate(currentMoment,Constant.DateFormat.DATE_WITHOUT_TIME)
-        val needDate = stringDateToLong("$currentDate 09:00",Constant.DateFormat.DATE_WITH_TIME)
-        val earlyReserve =deviceReserve.filter {
-            it.startDate.toLong()<=needDate
-        }
-        if(earlyReserve.isEmpty()){
-            return "No encontrado"
-        }else{
-            var res : String = ""
-            var lateEndDate = 0L
-            earlyReserve.forEach {
-                if (it.endDate.toLong()>=lateEndDate){
-                    lateEndDate = it.endDate.toLong()
-                }
-            }
-            while (res == ""){
-                val filter  = deviceReserve.filter {
-                    it.startDate.toLong() == lateEndDate
-                }
-                if (filter.isEmpty()){
-                    res = convertLongToDate(lateEndDate,Constant.DateFormat.DATE_WITHOUT_TIME)
-                }else{
-                    lateEndDate = filter[0].endDate.toLong()
-                }
-            }
-            return res
-        }
     }
     //******************************************* End DatePicker ***********************************
 
