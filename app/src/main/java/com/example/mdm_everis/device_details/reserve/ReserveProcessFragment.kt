@@ -18,6 +18,7 @@ import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import com.example.mdm_everis.splitWithSpaceAfter
 import com.example.mdm_everis.splitWithSpaceBefore
+import com.example.mdm_everis.utils.notification.NotificationUtils
 import kotlinx.android.synthetic.main.reserve_process_fragment.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.lang.Exception
@@ -94,6 +95,8 @@ class ReserveProcessFragment : BaseFragment<ReserveProcessViewModel>() , DatePic
             startDate += Constant.Hours.NINE
             newReserve = ReserveResponse("",user.id,startDate.toString(),endDate.toString(),device.id)
             viewModel.createNewReserve(newReserve,device.id)
+            NotificationUtils().setNotification(endDate-1800000, (activity as MainActivity))
+
         }
 
     }
