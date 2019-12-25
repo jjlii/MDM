@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.core.Constant
 import com.example.core.failure.Failure
+import com.example.mdm_everis.MainActivity
 import com.example.mdm_everis.R
 import com.example.mdm_everis.base.BaseFragment
 import kotlinx.android.synthetic.main.reset_pwd_fragment.*
@@ -57,7 +58,13 @@ class ResetPwdFragment : BaseFragment<ResetPwdViewModel>() {
             alertDialog.setMessage("Se ha enviado el correo de reseteo de contraseña a su email")
             alertDialog.setPositiveButton("Aceptar"){
                 _,_ ->
-                findNavController().navigate(ResetPwdFragmentDirections.actionResetPwdToLogin())
+                when{
+                    (activity as MainActivity).getFragment() == Constant.FragmentFlag.LOGIN->
+                        findNavController().navigate(ResetPwdFragmentDirections.actionResetPwdToLogin())
+                    (activity as MainActivity).getFragment() == Constant.FragmentFlag.PROFILE->
+                        findNavController().navigate(ResetPwdFragmentDirections.actionResetPwdToProfile((activity as MainActivity).getUser().id))
+                }
+
             }
             alertDialog.show()
         }

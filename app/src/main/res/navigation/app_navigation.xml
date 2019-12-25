@@ -35,6 +35,10 @@
             android:id="@+id/action_reset_pwd_to_login"
             app:destination="@id/login_screen"/>
 
+        <action
+            android:id="@+id/action_reset_pwd_to_profile"
+            app:destination="@id/profile_screen"/>
+
     </fragment>
     <fragment
         android:id="@+id/sign_up_screen"
@@ -119,6 +123,10 @@
         <action
             android:id="@+id/action_profile_to_login"
             app:destination="@id/login_screen"/>
+
+        <action
+            android:id="@+id/action_profile_to_change_pwd"
+            app:destination="@id/reset_pwd_screen"/>
 
     </fragment>
 

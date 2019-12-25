@@ -61,6 +61,9 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
         btn_log_out.setOnClickListener {
             viewModel.signOut()
         }
+        btn_change_pwd.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileToChangePwd())
+        }
     }
     private fun initObserves(){
         viewModel.getUserByIdLD.observe(this,getUserByIdObserver)
