@@ -25,6 +25,7 @@ class ResetPwdFragment : BaseFragment<ResetPwdViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavbar(false)
+        (activity as MainActivity).setFragment(Constant.FragmentFlag.RESET_PWD)
         initListener()
         initObservers()
     }
@@ -35,7 +36,7 @@ class ResetPwdFragment : BaseFragment<ResetPwdViewModel>() {
         btn_reset.setOnClickListener {
             val email = etEmail.text.toString()
             if (email != ""){
-                viewModel.resetPwd(email+Constant.GeneralConstant.EVERIS_EMAIL_EXTENSIONS)
+                viewModel.resetPwd(email)
             }else{
                 toast(Constant.GeneralConstant.NEED_EMAIL)
             }

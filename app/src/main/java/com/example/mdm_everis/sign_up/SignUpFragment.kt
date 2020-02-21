@@ -47,8 +47,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
                 et_password.text.toString() != et_rep_password.text.toString() -> et_rep_password.error = Constant.ErrorSignUp.NOT_EQUAL_PWD
                 else ->{
                     if (et_password.text?.length!! >= 8){
-                        viewModel.signUp(et_email.text.toString()+
-                                Constant.GeneralConstant.EVERIS_EMAIL_EXTENSIONS,et_password.text.toString())
+                        viewModel.signUp(et_email.text.toString(),et_password.text.toString())
                     }else{
                         toast(Constant.ErrorSignUp.PWD_TOO_EASY)
                     }
@@ -71,7 +70,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
     //******************************************* Observers ****************************************
 
     private val signUpObserver = Observer<String>{uid->
-        user = UserResponse(uid,et_email.text.toString()+Constant.GeneralConstant.EVERIS_EMAIL_EXTENSIONS,
+        user = UserResponse(uid,et_email.text.toString(),
             et_full_name.text.toString(), arrayListOf(),"")
             callCreateUser(user)
     }

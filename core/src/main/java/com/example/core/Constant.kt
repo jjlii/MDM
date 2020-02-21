@@ -35,6 +35,7 @@ class Constant{
         const val PROFILE = "F_PROFILE"
         const val DEVICE_DETAILS = "F_DEVICE_DETAILS"
         const val RESERVE_PROCESS = "F_RESERVE_PROCESS"
+        const val RESET_PWD = "RESET_PWD"
     }
 
     object Hours{
